@@ -29,5 +29,4 @@ The following is a sample VHOST you might want to consider for your project.
 
 </VirtualHost>
 
-Coder
-Nguyen An Vu
+An Vu
