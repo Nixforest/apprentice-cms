@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Apprentice CMS
+ */
+-->
+<!DOCTYPE module SYSTEM "http://nixforest.wordpress.com">
+<module>
+	<name>modulemanager</name>
+	<description langKey="about_modulemanager_description"><![CDATA[Module Manager module.]]></description>
+	<thumbnail></thumbnail>
+	<author>Nixforest</author>
+	<email>Nixforest21991920@gmail.com</email>
+	<version>1.0.0</version>
+	<license>free</license>
+	
+	<requires>
+		<requiredModules>
+		</requiredModules>
+	</requires>
+	
+	<install>
+		<db adapter="mysql|pdo_mysql">
+		</db>
+	</install>
+	
+	<uninstall></uninstall>
+	
+	<admin></admin>
+</module>
