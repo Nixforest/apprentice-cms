@@ -1,0 +1,165 @@
+@CHARSET "UTF-8";
+/*common*/
+html, body 	
+{
+	margin:0;
+	padding: 0;
+	font-size: 100%;
+	font-family: Verdana, Geneva, sans-serif;
+}
+
+*{
+	margin: 0;
+	padding: 0;
+}
+
+/*div head*/
+#head{
+	width: 1280px;
+	height: 150px;
+	background: url("../images/LoginManager.png") no-repeat center bottom;
+}
+
+/*content*/
+#content{
+	width: 1280px;
+	height: 495px;
+	border: 0;
+	background: black;
+}
+
+.content-left{
+	float: left;
+	width: 320px;
+	height: 495px;
+	background: white;
+}
+
+.content-text{
+	float: left;
+	width: 640px;
+	height: 210px;
+}
+
+.content-sub{
+	float: left;
+	margin: 0;
+	width: 640px;
+	height: 70px;
+}
+
+.content-center{
+	float: left;
+	width: 640px;
+	height: 285px;
+	background: white;
+}
+
+.content-right{
+	float: left;
+	width: 320px;
+	height: 495px;
+	background: white;
+}
+
+/*text*/
+
+#user{
+	float: left;
+}
+
+#pass{
+	float: left;
+}
+
+div .username{
+	float: left;
+	width: 80px;
+	height: 39px;
+	color: white;
+	margin-left: 80px;
+	margin-top: 30px;
+	text-align: left;
+}
+
+div .password{
+	float: left;
+	width: 80px;
+	height: 39px;
+	color: white;
+	margin-left: 80px;
+	margin-top: 30px;
+	text-align: left;
+}
+
+div .txtusername{
+	margin-left: 60px;
+	margin-top: 15px;
+	border: 0;
+	width: 299px;
+	height: 39px;
+	font-size: 25px;
+	font-weight: bold;
+	font-family: Verdana, Geneva, sans-serif;
+	background: url("../images/a_ui_textbox_big.jpg") no-repeat;
+}
+
+div .txtpassword{
+	margin-left: 60px;
+	margin-top: 15px;
+	border: 0;
+	width: 299px;
+	height: 39px;
+	font-size: 25px;
+	font-weight: bold;
+	font-family: Verdana, Geneva, sans-serif;
+	background: url("../images/a_ui_textbox_big.jpg") no-repeat;
+}
+
+#forgot{
+	margin-left: 80px;
+	margin-top: 15px;
+}
+
+a{
+	color: white;
+	font-size: 11px;
+}
+
+div a:link{
+	text-decoration: none;
+}
+
+div a:hover{
+	text-decoration: underline;
+}
+
+div .btn{
+	color: white;
+	margin-left: 420px;
+	height: 30px;
+	width: 96px;
+	border: 0;
+	background: url("../images/but_read.png") no-repeat;
+	font-family: Verdana, Geneva, sans-serif;
+	font-weight: bold;
+}
+
+#footer{
+	width: 1280px;
+	height: 30px;
+	background: black;
+}
+
+div #head_footer{
+	width: 1130px;
+	height: 1px;
+	background: gray;
+}
+
+div #content_footer{
+	margin-left: 1140px;
+	width: 140px;
+	height: 15px;
+	color: white;
+}
