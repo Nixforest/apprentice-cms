@@ -2,6 +2,53 @@
 class ModuleManager_IndexController extends Zend_Controller_Action{
 	public function indexAction(){
 		
+		$module= new Model_BsModuleManager();
+		//khởi tạo đối tượng module 
+		$mod = new Model_ModuleManagerEntity();
+		$mod->set('name','ModuleTest');
+		$mod->set('description','Test');
+		$mod->set('thumbnail','');
+		$mod->set('author','DangVu');
+		$mod->set('email','dangvu3001@gmail.com');
+		$mod->set('version','1.0');
+		$mod->set('license','trial');
+		$module->addmodule($mod->data); //insert vào cơ sở dữ liệu
+		
+		
+		$result =$module->getdata();//Load các record trong table modulemanager
+		$this->view->result=$result;
+		
+		//gọi phương thức delete cần truyền tên module vào
+		$module->deletemodule('ModuleTest');//Xóa record theo tên truyền vào.
+		
+	}
+	public  function installAction()//hàm chạy phần install
+	{	
+		//gọi phương thức instal cần truyền tên module vào.	
+		$settup = new Model_BsModuleManager();
+		$settup->install('ModuleManager');
+	}
+	public  function init()//khởi tạo load class ở thư mục models
+	{
+		$autoLoader = Zend_Loader_Autoloader::getInstance(); 
+		    $autoLoader->registerNamespace('CMS_'); 
+		    $resourceLoader = new Zend_Loader_Autoloader_Resource(array( 
+		        'basePath'      => APPLICATION_PATH . '/modules/ModuleManager', 
+		        'namespace'     => '', 
+		        'resourceTypes' => array( 
+		            'form' => array( 
+		                'path'      => 'forms/', 
+		                'namespace' => 'Form_', 
+		            ), 
+		            'model' => array( 
+		                'path'      => 'models/', 
+		                'namespace' => 'Model_' 
+		            ),
+		             
+		        ), 
+		    )); 
+		    // Return it so that it can be stored by the bootstrap 
+		    return $autoLoader; 
 	}
 	
 	public function listAction(){		
