@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"<?php if ($this->APP_LANG_RTL) : ?> dir="rtl"<?php endif; ?>>
+<head>
+    <?php echo $this->headMeta(); ?>
+    <?php echo $this->headTitle(); ?>
+    <?php echo $this->headScript(); ?>
+	<?php echo $this->headLink(); ?>
+</head>
+<body>
+	<div id="templateContrainer">
+		<div id="templateHeader">
+			<div class="container_12">
+				<?php echo $this->render('_header.phtml'); ?>
+			</div>
+		</div>
+		
+		<div id="templateContent">
+			<div>
+				<?php echo  $this->render('_content.phtml');?>
+			</div>
+		</div>
+		
+		<div id="templateFooter">
+			<div>
+				<?php echo  $this->render('_footer.phtml');?>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
