@@ -28,8 +28,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		
 			$optionResources = $this->getOption('resources');
 			$dbOption = $optionResources['db'];
-			$dbOption['params']['username'] = 'root';
-			$dbOption['params']['password'] = '12345';
+			$dbOption['params']['username'] = 'apprentice';
+			$dbOption['params']['password'] = 'apprentice';
 			$dbOption['params']['dbname'] = 'apprentice_cms';
 			
 			$adapter = $dbOption['adapter'];
