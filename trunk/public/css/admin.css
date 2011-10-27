@@ -1,0 +1,62 @@
+{margin:0px; padding:0px;}
+body{
+
+}
+#container{
+width:960px;
+margin:80px auto;
+background-color:silver;
+}
+#header{
+text-align:center;
+margin-bottom:40px;
+margin-top:40px;
+}
+#content{
+width:480px;
+margin:0px 250px 40px 250px;
+height:260px;
+}
+#content #myAccount{
+float:left;
+padding:10px;
+}
+#content #systemLog{
+float:left;
+padding:10px;
+}
+#content #roles{
+float:left;
+padding:10px;
+}
+#content #advancedTool{
+float:left;
+padding:10px;
+}
+#content #contentManager{
+margin-left:65px;
+float:left;
+padding:10px;
+}
+#content #memberManager{
+float:left;
+padding:10px;
+}
+#content #siteManager{
+float:left;
+padding:10px;
+}
+#footer{
+text-align:center;
+height:50px;
+}
+#footer #infor{
+margin-bottom:10px;    
+}
+ul li{
+display:inline;
+margin:10px
+}
+ul li a{
+text-decoration:none;
+}
