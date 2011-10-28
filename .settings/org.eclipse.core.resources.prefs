@@ -1,8 +1,7 @@
-#Fri Oct 28 00:44:39 ICT 2011
+#Sat Oct 29 00:30:51 ICT 2011
 eclipse.preferences.version=1
+encoding//application/modules/ModuleManager/Bootstrap.php=UTF-8
 encoding//application/modules/ModuleManager/controllers/IndexController.php=UTF-8
 encoding//application/modules/ModuleManager/models/BsModuleManager.php=UTF-8
 encoding//application/modules/ModuleManager/models/DbModuleManager.php=UTF-8
 encoding//application/modules/ModuleManager/models/ModuleManagerEntity.php=UTF-8
-encoding//application/modules/News/controllers/IndexController.php=UTF-8
-encoding//application/modules/News/models/ArticleDto.php=UTF-8
