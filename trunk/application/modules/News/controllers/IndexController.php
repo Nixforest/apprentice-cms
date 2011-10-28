@@ -33,13 +33,15 @@ class News_IndexController extends Zend_Controller_Action{
 	public function addAction()
 	{
 		$article = new Model_ArticleDTO();
-		$article->set('title', 'Tieu De D');
-		$article->set('author', 'Nguyen Van D');
+		$article->set('title', 'Tieu De E');
+		$article->set('author', 'Nguyen Van E');
+		$article->set('article_id', 79);
 		
 		$newsBlo = new Model_NewsBLO();
-		$id = $newsBlo->addNews($article);
+		$newsBlo->updateNews($article);
+		//$newsBlo->deleteNews(79);
 		
-		$this->view->result =  "Ban Vua them vao bai viet co so id la $id";
+		$this->view->result =  "Ban Vua them vao bai viet co so id la ";
 		
 	}
 	

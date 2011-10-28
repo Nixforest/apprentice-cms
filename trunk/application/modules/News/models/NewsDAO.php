@@ -22,7 +22,6 @@ class Model_NewsDAO extends Zend_Db_Table_Abstract
 	{
 		$row = $this->createRow($article->getData());
 		$result = $row->save();
-		//$result = $this->_db->lastInsertId();
 		return $result;
 	}
 	
@@ -32,7 +31,8 @@ class Model_NewsDAO extends Zend_Db_Table_Abstract
 		$row = $this->find( $article->get('article_id') )->current();
 		if ($row)
 		{
-			$row->setFromArray($article);
+			$row->setFromArray( $article->getData() );
+			$row->save();
 			return true;
 		} else {
 			throw new Zend_Exception("Update function failed; could not find row!");
