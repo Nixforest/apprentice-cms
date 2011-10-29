@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+	</head>
+	<body>
+		<?php
+
+		echo '<table align="centrer" border="1" cellspacing="2" cellpadding="2">
+		<tr>
+		<td align="left"><b>role_id</b></td>
+		<td align="left"><b>name</b></td>
+		<td align="left"><b>description</b></td>
+		<td align="left"><b>locked</b></td>
+		</tr>';
+
+		while ($row=$this->result->fetch())
+		{
+			echo '<tr><td align=\"left\">';
+			echo $row['role_id'];
+			echo '</td><td align=\"left\">';
+			echo $row['name'];
+			echo "<br/><a href='../role/permission'>Permission</a>";
+			echo '</td><td align=\"left\">';
+			echo $row['description'];
+			echo '</td><td align=\"left\">';
+			echo $row['locked'];
+			echo '</td></tr>';
+		}
+		echo '</table>';?>
+	</body>
+</html>
+
