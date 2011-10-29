@@ -2,9 +2,9 @@
 
 /**
  * @author Nguyen Ngoc Dai
- * @uses NewsDAO:Lớp này thực hiện các nghiệp vụ liên quan đến lưu trữ và truy xuất dữ liệu của ứng dụng. 
- * 		xử lý các vấn đề về CSDL như kết nối,thêm, xóa, sửa, 
- * 		hoặc lấy dữ liệu lên từ CSDL để trả về cho lớp bên trên nó là lớp NewsBlo
+ * @uses NewsDAO:Lá»›p nÃ y thá»±c hiá»‡n cÃ¡c nghiá»‡p vá»¥ liÃªn quan Ä‘áº¿n lÆ°u trá»¯ vÃ  truy xuáº¥t dá»¯ liá»‡u cá»§a á»©ng dá»¥ng. 
+ * 		xá»­ lÃ½ cÃ¡c váº¥n Ä‘á»� vá»� CSDL nhÆ° káº¿t ná»‘i,thÃªm, xÃ³a, sá»­a, 
+ * 		hoáº·c láº¥y dá»¯ liá»‡u lÃªn tá»« CSDL Ä‘á»ƒ tráº£ vá»� cho lá»›p bÃªn trÃªn nÃ³ lÃ  lá»›p NewsBlo
  */
 
 class Model_NewsDAO extends Zend_Db_Table_Abstract 
@@ -12,14 +12,27 @@ class Model_NewsDAO extends Zend_Db_Table_Abstract
 	
 	protected $_name = 'news_article';
 	
-	public function getById($id=NULL) 
+	/*public function getById($id=NULL) 
 	{
 		if (isset($row)){
 			$row = $this->find($id)->current()->toArray();
 		}else {
+			
 			$row = $this->fetchAll();
 		}
 		return $row;
+	}*/
+	
+	public function getById($article_id){
+		$sql = "SELECT article_id, title, description FROM `news_article` where `article_id`=".$article_id;
+		$db = $this->getDefaultAdapter();
+		return $db->query($sql);
+	}
+	
+	public function getAll() {
+		$sql  = "SELECT * FROM news_article";
+		$db = $this->getDefaultAdapter();
+		return $db->query($sql);
 	}
 	
 	public function changeStatus($id, $status){
@@ -42,7 +55,6 @@ class Model_NewsDAO extends Zend_Db_Table_Abstract
 		$result = $row->save();
 		return $result;
 	}
-	
 	
 	public function updateNews($article)
 	{
