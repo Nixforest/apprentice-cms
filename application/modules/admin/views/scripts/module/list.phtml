@@ -3,10 +3,32 @@
  * Apprentice CMS
  */
 ?>
+<a href ="/Apprentice_CMS/public/">Home Page</a>
+<h2>Module Manager</h2> 
+<style>
+
+table.spreadsheet {
+	margin: 20px 0;
+	border: #999 3px solid;
+}
+
+table.spreadsheet th {
+	background: #ccc;
+	font-weight: bold;
+	font-size: 14px;
+	padding: 10px 10px;
+}
+
+table.spreadsheet td {
+	border-top: #999 1px solid;
+	padding: 10px 15px;
+}
+
+</style>
 <?php
 		echo '<table align="centrer" border="1" cellspacing="2" cellpadding="2">
 		<tr>
-		<td align="left"><b>id</b></td>
+		<td align="left"><b></b></td>
 		<td align="left"><b>name</b></td>
 		<td align="left"><b>description</b></td>
 		<td align="left"><b>thumbnail</b></td>
@@ -15,10 +37,16 @@
 		<td align="left"><b>version</b></td>
 		<td align="left"><b>license</b></td>
 		</tr>';
-		while ($row = $this->result->fetch())
-		{
-			echo '<tr><td align=\"left\">';
-			echo $row['module_id'];
+		
+		foreach ($this->modules as $row)
+		{ 
+			$install = '/Apprentice_CMS/public/admin/module/install/name/'.$row['name'];
+			$unInstall = '/Apprentice_CMS/public/admin/module/uninstall/name/'.$row['name'];
+			
+			if ($this->dbModules[strtolower($row['name'])] == null)
+				echo "<td><a href='$install'>Install</a>";
+			else  echo "<td><a href='$unInstall'>Uninstall</a>";
+			
 			echo '</td><td align=\"left\">';
 			echo $row['name'];
 			echo '</td><td align=\"left\">';
@@ -38,9 +66,15 @@
 		
 		echo '</table>';
 		
+
+		
+		
 		echo "<form action='#' method='post' enctype='multipart/form-data'>";
 		echo "<input type='file' name='file' />";
-		echo "<input type='submit' name='btnsubmit' value='upload' />";
+		echo "<input type='submit' name='btnsubmit' value='Upload' />";
 		echo "</form>";
+		if ($this->ErrorMessage){
+			echo "Can not uncompressed!";
+		}
 
 ?>
