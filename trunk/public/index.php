@@ -8,6 +8,15 @@ defined('APPLICATION_PATH')
 defined('APPLICATION_ENV')
     || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
 
+// Define some variable
+define('DS', DIRECTORY_SEPARATOR);
+define('PS', PATH_SEPARATOR);
+
+define('APPRENTICE_ROOT_DIR', dirname(__FILE__));
+define('APPRENTICE_APP_DIR',  APPRENTICE_ROOT_DIR . DS . 'application');
+define('APPRENTICE_LIB_DIR',  APPRENTICE_ROOT_DIR . DS . 'libraries');
+define('APPRENTICE_TEMP_DIR', APPRENTICE_ROOT_DIR . DS . 'temp');
+
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),
