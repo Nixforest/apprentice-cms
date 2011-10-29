@@ -11,14 +11,14 @@
 			
 			echo "<td><div class='title'><a href='#'>".$row['title']."</a></div><div>Posted by <b>".$row['created_user_name']."</b> at ".$row['created_date']."</div>";
 			
-			echo "<div class='control'><a href='/Apprentice_CMS/public/admin/news/edit/id/".$row['article_id']."'>Edit</a>  |  "; 
-        	echo "<a href='/Apprentice_CMS/public/admin/news/delete/id/".$row['article_id']."'>Delete</a>  |  ";
+			echo "<div class='control'><a href='/Apprentice_CMS/public/news/admin/edit/id/".$row['article_id']."'>Edit</a>  |  "; 
+        	echo "<a href='/Apprentice_CMS/public/news/admin/delete/id/".$row['article_id']."'>Delete</a>  |  ";
         	
         	if($row['status']=='active'){
-        		echo "<a href='/Apprentice_CMS/public/admin/news/deactive/id/".$row['article_id']."'>Deactive</a></div></td>";
+        		echo "<a href='/Apprentice_CMS/public/news/admin/deactive/id/".$row['article_id']."'>Deactive</a></div></td>";
         	}
         	else if($row['status']=='inactive'){
-        		echo "<a href='/Apprentice_CMS/public/admin/news/active/id/".$row['article_id']."'>Active</a></div></td>";	
+        		echo "<a href='/Apprentice_CMS/public/news/admin/active/id/".$row['article_id']."'>Active</a></div></td>";	
         	}
         	
 			echo '<td>'.$row['status'].'</td>';

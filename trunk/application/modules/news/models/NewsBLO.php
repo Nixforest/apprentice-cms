@@ -14,22 +14,22 @@ Class Model_NewsBLO {
 	{
 		$this->_newsDAO = new Model_NewsDAO();
 	}
-	
-	public function getOne($id)
+
+	public function getById($id)
 	{
 		return $this->_newsDAO->getById($id);
 	}
 	
 	public function getAll()
 	{
-		return $this->_newsDAO->getById();
+		return $this->_newsDAO->getAll();
 	}
 	
 	public function changeStatus($id,$status)
 	{
 		return $this->_newsDAO->changeStatus($id, $status);
 	}
-	
+
 	public function addNews($article)
 	{
 		$id = $this->_newsDAO->addNews($article);
@@ -40,7 +40,7 @@ Class Model_NewsBLO {
 	{
 		$this->_newsDAO->deleteNews($id);
 	}
-	
+		
 	public function updateNews($article)
 	{
 		$this->_newsDAO->updateNews($article);
