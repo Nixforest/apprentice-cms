@@ -1,0 +1,40 @@
+<?php echo $this->doctype()?>
+<html>
+	<head>
+		<?php 
+			echo $this->headTitle();
+			echo $this->headLink()->appendStylesheet("../../../skin/admin/default/style.css");
+			echo $this->headLink()->appendStylesheet("../../../skin/admin/default/adminNews.css"); 
+			echo $this->headStyle();
+			echo $this->headScript();
+		?>
+	</head>
+	<body>
+		<div id="pageWrapper">
+			<div id="header">
+				<h1>Zend Framework CMS</h1>
+			</div>
+			<div id="nav">
+				<?php echo $this->layout()->nav;?>
+			</div>
+			<div id="sidebar">
+				<div id="subNav">
+					<?php echo $this->layout()->subNav?>
+				</div>
+				<div id="adminMenu">
+					<?php echo $this->layout()->adminMenu?>
+				</div>
+				<div id="userForm">
+					<?php echo $this->layout()->userForm?>
+				</div>
+			</div>
+			<div id="main">
+				<?php echo $this->layout()->content;
+				?>
+			</div>
+			<div id="footer">
+				<p>Powered by Zend Framework</p>
+			</div>
+		</div>
+	</body>
+</html>
