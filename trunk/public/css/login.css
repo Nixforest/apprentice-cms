@@ -78,7 +78,7 @@ div .username{
 	height: 39px;
 	color: white;
 	margin-left: 80px;
-	margin-top: 30px;
+	margin-top: 40px;
 	text-align: left;
 }
 
@@ -88,13 +88,13 @@ div .password{
 	height: 39px;
 	color: white;
 	margin-left: 80px;
-	margin-top: 30px;
+	margin-top: 15px;
 	text-align: left;
 }
 
 div .txtusername{
 	margin-left: 60px;
-	margin-top: 15px;
+	margin-top: 25px;
 	border: 0;
 	width: 299px;
 	height: 39px;
@@ -106,7 +106,7 @@ div .txtusername{
 
 div .txtpassword{
 	margin-left: 60px;
-	margin-top: 15px;
+	margin-top: 5px;
 	border: 0;
 	width: 299px;
 	height: 39px;
@@ -118,7 +118,7 @@ div .txtpassword{
 
 #forgot{
 	margin-left: 80px;
-	margin-top: 15px;
+	margin-top: 0px;
 }
 
 a{
@@ -143,6 +143,7 @@ div .btn{
 	background: url("../images/but_read.png") no-repeat;
 	font-family: Verdana, Geneva, sans-serif;
 	font-weight: bold;
+	cursor: pointer;
 }
 
 #footer{
@@ -163,3 +164,4 @@ div #content_footer{
 	height: 15px;
 	color: white;
 }
+
