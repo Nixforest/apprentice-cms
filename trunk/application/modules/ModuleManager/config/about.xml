@@ -4,7 +4,6 @@
  * Apprentice CMS
  */
 -->
-<!DOCTYPE module SYSTEM "http://nixforest.wordpress.com">
 <module>
 	<name>modulemanager</name>
 	<description langKey="about_modulemanager_description"><![CDATA[Module Manager module.]]></description>

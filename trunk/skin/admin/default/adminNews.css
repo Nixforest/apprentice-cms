@@ -1,0 +1,30 @@
+.tableArticle
+{
+	background-color: #1a1a1a;
+	color: #9f9f9f;
+	width: 100%;
+	border: 0;
+}
+.table_Header
+{
+	font-weight: bold;
+	font-size: large;
+}
+.tableArticle .title a
+{
+	color: #fff;
+	text-decoration: none;
+}
+.tableArticle .control a
+{
+	color: #E56101;
+	text-decoration: none;
+}
+.tableArticle a:hover
+{
+	text-decoration: underline;
+}
+.tableArticle tr:hover
+{
+	background-color: #282828;
+}
