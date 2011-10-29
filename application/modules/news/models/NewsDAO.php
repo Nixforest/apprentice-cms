@@ -12,11 +12,29 @@ class Model_NewsDAO extends Zend_Db_Table_Abstract
 	
 	protected $_name = 'news_article';
 	
-	public function getById($id) 
+	public function getById($id=NULL) 
 	{
-		$row = $this->find($id);
+		if (isset($row)){
+			$row = $this->find($id)->current()->toArray();
+		}else {
+			$row = $this->fetchAll();
+		}
 		return $row;
 	}
+	
+	public function changeStatus($id, $status){
+		$row = $this->find( $id )->current();
+		if ($row)
+		{
+			$row->status = $status;
+			$row->save();
+			return true;
+		} else {
+			throw new Zend_Exception("Update function failed; could not find row!");
+		}
+	}
+	
+	
 	
 	public function addNews($article)
 	{

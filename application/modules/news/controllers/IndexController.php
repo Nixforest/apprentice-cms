@@ -6,7 +6,6 @@ class News_IndexController extends Zend_Controller_Action{
 	{
 		
 	}
-	
 	public  function init()
 	{
 		$autoLoader = Zend_Loader_Autoloader::getInstance(); 
@@ -35,15 +34,14 @@ class News_IndexController extends Zend_Controller_Action{
 		$article = new Model_ArticleDTO();
 		$article->set('title', 'Tieu De E');
 		$article->set('author', 'Nguyen Van E');
-		$article->set('article_id', 79);
 		
 		$newsBlo = new Model_NewsBLO();
-		$newsBlo->updateNews($article);
-		//$newsBlo->deleteNews(79);
-		
-		$this->view->result =  "Ban Vua them vao bai viet co so id la ";
+		$rows= $newsBlo->getAll();
+		echo $rows[0]['title'];	
+		//$this->view->result =  "Ban Vua them vao bai viet co so id la $id[0]->title ";
 		
 	}
+	
 	
 	
 	

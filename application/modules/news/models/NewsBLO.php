@@ -14,6 +14,22 @@ Class Model_NewsBLO {
 	{
 		$this->_newsDAO = new Model_NewsDAO();
 	}
+	
+	public function getOne($id)
+	{
+		return $this->_newsDAO->getById($id);
+	}
+	
+	public function getAll()
+	{
+		return $this->_newsDAO->getById();
+	}
+	
+	public function changeStatus($id,$status)
+	{
+		return $this->_newsDAO->changeStatus($id, $status);
+	}
+	
 	public function addNews($article)
 	{
 		$id = $this->_newsDAO->addNews($article);
