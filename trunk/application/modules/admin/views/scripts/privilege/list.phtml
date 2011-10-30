@@ -55,6 +55,7 @@ a.module:link,a.module:visited {
 
 a.bt:hover {
 	border-style: inset;
+	border-color: orange;
 }
 
 a.module:hover {
@@ -110,7 +111,7 @@ h1{
 			$module = (string)$desRows['module_name'];
 			$description = 	$desRows['description'];	
 			echo "<div id='des'>$description</div>";
-			echo "<div id='bt'><a href='../privilege/$action?action=$action&id=$id&module=$module' class='bt'>$btnName</a></div>";
+			echo "<a href='../privilege/$action?action=$action&id=$id&module=$module' class='bt'>$btnName</a>";
 			echo "<hr>";
 		}
 	}
