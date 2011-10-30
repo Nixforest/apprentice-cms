@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Privilege</title>
+<style type="text/css">
+a.bt:link,a.bt:visited {
+	text-decoration: none;
+	color: Orange;
+}
+
+a#back{
+	font-size:20px;
+	text-decoration: none;
+	color: silver;
+	border-style: outset;
+	border-color: silver;	
+	margin-left: 650px;
+}
+a#back:HOVER{
+	color: orange;
+	border-color: orange;	
+}
+#des{
+	color:silver;
+	font-weight: bold;
+}
+
+#modulelist {
+	float: left;
+	height: 650px;
+	width: 150px;
+	text-align: center;
+	border-color: silver;
+	border-style: inset;
+	background-color:black;
+	margin-left: 320px;
+}
+
+#detail {	
+	text-align: center;
+	height: 650px;
+	width: 700px;
+	border-style: inset;
+	background-color:black;
+	border-color: silver;
+	margin-left: 330px;
+}
+
+a.module:link,a.module:visited {
+	text-decoration: none;
+	font-size: 20px;
+	color: white;
+}
+
+a.bt:hover {
+	border-style: inset;
+}
+
+a.module:hover {
+	font-weight: bolder;
+	text-decoration: underline;
+}
+h3{
+	font-size:20px;
+	color:  appworkspace;
+	background-color: black;
+}
+h1{
+	font-size:50px;
+	color: White;
+	text-align: center;
+}
+</style>
+</head>	
+<body bgcolor="black">
+<h1>Privileges</h1>
+<div class="List">
+<div id='modulelist'>
+<h3><strong>Module List</strong></h3><hr>
+<?php		
+	//hien thi danh sach cac module (danh sach nay co the click duoc):
+	if($this->moduleResult){
+		while ($moduleRows = $this->moduleResult->fetch()){			
+			$moduleName = (string)$moduleRows['module_name'];
+			//echo "<hr>";					
+			echo "<a href= '../privilege/list?modulename=$moduleName' class='module'>$moduleName</a>";
+			echo "<hr>";	
+		}
+	}
+?>
+</div>
+<div id='detail'>
+<h3><strong>Privilige List</strong></h3><hr>
+<?php
+	//Hien thi danh sach cac quyen + cac button Add va Delete tuong ung dzoi module da click:
+	if($this->desResult){
+		while($desRows = $this->desResult->fetch()){
+			//echo "<hr>";
+			$isDeleted = $desRows['isDeleted'];
+			if($isDeleted == 0){
+				$btnName = "[ Delete ]";
+				$action = "delete";
+			}
+			else{
+				$btnName = "[ Add ]";
+				$action = "add";
+			}
+			$id = (string)$desRows['privilege_id'];	
+			$module = (string)$desRows['module_name'];
+			$description = 	$desRows['description'];	
+			echo "<div id='des'>$description</div>";
+			echo "<div id='bt'><a href='../privilege/$action?action=$action&id=$id&module=$module' class='bt'>$btnName</a></div>";
+			echo "<hr>";
+		}
+	}
+?>
+</div>
+</div>
+<br>
+<a href ="../" id='back'">Back</a>
+</body>
+</html>
