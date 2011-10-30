@@ -17,4 +17,8 @@ class Admin_IndexController extends Zend_Controller_Action
 	 * 
 	 * @return void
 	 */
+	public function indexAction()
+	{
+	
+	}
 }
