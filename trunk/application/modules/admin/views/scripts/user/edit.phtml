@@ -1,0 +1,37 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+<div id="info">
+	<?php 
+	if(!is_null($this->error)){	
+		echo "<ul>";
+		foreach($this->error as $item){
+			echo "<li>".$item."</li>";
+		}
+		echo "</ul>";
+	}
+	?>
+	<form action="../id/<?php echo $this->id?>" method="post" id="adduser">
+		<table>
+			<tr><td>Fullname :</td><td><input type="text" name="tbxname" id="tbxname" value="<?php echo $this->data[0]['full_name'];?>" /></td><td><span id="errorname"></span></td></tr>
+			<tr><td>Username : </td><td><input type="text" name="tbxuser" id="tbxuser" value="<?php echo $this->data[0]['user_name'];?>" /></td><td><span id="erroruser"></span></td></tr>
+			<tr><td>Password : </td><td><input type="password" name="tbxpass" id="tbxpass" /></td><td><span id="errorpass"></span></td></tr>
+			<tr><td>Re-Password : </td><td><input type="password" name="tbxpass2" id="tbxpass2" /></td><td><span id="errorpass2"></span></td></tr>
+			<tr><td>Email : </td><td><input type="text" name="tbxemail" id="tbxemail" value="<?php echo $this->data[0]['email']?>" /></td><td><span id="erroremail"></span></td></tr>
+			<tr><td>Groups : </td><td><select name="cbxgroups"><option value="">---</option>
+			<?php foreach($this->role as $item){
+				if($item["role_id"]==$this->data[0]["role_id"]){
+					echo "<option value='".$item["role_id"]."' selected>".$item['description']."</option>";					
+				}else{
+					echo "<option value='".$item["role_id"]."'>".$item['description']."</option>";
+				}				
+			}?></select></td></tr>
+			<tr><td><input type="submit" name="btnsubmit" id="btnsubmit" value="Update" /></td></tr>
+		</table>
+	</form>
+</div>
+</body>
+</html>
