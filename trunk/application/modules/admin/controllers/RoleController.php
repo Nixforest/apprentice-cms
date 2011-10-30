@@ -5,7 +5,9 @@
  *	
  */
 
-require_once '/../models/role.php';
+require_once '/../models/BsRole.php';
+require_once '/../forms/AddRoleForm.php';
+require_once '/../models/RoleEntity.php';
 
 class Admin_RoleController extends Zend_Controller_Action{
 	/**
@@ -14,29 +16,9 @@ class Admin_RoleController extends Zend_Controller_Action{
  	 */
 	public function listAction()
 	{
-		$db=new Zend_Db_Adapter_Pdo_Mysql(array(
-												'host'		=>	'localhost',
-												'username'	=>	'apprentice',
-												'password'	=>	'apprentice',
-												'dbname'	=>	'apprentice_cms'));
-		try {
-			$db->getConnection();
-		}
-		catch (Zend_Db_Adapter_Exception $e){
-			echo 'Error';
-		}
-		catch (Zend_Exception $e) {
-    		echo 'Error2';
-		}
-		$stmt=$db->query('SELECT * FROM admin_role');
-		$db->closeConnection();
-		$this->view->result=$stmt;
-		
-		/*$query = "select * from admin_role;";
-		$db = Zend_Registry::get('connectDb');
-		$result = $db->query($query);
+		$role=new Model_BsRole();
+		$result=$role->getAllRole();
 		$this->view->result=$result;
-		*/
 	}
 	
 	public function submitAction()
@@ -57,25 +39,13 @@ class Admin_RoleController extends Zend_Controller_Action{
 				$description=$frmAddRole->getValue('description');
 				$locked=$frmAddRole->getValue('locked');
 				
-				/*$sql = sprintf("INSERT INTO admin_role(name, description, locked)
-						VALUES ('%s', '%s', '%s')",
-						$name,
-						$description,
-						'1');
-				$db=$this->getDefaultAdapter();
-				$db->query($sql)or die("Can not insert database ");*/ 
-		
-				//insert rows
-				
-				$row=array('name'=>$name,'description'=>$description,'locked'=>$locked);
-				$table = 'admin_role';
-				$db->insert($table,$row);
-				
-				//update rows
-				/*$set = array('name'=>$name,'description'=>$description);
-				$table = 'admin_role';
-				$where=$db->quoteInto('name=?','admin');
-				$db->update($table,$set,$where);*/
+				$role=new Model_BsRole();
+				$mod=new Model_RoleEntity();
+				$mod->set('name', $name);
+				$mod->set('description',$description);
+				$mod->set('locked',$locked);
+				$table='admin_role';
+				$role->addRole($table, $mod->data);
 				
 				//process the data
 	           	$this->_redirector = $this->_helper->getHelper('Redirector');
@@ -90,6 +60,14 @@ class Admin_RoleController extends Zend_Controller_Action{
 		
 		$this->view->form=$frmAddRole;
 	}
+	
+	public  function installAction()//hàm chạy phần install
+	{	
+		//gọi phương thức instal cần truyền tên module vào.	
+		$settup = new Model_BsRole();
+		$settup->install('admin');
+	}
+	
 	public function permissionAction()
 	{
 		
