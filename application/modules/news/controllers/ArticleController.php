@@ -69,7 +69,7 @@ class News_ArticleController extends Zend_Controller_Action {
 				$newsBlo = new Model_NewsBLO();
 				$newsBlo->updateNews($article);
 				
-				$this->_redirect('news/admin/list');
+				$this->_redirect('news/article/list');
 			}
 		}
 		else{
@@ -95,7 +95,7 @@ class News_ArticleController extends Zend_Controller_Action {
 		$module = new Model_NewsBLO();
 		$module->deleteNews($article_id);
 		
-		$this->_redirect('news/admin/list');
+		$this->_redirect('news/article/list');
 	}
 	
 	public function activeAction(){
@@ -104,7 +104,7 @@ class News_ArticleController extends Zend_Controller_Action {
 		$module = new Model_NewsBLO();
 		$module->changeStatus($article_id, 'active');
 		
-		$this->_redirect('news/admin/list');
+		$this->_redirect('news/article/list');
 	}
 	
 	public function deactiveAction(){
@@ -113,6 +113,6 @@ class News_ArticleController extends Zend_Controller_Action {
 		$module = new Model_NewsBLO();
 		$module->changeStatus($article_id, 'inactive');
 		
-		$this->_redirect('news/admin/list');
+		$this->_redirect('news/article/list');
 	}
 }
