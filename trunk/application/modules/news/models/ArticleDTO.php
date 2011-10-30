@@ -51,6 +51,7 @@ protected $_data = array(
 		
 		'author'			 => null,	/** Author of article */
 		'allow_comment' 	 => 0,		/** Defines that user can comment on article or not */
+		'is_hot'             => 0,      /** Defines that article is hot news or not */
 		'sticky' 			 => 0,		/** Defines that article is sticky of main category or not */
 		'language'			 => null,	/** Language of article (@since 2.0.8) */
 	);

@@ -1,51 +1,51 @@
 <?php
-class News_AdminController extends Zend_Controller_Action{
-
-
-	public function indexAction()
-	{
-		
-	}
+class News_ArticleController extends Zend_Controller_Action {
 	
-	public  function init()
-	{
+	public function init() {
 		$autoLoader = Zend_Loader_Autoloader::getInstance(); 
-		    $autoLoader->registerNamespace('CMS_'); 
-		    $resourceLoader = new Zend_Loader_Autoloader_Resource(array( 
-		        'basePath'      => APPLICATION_PATH . '/modules/news', 
-		        'namespace'     => '', 
-		        'resourceTypes' => array( 
-		            'form' => array( 
-		                'path'      => 'forms/', 
-		                'namespace' => 'Form_', 
-		            ), 
-		            'model' => array( 
-		                'path'      => 'models/', 
-		                'namespace' => 'Model_' 
-		            ),
-		             
-		        ), 
-		    )); 
-		    // Return it so that it can be stored by the bootstrap 
-		    return $autoLoader; 
+	    $autoLoader->registerNamespace('CMS_'); 
+	    $resourceLoader = new Zend_Loader_Autoloader_Resource(array( 
+	        'basePath'      => APPLICATION_PATH . '/modules/news', 
+	        'namespace'     => '', 
+	        'resourceTypes' => array( 
+	            'form' => array( 
+	                'path'      => 'forms/', 
+	                'namespace' => 'Form_', 
+	            ), 
+	            'model' => array( 
+	                'path'      => 'models/', 
+	                'namespace' => 'Model_' 
+	            ),
+	             
+	        ), 
+	    )); 
+	    // Return it so that it can be stored by the bootstrap 
+	    return $autoLoader;
 	}
 	
-	public function addAction()
-	{
-		$article = new Model_ArticleDTO();
-		$article->set('title', 'Tieu De E');
-		$article->set('author', 'Nguyen Van E');
-		$article->set('article_id', 79);
-		
-		$newsBlo = new Model_NewsBLO();
-		$newsBlo->updateNews($article);
-		//$newsBlo->deleteNews(79);
-		
-		$this->view->result =  "Ban Vua them vao bai viet co so id la ";
-		
+	public function addAction() {
+		$request = $this->getRequest();
+		if ($request->isPost()) {
+			$article = new Model_ArticleDTO();
+			$article->setData(array(
+				'title'         => strip_tags($request->getPost('title')),
+				'sub_title'     => strip_tags($request->getPost('subTitle')),
+				'slug'          => $request->getPost('slug'),
+			    'description'   => $request->getPost('description'),
+			    'content'       => $request->getPost('content'),
+				'author'        => strip_tags($request->getPost('author')),
+				'allow_comment' => $request->getPost('allowComment'),
+				'is_hot'        => $request->getPost('hotArticle')
+			));
+			
+			$news = new Model_NewsBLO();
+			$id = $news->addNews($article);
+			
+			$this->view->message = "Add a new article successful.";
+		}
 	}
-
-	//DUONG THAN DAN
+	
+//DUONG THAN DAN
 	public function listAction(){
 		//$module = new Model_News();
 		$module = new Model_NewsBLO();
@@ -115,5 +115,4 @@ class News_AdminController extends Zend_Controller_Action{
 		
 		$this->_redirect('news/admin/list');
 	}
-	
 }
