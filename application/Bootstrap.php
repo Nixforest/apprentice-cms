@@ -30,7 +30,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		
 			$optionResources = $this->getOption('resources');
 			$dbOption = $optionResources['db'];
-		
+			
 			$adapter = $dbOption['adapter'];
 			$config = $dbOption['params'];
 			

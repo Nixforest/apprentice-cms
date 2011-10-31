@@ -1,6 +1,6 @@
 <?php
 class ModuleManager_Bootstrap extends Zend_Application_Module_Bootstrap{
-public  function init()//khởi tạo load class ở thư mục models
+	public  function _initAutoload()//khởi tạo load class ở thư mục models
 	{
 		$autoLoader = Zend_Loader_Autoloader::getInstance(); 
 		    $autoLoader->registerNamespace('CMS_'); 
