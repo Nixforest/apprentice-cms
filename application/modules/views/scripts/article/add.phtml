@@ -1,0 +1,81 @@
+<html>
+<head>
+	<base href="http://localhost/apprentice_cms/application/modules/news/views/scripts/article/">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
+	<?php echo $this->headTitle('Add new article') ?>	
+	<?php echo $this->headLink()->appendStylesheet("editor.css") ?>
+	<?php echo $this->headStyle()?>
+	<?php echo $this->headScript()->appendFile("editor.js") ?>
+	<h2><center><?php echo $this->message ?></center></h2>
+</head>
+
+<body>
+<form action="" method="post" name="addArticleForm" id="addArticleForm" enctype="multipart/form-data">
+	<div>
+		<label>Main title: </label>
+		<input type="text" name="title" id="title" style="width: 440px" />
+	</div>
+	
+	<hr />
+	
+	<div>
+		<label>Sub title: &nbsp;</label>
+		<input type="text" name="subTitle" id="subTitle" style="width: 440px" />
+	</div>
+	
+	<hr />
+	
+	<div>
+		<label>Slug: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+		<input type="text" name="slug" id="slug" style="width: 440px" />
+	</div>
+	
+	<hr />
+	
+	<span id="editorDescription">Waiting for loading editor...</span>
+	
+	<script language="javascript">
+		
+		ed = new Editor("ed", "d", "description", "editorDescription", 400, 300);
+		ed.render();
+	</script>
+	
+	<hr />
+	
+	<span id="editorContent">Waiting for loading editor...</span>
+	<script language="javascript">
+		ec = new Editor("ec", "c", "content", "editorContent", 400, 800);
+		ec.render();
+	</script>
+	
+	<hr />
+	
+	<div>
+		<label>Author: &nbsp;&nbsp;&nbsp;</label>
+		<input type="text" name="author" id="author" style="width: 440px" />
+	</div>
+	
+	<hr />
+	
+	<div>
+		<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+		<input type="checkbox" name="allowComment" id="allowComment" value="1" /> Allow user to comment article
+	</div>
+	
+	<hr />
+	
+	<div>
+		<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+		<input type="checkbox" name="hotArticle" id="hotArticle" value="1" /> Hot article
+	</div>
+	
+	<hr />
+	
+	<div>
+		<label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+		<input type="submit" name="save" value="Save" onclick="getData('description', 'd'); getData('content', 'c');" />
+	</div>
+</form>
+
+</body>
+</html>
