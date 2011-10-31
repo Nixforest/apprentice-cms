@@ -2,10 +2,10 @@
 
 /**
  * @author Nguyen Ngoc Dai
- * @uses NewsDAO:Lá»›p nÃ y thá»±c hiá»‡n cÃ¡c nghiá»‡p vá»¥ liÃªn quan Ä‘áº¿n lÆ°u trá»¯ vÃ  truy xuáº¥t dá»¯ liá»‡u cá»§a á»©ng dá»¥ng. 
- * 		xá»­ lÃ½ cÃ¡c váº¥n Ä‘á»� vá»� CSDL nhÆ° káº¿t ná»‘i,thÃªm, xÃ³a, sá»­a, 
- * 		hoáº·c láº¥y dá»¯ liá»‡u lÃªn tá»« CSDL Ä‘á»ƒ tráº£ vá»� cho lá»›p bÃªn trÃªn nÃ³ lÃ  lá»›p NewsBlo
- */
+ * @uses NewsDAO:Lớp này thực hiện các nghiệp vụ liên quan đến lưu trữ và truy xuất dữ liệu của ứng dụng. 
+ * 		xử lý các vấn đề về CSDL như kết nối,thêm, xóa, sửa, 
+ * 		hoặc lấy dữ liệu lên từ CSDL để trả về cho lớp bên trên nó là lớp NewsBlo
+ * */
 
 class Model_NewsDAO extends Zend_Db_Table_Abstract 
 {
