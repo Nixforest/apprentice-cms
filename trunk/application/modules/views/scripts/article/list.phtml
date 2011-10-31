@@ -1,0 +1,31 @@
+<div class="tableArticle">
+<table>
+	<tr class="table_Header">
+	<td width="450px">Title</td>
+	<td width="100px">Status</td>
+	<td width="130px">Num.of Views</td>
+	<td width="50px">ID</td></tr>
+	<?php 
+		while($row=$this->result->fetch()){
+			
+			echo "<td><div class='title'><a href='#'>".$row['title']."</a></div><div>Posted by <b>".$row['created_user_name']."</b> at ".$row['created_date']."</div>";
+			
+			echo "<div class='control'><a href='/Apprentice_CMS/public/news/article/edit/id/".$row['article_id']."'>Edit</a>  |  "; 
+        	echo "<a href='/Apprentice_CMS/public/news/article/delete/id/".$row['article_id']."'>Delete</a>  |  ";
+        	
+        	if($row['status']=='active'){
+        		echo "<a href='/Apprentice_CMS/public/news/article/deactive/id/".$row['article_id']."'>Deactive</a></div></td>";
+        	}
+        	else if($row['status']=='inactive'){
+        		echo "<a href='/Apprentice_CMS/public/news/article/active/id/".$row['article_id']."'>Active</a></div></td>";	
+        	}
+        	
+			echo '<td>'.$row['status'].'</td>';
+			echo '<td>'.$row['num_views'].'</td>';
+			echo '<td>'.$row['article_id'].'</td><tr>';
+		}
+		
+	?>
+	
+</table>
+</div>
