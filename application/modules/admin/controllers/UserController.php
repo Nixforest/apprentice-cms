@@ -27,6 +27,9 @@ class Admin_UserController extends Zend_Controller_Action{
 	}
 	public function indexAction(){
 		$db = new Model_UserModel();
+		$role_user = new Model_BsRole();
+		$this->view->role = $role_user->getAllRole();
+		$this->view->base =  $this->_request->getBaseUrl();
 		$post = $this->getRequest();
 		$f=0;
 		if($post->isPost()){
@@ -40,6 +43,10 @@ class Admin_UserController extends Zend_Controller_Action{
 			}
 			if($post->getPost("cbxaction")!=""){
 				$data["is_active"]=$post->getPost("cbxaction");
+				$f=1;
+			}
+			if($post->getPost("cbxgroups")!=""){
+				$data["role_id"]=$post->getPost("cbxgroups");
 				$f=1;
 			}
 			if($f==1)
@@ -56,8 +63,9 @@ class Admin_UserController extends Zend_Controller_Action{
 	//add user
 	public function addAction(){		
 		$db = new Model_UserModel();
-		$role_user = new Model_UserModel();//sửa lại bên role
-		$this->view->role = $role_user->listrole(); 
+		$role_user = new Model_BsRole();
+		//$role_user = new Model_UserModel();//sửa lại bên role
+		$this->view->role = $role_user->getAllRole();
 		$post = $this->getRequest();
 		$fullname=NULL;
 		$user=NULL;
@@ -129,9 +137,10 @@ class Admin_UserController extends Zend_Controller_Action{
 	}
 	//edit user
 	public function editAction(){
-		$db = new Model_UserModel();	
-		$role_user = new Model_UserModel();//sửa lại bên role
-		$this->view->role = $role_user->listrole();	
+		$db = new Model_UserModel();
+		$role_user = new Model_BsRole();	
+		//$role_user = new Model_UserModel();//sửa lại bên role
+		$this->view->role = $role_user->getAllRole();	
 		$post = $this->getRequest();
 		$id = $this->_request->getParam('id');
 		$f=0;
