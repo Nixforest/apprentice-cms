@@ -1,0 +1,63 @@
+body{
+	background:#333;	
+}
+a{
+	color:#F90;
+	text-decoration:none;
+}
+a:hover{
+	color:#F00;	
+	text-decoration:none;
+}
+.info{
+	width:80%;
+	position:relative;
+}
+.info td{	
+	padding:10px;
+	border-bottom:1px solid #666;
+}
+.info .noneunderline{
+	padding-bottom:10px;
+	border-bottom:1px solid #333;	
+}
+.cinput{
+	width:150px;
+	height:20px;
+	border-radius:4px 4px;	
+	border:none;
+	background:#CCC;
+}
+.cfilter{
+	background:#F90;
+	color:#FFF;
+	width:150px;
+	height:30px;
+	text-align:center;
+	border:none;
+	border-radius:8px 8px;
+	font-weight:900;
+}
+.ctexttd{
+	color:#999;		
+}
+.cadd{
+	position:absolute;
+	right:0px;
+	top:0px;
+	width:150px;
+	line-height:30px;
+	background:#F93;
+	text-align:center;	
+	border-radius:10px 10px;
+}
+.cadd a{
+	color:#FFF;
+	font-weight:900;	
+	text-decoration:none;
+}
+.cadd a:hover{
+	color:#F00;	
+	text-decoration:none;
+	font-weight:900;
+}

@@ -2,29 +2,42 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php
+	echo $this->headLink()->appendStylesheet($this->base."/../css/user.css");
+?>
 </head>
 <body>
-<div>
+<div class="info">
 	<form action="" method="post" id="filteruser">
-		<table>
+		<table align="center">
 			<tr>
-				<td>UserName</td>
-				<td><input type="text" name="tbxuser" /></td>
-				<td>Email</td>
-				<td><input type="text" name="tbxemail" /></td>
+				<td><span class="ctexttd">Username : </span></td>
+				<td><input type="text" name="tbxuser" class="cinput" /></td>
+				<td><span class="ctexttd">Email : </span></td>
+				<td><input type="text" name="tbxemail" class="cinput" /></td>
 			</tr>
 			<tr>
-				<td>Groups</td>
-				<td><select></select></td>
-				<td>Action</td>
-				<td><select name="cbxaction"><option value="" >---</option><option value="0" >Deactive</option><option value="1" >Active</option></select></td>
+				<td><span class="ctexttd">Groups : </span></td>
+				<td><select class="cinput" name="cbxgroups"><option value="">---</option>
+				<?php 
+					foreach($this->role as $item){
+						echo "<option value='".$item["role_id"]."'>".$item["description"]."</option>";
+					}
+				?>
+				</select></td>
+				<td><span class="ctexttd">Action : </span></td>
+				<td><select class="cinput" name="cbxaction"><option value="" >---</option><option value="0" >Deactive</option><option value="1" >Active</option></select></td>
 			</tr>
 			<tr>
-				<td><input type="submit" name="btnsubmit" value="Filter" /></td>
+				<td class="noneunderline"></td><td class="noneunderline"><input type="submit" name="btnsubmit" value="Filter" class="cfilter" /></td><td class="noneunderline"></td><td class="noneunderline"></td>
 			</tr>
 		</table>
 	</form>
+<div class="cadd">
+	<a href="add/">Add user</a>
 </div>
+</div>
+
 <hr />
 <div>
 	<table>
