@@ -39,19 +39,19 @@
 </div>
 
 <hr />
-<div>
-	<table>
+<div class="list">
+	<table align="center">
 		
 		<?php 
 			if($this->data!=null){
 				echo "<tr>";
-				echo "<td>Username</td>";
-				echo "<td>Email</td>";
-				echo "<td>ID</td>";
+				echo "<td class='cnametd'>Username</td>";
+				echo "<td class='cemailtd'>Email</td>";
+				echo "<td class='cidtd'>ID</td>";
 				echo "</tr>";
 				foreach($this->data as $item){
 					echo "<tr>";
-					echo "<td>".$item["user_name"]."<br />";
+					echo "<td class='cnametd'>".$item["user_name"]."<br />";
 					echo "<a href='edit/id/".$item['user_id']."'>edit  </a>";
 					echo "<a href='rule/id/".$item['user_id']."'>| role  </a>";
 					if($item['user_name']!="admin"){

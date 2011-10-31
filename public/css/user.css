@@ -61,3 +61,21 @@ a:hover{
 	text-decoration:none;
 	font-weight:900;
 }
+.list{
+	width:80%;
+	position:relative;	
+	color:#999;
+}
+.list tr:hover{
+	background:#666;
+}
+.list .cnametd{
+	width:60%;	
+	line-height:25px;
+}
+.list .cemailtd{
+	width:30%;	
+}
+.list .cidtd{
+	width:10%;	
+}
