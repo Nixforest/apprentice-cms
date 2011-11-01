@@ -1,7 +1,5 @@
-<h1>Ðây là Module Manager</h1>
 <?php
-
-	echo '<table align="centrer" border="1" cellspacing="2" cellpadding="2">
+		echo '<table align="centrer" border="1" cellspacing="2" cellpadding="2">
 		<tr>
 		<td align="left"><b>id</b></td>
 		<td align="left"><b>name</b></td>
@@ -34,4 +32,15 @@
 		}
 		
 		echo '</table>';
-?>
+		
+		
+		echo "<form action='' method='post' enctype='multipart/form-data'>";
+		echo "<input type='file' name='file' />";
+		echo "<input type='submit' name='btnsubmit' value='upload' />";
+		echo "</form>";
+		if ($this->ErrorMessage)
+		{
+			echo "Can not uncompressed!";		
+		}
+		
+?>		
