@@ -4,11 +4,11 @@
  *Apprentice CMS */
 -->
 <module>
-	<name>modulemanager</name>
-	<description langKey="about_Module_Manager_description"><![CDATA[Module Manager module. This module will be installed at the first time you install website]]></description>
+	<name>comment</name>
+	<description langKey="about_Module_comment_description"><![CDATA[This module is used to post a comment for a news]]></description>
 	<thumbnail></thumbnail>
-	<author>Nixforest</author>
-	<email>Nixforest21991920@gmail.com</email>
+	<author>buingochuy</author>
+	<email>huyuit@gmail.com</email>
 	<version>1.0.0</version>
 	<license>free</license>
 </module>
