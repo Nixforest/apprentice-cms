@@ -10,11 +10,12 @@ var http = null;
 function getData(id,idTextArea){
 	document.getElementById(id).value = document.getElementById(idTextArea).contentWindow.document.body.innerHTML;
 }
-function Editor(_instance,_id,data,_contain,_width,_height){	
+function Editor(_instance,_id,data,_contain,_width,_height,_content){	
 	this.editor=null;
 	this.idTextArea = _id;
 	this.is = _instance;
 	this.contain = _contain;
+	this.content = _content;
 	this.width = _width;
 	this.height = _height;
 	//onclick="'+this.is+'.doFormat(\'bold\');"
@@ -34,7 +35,7 @@ function Editor(_instance,_id,data,_contain,_width,_height){
 		this.editor=document.getElementById(this.idTextArea).contentWindow.document;
 		this.editor.designMode='on';
 		this.editor.open();
-		this.editor.write('<html><head></head><body></body></html>');
+		this.editor.write('<html><head></head><body>'+this.content+'</body></html>');
 		this.editor.close();
 	};
 	
