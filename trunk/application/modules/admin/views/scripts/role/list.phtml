@@ -16,22 +16,28 @@
 
 		while ($row=$this->result->fetch())
 		{
+			$id =$row['role_id'];
 			echo '<tr><td align=\"left\">';
 			echo $row['role_id'];
 			echo '</td><td align=\"left\">';
 			echo $row['name'];
+
+			//echo "<br/><a href='../role/permission?id=$id'>Permission</a>";
+
 			if($row['locked']==0)
 			{
+				echo "<br/><a href='../role/lock/id/".$row['role_id']."'>Lock</a>&nbsp<a href='../role/permission?roleId=$id'>Permission</a>";
 				echo "<br/><a href='../role/lock/id/".$row['role_id']."'>Lock</a>&nbsp<a href='../role/remove/id/".$row['role_id']."'>Remove</a>&nbsp<a href='../role/permission'>Permission</a>";
 			}
 			else if ($row['locked']==1)
 			{
-				echo "<br/><a href='../role/unlock/id/".$row['role_id']."'>UnLock</a>&nbsp<a href='../role/permission'>Permission</a>";
+				echo "<br/><a href='../role/unlock/id/".$row['role_id']."'>UnLock</a>&nbsp<a href='../role/permission?roleId=$id'>Permission</a>";
 			}
 			else
 			{	
-				echo "<br/><a href='../role/permission'>Permission</a>";
+				echo "<br/><a href='../role/permission?roleId=$id'>Permission</a>";
 			}
+
 			echo '</td><td align=\"left\">';
 			echo $row['description'];
 			echo '</td><td align=\"left\">';

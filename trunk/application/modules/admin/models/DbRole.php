@@ -1,6 +1,7 @@
 <?php
 require_once '/../models/BsRole.php';
 
+
 class Model_DbRole extends Zend_Db_Table_Abstract{
 	protected $_name='role';
 	
@@ -24,6 +25,30 @@ class Model_DbRole extends Zend_Db_Table_Abstract{
 		$db=$this->getDefaultAdapter();
 		$db->insert($table,$row);
 	}
+	
+	public function addRule($object_id,$object_type,$privilege_id,$allow){
+		$db = $this->getDefaultAdapter();
+		$sql="insert into rule(object_id,object_type,privilege_id,allow) values ($object_id,'$object_type',$privilege_id,$allow)";
+		return $sql;
+	}
+	
+	public function delRule($privilege_id){
+		$db = $this->getDefaultAdapter();
+		$sql="delete from rule where privilege_id=$privilege_id";
+		return $sql;
+	}
+	
+	public function getPriAllow($objId){
+		$db = $this->getDefaultAdapter();
+		$sql="select privilege.privilege_id from privilege,rule where privilege.privilege_id = rule.privilege_id and rule.object_id = $objId";
+		return $sql;
+	}
+	
+	/*public function getRule($id,$name){
+		$db = $this->getDefaultAdapter();
+		$sql="select privilege.privilege_id,rule.allow from  privilege left join rule on privilege.privilege_id = rule.privilege_id and rule.object_id=6";
+		return $sql;
+	}*/
 	
 	//lock
 	public function lock($id)

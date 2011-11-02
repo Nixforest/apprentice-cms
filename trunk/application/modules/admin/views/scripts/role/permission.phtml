@@ -1,9 +1,63 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
+	<style type="text/css">
+	#ModuleList{
+		float:left;
+		margin-left: 150px;
+	}
+	
+	#PrivilegeList{
+		margin-left: 300px;
+	}
+	</style>
 	</head>
 	<body>
-		
+	<div id="ModuleList">
+		<?php		
+	//hien thi danh sach cac module (danh sach nay co the click duoc):
+	if($this->moduleResult){
+		while ($moduleRows = $this->moduleResult->fetch()){			
+			$moduleName = $moduleRows['module_name'];	
+			echo "<br>";			
+			echo "<a href= '../role/permission?modulename=$moduleName&roleId=$this->roleId'>$moduleName</a>";	
+		}
+	}
+?>
+	</div>
+<br>
+	<div id="PrivilegeList">
+<?php
+	
+	//Hien thi danh sach cac quyen + cac button Add va Delete tuong ung dzoi module da click:
+	if($this->desResult){
+		while($desRows = $this->desResult->fetch()){
+			$id = (string)$desRows['privilege_id'];	
+			$module = (string)$desRows['module_name'];
+			$description = 	$desRows['description'];
+			if($this->priArr == null)	{
+				$action="Allow";
+			}
+			else{
+				foreach($this->priArr as $priId){
+					if($priId ==$id){
+						$action="Denied";
+						break;
+					}
+					else{
+						$action="Allow";					
+					}
+				}
+			}
+			echo "$description";			
+			echo "<a href= '../role/permission?action=$action&id=$id&roleId=$this->roleId' class ='Allow_Denied'>$action</a>";
+			echo "<hr>";		
+		}
+	}	
+	
+
+?>
+</div>
 	</body>
 </html>
 
