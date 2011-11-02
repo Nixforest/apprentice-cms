@@ -3,56 +3,90 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Privilege</title>
+
 <style type="text/css">
 a.bt:link,a.bt:visited {
 	text-decoration: none;
 	color: Orange;
 }
 
+#main{
+	background-color: black;
+}
+
 a#back{
-	font-size:20px;
+	font-size:17px;
 	text-decoration: none;
 	color: silver;
 	border-style: outset;
+<<<<<<< .mine
+	border-color: silver;	
+	margin-left: 350px;	
+=======
 	border-color: silver;
+>>>>>>> .r63
 }
 a#back:HOVER{
 	color: orange;
 	border-color: orange;	
 }
-#des{
+#description{
 	color:silver;
 	font-weight: bold;
 }
 
-#modulelist {
-	float: left;
-	height: 650px;
-	width: 150px;
-	text-align: center;
-	border-color: silver;
-	border-style: inset;
-	background-color:black;
+#description:hover{
+	background: #333;
 }
 
-#detail {	
+#modulelist {
+	float: left;
+	height: 298px;
+	width: 130px;
 	text-align: center;
-	height: 650px;
-	width: 700px;
+	border-color: silver;
+	border-style: inset;
+	background-color:black;
+<<<<<<< .mine
+	margin-left: 130px;
+=======
+>>>>>>> .r63
+}
+
+#PrivilegeList {	
+	text-align: center;
+	height: 298px;
+	width: 500px;
 	border-style: inset;
 	background-color:black;
 	border-color: silver;
+<<<<<<< .mine
+	margin-left: 130px;
+}
+
+#Detail{
+	height: 273px;
+	overflow: auto;
+}
+
+#ModuleItem:Hover{
+	background-color: #333;
+=======
+>>>>>>> .r63
 }
 
 a.module:link,a.module:visited {
 	text-decoration: none;
+<<<<<<< .mine
+	font-size: 18px;
+=======
 	font-size: 27px;
+>>>>>>> .r63
 	color: white;
 }
 
 a.bt:hover {
-	border-style: inset;
-	border-color: orange;
+	text-decoration: underline;
 }
 
 a.module:hover {
@@ -65,11 +99,18 @@ h3{
 	background-color: black;
 }
 h1{
-	font-size:50px;
+	font-size:40px;
 	color: black;
 	text-align: center;
 }
 </style>
+
+<script language="javascript">
+	function changeUrl(name)
+	{
+		window.location.href = '../privilege/list?modulename='+name;
+	}
+	</script>
 </head>	
 <body bgcolor="black">
 <h1>Privileges</h1>
@@ -80,16 +121,18 @@ h1{
 	//hien thi danh sach cac module (danh sach nay co the click duoc):
 	if($this->moduleResult){
 		while ($moduleRows = $this->moduleResult->fetch()){			
-			$moduleName = (string)$moduleRows['module_name'];
-			//echo "<hr>";					
+			$moduleName = $moduleRows['module_name'];
+			echo "<div id='ModuleItem'>";					
 			echo "<a href= '../privilege/list?modulename=$moduleName' class='module'>$moduleName</a>";
-			echo "<hr>";	
+			echo "<hr>";
+			echo "</div>";	
 		}
 	}
 ?>
 </div>
-<div id='detail'>
+<div id='PrivilegeList'>
 <h3><strong>Privilige List</strong></h3><hr>
+<div id='Detail'>
 <?php
 	//Hien thi danh sach cac quyen + cac button Add va Delete tuong ung dzoi module da click:
 	if($this->desResult){
@@ -107,12 +150,13 @@ h1{
 			$id = (string)$desRows['privilege_id'];	
 			$module = (string)$desRows['module_name'];
 			$description = 	$desRows['description'];	
-			echo "<div id='des'>$description</div>";
-			echo "<a href='../privilege/$action?action=$action&id=$id&module=$module' class='bt'>$btnName</a>";
+			echo "<div id='description'>$description<br>";
+			echo "<a href='../privilege/$action?action=$action&id=$id&module=$module' class='bt'>$btnName</a></div>";
 			echo "<hr>";
 		}
 	}
 ?>
+</div>
 </div>
 </div>
 <br>
