@@ -32,7 +32,6 @@ class News_ArticleController extends Zend_Controller_Action {
 		$article = $news->getById($id)->fetch();
 		
 		$this->view->title         = $article['title'];
-		$this->view->sub_title     = $article['sub_title'];
 		$this->view->description   = $article['description'];
 		$this->view->content       = $article['content'];
 		$this->view->author        = $article['author'];
