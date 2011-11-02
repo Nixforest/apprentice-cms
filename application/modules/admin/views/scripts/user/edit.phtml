@@ -2,9 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php 
+	echo $this->headLink()->appendStylesheet($this->base."/../css/user.css");
+?>
 </head>
 <body>
-<div id="info">
+<div class="info">
 	<?php 
 	if(!is_null($this->error)){	
 		echo "<ul>";
@@ -15,13 +18,13 @@
 	}
 	?>
 	<form action="../id/<?php echo $this->id?>" method="post" id="adduser">
-		<table>
-			<tr><td>Fullname :</td><td><input type="text" name="tbxname" id="tbxname" value="<?php echo $this->data[0]['full_name'];?>" /></td><td><span id="errorname"></span></td></tr>
-			<tr><td>Username : </td><td><input type="text" name="tbxuser" id="tbxuser" value="<?php echo $this->data[0]['user_name'];?>" /></td><td><span id="erroruser"></span></td></tr>
-			<tr><td>Password : </td><td><input type="password" name="tbxpass" id="tbxpass" /></td><td><span id="errorpass"></span></td></tr>
-			<tr><td>Re-Password : </td><td><input type="password" name="tbxpass2" id="tbxpass2" /></td><td><span id="errorpass2"></span></td></tr>
-			<tr><td>Email : </td><td><input type="text" name="tbxemail" id="tbxemail" value="<?php echo $this->data[0]['email']?>" /></td><td><span id="erroremail"></span></td></tr>
-			<tr><td>Groups : </td><td><select name="cbxgroups"><option value="">---</option>
+		<table align="center">
+			<tr><td><span class="ctexttd">Fullname :</span></td><td><input type="text" name="tbxname" class="cinput" id="tbxname" value="<?php echo $this->data[0]['full_name'];?>" /></td><td><span id="errorname"></span></td></tr>
+			<tr><td><span class="ctexttd">Username : </span></td><td><input type="text" name="tbxuser" class="cinput" id="tbxuser" value="<?php echo $this->data[0]['user_name'];?>" /></td><td><span id="erroruser"></span></td></tr>
+			<tr><td><span class="ctexttd">Password : </span></td><td><input type="password" name="tbxpass" class="cinput" id="tbxpass" /></td><td><span id="errorpass"></span></td></tr>
+			<tr><td><span class="ctexttd">Re-Password : </span></td><td><input type="password" name="tbxpass2" class="cinput" id="tbxpass2" /></td><td><span id="errorpass2"></span></td></tr>
+			<tr><td><span class="ctexttd">Email : </span></td><td><input type="text" name="tbxemail" id="tbxemail" class="cinput" value="<?php echo $this->data[0]['email']?>" /></td><td><span id="erroremail"></span></td></tr>
+			<tr><td><span class="ctexttd">Groups : </span></td><td><select name="cbxgroups" class="cinput"><option value="">---</option>
 			<?php foreach($this->role as $item){
 				if($item["role_id"]==$this->data[0]["role_id"]){
 					echo "<option value='".$item["role_id"]."' selected>".$item['description']."</option>";					
@@ -29,7 +32,7 @@
 					echo "<option value='".$item["role_id"]."'>".$item['description']."</option>";
 				}				
 			}?></select></td></tr>
-			<tr><td><input type="submit" name="btnsubmit" id="btnsubmit" value="Update" /></td></tr>
+			<tr><td class="noneunderline"><input type="submit" name="btnsubmit" id="btnsubmit" value="Update" class="cfilter" /></td></tr>
 		</table>
 	</form>
 </div>

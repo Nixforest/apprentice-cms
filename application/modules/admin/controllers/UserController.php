@@ -66,6 +66,7 @@ class Admin_UserController extends Zend_Controller_Action{
 		$role_user = new Model_BsRole();
 		//$role_user = new Model_UserModel();//sửa lại bên role
 		$this->view->role = $role_user->getAllRole();
+		$this->view->base =  $this->_request->getBaseUrl();
 		$post = $this->getRequest();
 		$fullname=NULL;
 		$user=NULL;
@@ -141,6 +142,7 @@ class Admin_UserController extends Zend_Controller_Action{
 		$role_user = new Model_BsRole();	
 		//$role_user = new Model_UserModel();//sửa lại bên role
 		$this->view->role = $role_user->getAllRole();	
+		$this->view->base =  $this->_request->getBaseUrl();
 		$post = $this->getRequest();
 		$id = $this->_request->getParam('id');
 		$f=0;

@@ -2,9 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<?php 
+	echo $this->headLink()->appendStylesheet($this->base."/../css/user.css");
+?>
 </head>
 <body>
-<div id="info">
+<div class="info">
 	<?php 
 		if($this->error!=null){
 			echo "<ul>";
@@ -18,14 +21,14 @@
 		}
 	?>
 	<form action="#" method="post" id="adduser">
-		<table>
-			<tr><td>Fullname :</td><td><input type="text" name="tbxname" id="tbxname" /></td><td><span id="errorname"></span></td></tr>
-			<tr><td>Username : </td><td><input type="text" name="tbxuser" id="tbxuser" /></td><td><span id="erroruser"></span></td></tr>
-			<tr><td>Password : </td><td><input type="password" name="tbxpass" id="tbxpass" /></td><td><span id="errorpass"></span></td></tr>
-			<tr><td>Re-Password : </td><td><input type="password" name="tbxpass2" id="tbxpass2" /></td><td><span id="errorpass2"></span></td></tr>
-			<tr><td>Email : </td><td><input type="text" name="tbxemail" id="tbxemail" /></td><td><span id="erroremail"></span></td></tr>
-			<tr><td>Groups : </td><td><select name="cbxgroups"><option value="">---</option><?php foreach($this->role as $item){echo "<option value='".$item["role_id"]."'>".$item['description']."</option>";}?></select></td></tr>
-			<tr><td><input type="submit" name="btnsubmit" id="btnsubmit" value="Registry" /></td></tr>
+		<table align="center">
+			<tr><td><span class="ctexttd">Fullname : </span></td><td><input type="text" name="tbxname" id="tbxname" class="cinput" /></td><td><span id="errorname"></span></td></tr>
+			<tr><td><span class="ctexttd">Username : </span></td><td><input type="text" name="tbxuser" id="tbxuser" class="cinput" /></td><td><span id="erroruser"></span></td></tr>
+			<tr><td><span class="ctexttd">Password : </span></td><td><input type="password" name="tbxpass" id="tbxpass" class="cinput" /></td><td><span id="errorpass"></span></td></tr>
+			<tr><td><span class="ctexttd">Re-Password : </span></td><td><input type="password" name="tbxpass2" id="tbxpass2" class="cinput" /></td><td><span id="errorpass2"></span></td></tr>
+			<tr><td><span class="ctexttd">Email : </span></td><td><input type="text" name="tbxemail" id="tbxemail" class="cinput" /></td><td><span id="erroremail"></span></td></tr>
+			<tr><td><span class="ctexttd">Groups : </span></td><td><select class="cinput" name="cbxgroups"><option value="">---</option><?php foreach($this->role as $item){echo "<option value='".$item["role_id"]."'>".$item['description']."</option>";}?></select></td></tr>
+			<tr><td class="noneunderline"><input type="submit" name="btnsubmit" id="btnsubmit" value="Registry" class="cfilter" /></td></tr>
 		</table>
 	</form>
 </div>
