@@ -8,6 +8,7 @@
 require_once '/../models/BsRole.php';
 require_once '/../forms/AddRoleForm.php';
 require_once '/../models/RoleEntity.php';
+require_once '/../models/Privilege.php';
 
 class Admin_RoleController extends Zend_Controller_Action{
 	/**
@@ -118,7 +119,49 @@ class Admin_RoleController extends Zend_Controller_Action{
 	
 	public function permissionAction()
 	{
+		$priArr =null;
+		$roleId = (int)$_GET['roleId'];
+		$this->view->roleId = $roleId;
+		$priviModel = new Model_Privilege();
+		$ruleModel = new Model_DbRole();	
+		$db = Zend_Registry::get('connectDb');
+		$priAllowQuery = $ruleModel->getPriAllow($roleId);
+		$priAllowResult = $db->query($priAllowQuery);
+		while($row = $priAllowResult->fetch()){
+			$priArr[] = $row['privilege_id'];
+		}
+		$this->view->priArr = $priArr;
 		
+
+		//Danh sach cac module:
+		$moduleQuery = $priviModel->getModuleName();
+		$moduleResult = $db->query($moduleQuery);
+		$this->view->moduleResult = $moduleResult;
+		
+		if(isset($_GET['modulename'])){
+			$moduleName = (string)$_GET['modulename'];
+			$desQuery = $priviModel->getPrivilege($moduleName);
+			$desResult = $db->query($desQuery);
+			
+			while($row = $desResult->fetch()){
+				$idArr[]= $row['privilege_id'];
+			}							
+			$desResult = $db->query($desQuery);
+			$this->view->desResult = $desResult;
+		}
+		
+		if(isset($_GET['action'])){
+				if($_GET['action']==="Allow"){
+				$id=$_GET['id'];
+				$addRule = $ruleModel->addRule($roleId, 'role', $id, 1);
+				$addRuleResult = $db->query($addRule);
+			}
+			else{
+				$id=$_GET['id'];
+				$delRule = $ruleModel->delRule($id);
+				$delRuleResult = $db->query($delRule);
+			}
+		}			
 	}
 }
 
