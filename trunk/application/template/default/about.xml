@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+	<name>default</name>
+	<description>Nightspace template</description>
+	<thumbnail></thumbnail>
+	<author>default Core Team</author>
+	<email>core@tomatocms.com</email>
+	<version>2.0.5</version>
+	<license>free</license>
+</template>

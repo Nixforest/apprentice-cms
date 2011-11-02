@@ -808,7 +808,7 @@ abstract class Zend_View_Abstract implements Zend_View_Interface
                 throw $e;
             }
             $this->$spec = $value;
-        } elseif (is_array($spec)) {
+        } else if (is_array($spec)) {
             // assign from associative array
             $error = false;
             foreach ($spec as $key => $val) {

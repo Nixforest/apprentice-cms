@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template>
+	<name>Admin</name>
+	<description>Admin template</description>
+	<thumbnail></thumbnail>
+	<author>Admin Core Team</author>
+	<email>core@tomatocms.com</email>
+	<version>2.0.99</version>
+	<license>free</license>
+</template>

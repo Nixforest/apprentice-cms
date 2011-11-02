@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * TomatoCMS
+ * 
+ * LICENSE
+ *
+ * This source file is subject to the GNU GENERAL PUBLIC LICENSE Version 2 
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@tomatocms.com so we can send you a copy immediately.
+ * 
+ * @copyright	Copyright (c) 2009-2010 TIG Corporation (http://www.tig.vn)
+ * @license		http://www.gnu.org/licenses/gpl-2.0.txt GNU GENERAL PUBLIC LICENSE Version 2
+ * @version		$Id: news_article_details.xml 446 2010-05-11 10:35:35Z dinhchieu $
+ */
+-->
+<!DOCTYPE layout SYSTEM "http://schemas.tomatocms.com/dtd/layout.dtd">
+<layout>
+	<container cols="12" cssClass="t_g_tempate_detail">
+		<widget name="html" module="core">
+			<title><![CDATA[HTML content]]></title>
+			<params>
+				<param name="content"><value><![CDATA[
+					<h2>template<br /><span style="font-size:48px">for tomatocms<span></h2>
+					]]></value></param>
+				<param name="file">
+					<value><![CDATA[]]></value>
+				</param>
+			</params>
+		</widget>
+	</container>
+	<container cols="12">
+		<container cols="9" position="first">
+			<defaultOutput />
+			<widget module="utility" name="socialshare">
+				<title><![CDATA[Share link]]></title>
+				<resources></resources>
+			</widget>
+			<widget module="comment" name="comment">
+				<title><![CDATA[Comment]]></title>
+				<resources>
+					<resource type="javascript" src="{APP_STATIC_SERVER}/js/jquery.validate/jquery.validate.min.js" />
+				</resources>
+				<params>
+					<param name="limit">
+						<value><![CDATA[10]]></value>
+					</param>
+					<param name="allow_comment">
+						<value><![CDATA[1]]></value>
+					</param>
+					<param name="show_avatar">
+						<value><![CDATA[1]]></value>
+					</param>
+					<param name="avatar_size">
+						<value><![CDATA[50]]></value>
+					</param>
+				</params>
+			</widget>
+		</container>
+		<container cols="3" position="last">
+			<widget module="news" name="newest" load="php">
+				<title><![CDATA[Latest articles]]></title>
+				<resources>
+					<resource type="javascript" src="{APP_STATIC_SERVER}/js/jquery.cycle/jquery.cycle.all.min.js" />
+				</resources>
+				<params>
+					<param name="limit">
+						<value><![CDATA[4]]></value>
+					</param>
+				</params>
+			</widget>
+		</container>
+	</container>
+</layout>

@@ -15,11 +15,26 @@ class Admin_TemplateController extends Zend_Controller_Action{
 	 * @return void
 	 */
 	
-	public function indexAction(){
-		
+	public function init(){
+		// Chỉ ra đường dẫn đến thư mục chứa các file template
+		$dirName = "testtemplate2";
+		$this->_request->getParam('gui');
+		$this->view->dirName=$dirName;
+	    $dirLayout = APPLICATION_PATH."/template/".$dirName;
+	    
+	    // Dùng thư viện Zend_Layout để gọi layout.
+	    Zend_Layout::startMvc(array(
+	                'layoutPath' => $dirLayout,
+	                'layout' => 'index'
+	                )); 
 		
 	}
+		
 	
+	public function indexAction(){
+	
+	}
+	/*
 	public function activateAction() 
 	{
 		$this->_helper->getHelper('viewRenderer')->setNoRender();
@@ -41,16 +56,16 @@ class Admin_TemplateController extends Zend_Controller_Action{
 			$config->web->template = $template;
 			$writer = new Zend_Config_Writer_Ini();
 			$writer->write($file, $config);
-			*/
+			*//*
 			/**
 			 * Create template pages
-			 */
+			 *//*
 			$templateDao->install($template);
 			
 			$this->getResponse()->setBody('RESULT_OK');
 		}
 	}
-	
+	*/
 	/**
 	 * Edit skin of template
 	 * 
@@ -77,30 +92,65 @@ class Admin_TemplateController extends Zend_Controller_Action{
 		$this->view->assign('skin', $skin);
 	}
 	*/
+	
+	
+	
 	/**
 	 * List templates
 	 * 
 	 * @return void
 	 */
+	
+	public static function getSubDir($dir) 
+	{
+		if (!file_exists($dir)) {
+			return array();
+		}
+		
+		$subDirs 	 = array();
+		$dirIterator = new DirectoryIterator($dir);
+		foreach ($dirIterator as $dir) {
+            if ($dir->isDot() || !$dir->isDir()) {
+                continue;
+            }
+            $dir = $dir->getFilename();
+            if ($dir == '.svn') {
+            	continue;
+            }
+            $subDirs[] = $dir;
+		}
+		return $subDirs;
+	}
+	
+
+	
 	public function listAction() 
 	{
-		/*
-		$config = Tomato_Config::getConfig();
+		$temp = new Zend_Config_Ini('../application/configs/application.ini','production');
 		
-		$subDirs = Tomato_Utility_File::getSubDir(TOMATO_APP_DIR . DS . 'templates');
+		$dirTemp = $temp->toArray();
+	
+		$subDirs = self::getSubDir(APPLICATION_PATH . '\template\\');
+		
 		$templates = array();
-		foreach ($subDirs as $dir) {
+
 			/**
 			 * Load template info
-			 *//*
-			$file = TOMATO_APP_DIR . DS . 'templates' . DS . $dir . DS . 'about.xml';
+			 */
+
+		foreach ($subDirs as $dir){
+		
+			
+			$file  = APPLICATION_PATH .'\template\\'. $dir .'\about.xml';
 			if (!file_exists($file)) {
 				continue;
 			}
+			
 			$xml = simplexml_load_file($file);
-			if ((string)$xml->selectable == 'false') {
-				continue;
-			}
+			//if ((string)$xml->selectable == 'false') {
+			//	continue;
+			//}
+			
 			$template = array(
 				'name' 		  => strtolower($xml->name),
 				'description' => (string)$xml->description,
@@ -108,8 +158,10 @@ class Admin_TemplateController extends Zend_Controller_Action{
 				'author' 	  => (string)$xml->author,
 				'email' 	  => (string)$xml->email,
 				'version' 	  => (string)$xml->version,
-				'license' 	  => (string)$xml->license,
+				'license' 	  => (string)$xml->license
 			);
+			
+
 			$template['skin'] = array();
 			foreach ($xml->skins->skin as $skin) {
 				$attrs = $skin->attributes();
@@ -119,15 +171,16 @@ class Admin_TemplateController extends Zend_Controller_Action{
 					'description' => (string)$skin->description,
 				);
 			}
-			
-			$templates[] = $template;
-		}
-		*/
-		$this->view->assign('currTemplate', $config->web->template);
-		$this->view->assign('currSkin', $config->web->skin);
-		$this->view->assign('templates', $templates);
+			$templates[]=$template;
+
+		
+		
+		//$this->view->assign('currTemplate', $dirTemp->production['template']);
+		//$this->view->assign('currSkin', $dirTemp->production['skin']);
+		$this->view->assign('templates',$templates);
 	}
 	
+}
 	/**
 	 * Activate skin
 	 * 
@@ -162,5 +215,5 @@ class Admin_TemplateController extends Zend_Controller_Action{
 			$this->getResponse()->setBody('RESULT_OK');
 		}
 	}
-	*/
+*/	
 }
