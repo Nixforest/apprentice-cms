@@ -1,9 +1,9 @@
 <?php
 class Model_Privilege extends Zend_Db_Table_Abstract{
 	//Lay nhung quyen chua bi xoa:
-	public function getPrivilege(){
+	public function getPrivilege($name){
 		$db = Zend_Db_Table::getDefaultAdapter();
-		$privilege = "select * from privilege where isDeleted = 0";
+		$privilege = "select * from privilege where isDeleted = 0 and module_name like '$name'";
 		return $privilege;
 	}
 	
