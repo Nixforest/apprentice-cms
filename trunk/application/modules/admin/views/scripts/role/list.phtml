@@ -11,6 +11,7 @@
 		<td align="left"><b>name</b></td>
 		<td align="left"><b>description</b></td>
 		<td align="left"><b>locked</b></td>
+		<td align="left"><b>number_of_users</b></td>
 		</tr>';
 
 		while ($row=$this->result->fetch())
@@ -19,11 +20,28 @@
 			echo $row['role_id'];
 			echo '</td><td align=\"left\">';
 			echo $row['name'];
-			echo "<br/><a href='../role/permission'>Permission</a>";
+			if($row['locked']==0)
+			{
+				echo "<br/><a href='../role/lock/id/".$row['role_id']."'>Lock</a>&nbsp<a href='../role/permission'>Permission</a>";
+			}
+			else if ($row['locked']==1)
+			{
+				echo "<br/><a href='../role/unlock/id/".$row['role_id']."'>UnLock</a>&nbsp<a href='../role/permission'>Permission</a>";
+			}
+			else
+			{	
+				echo "<br/><a href='../role/permission'>Permission</a>";
+			}
 			echo '</td><td align=\"left\">';
 			echo $row['description'];
 			echo '</td><td align=\"left\">';
 			echo $row['locked'];
+			
+			//number of Users
+			echo '</td><td align=\"left\">';
+			echo $row['number_of_users'];
+			//
+			
 			echo '</td></tr>';
 		}
 		echo '</table>';?>
