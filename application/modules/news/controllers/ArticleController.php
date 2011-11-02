@@ -1,16 +1,15 @@
 <?php
 class News_ArticleController extends Zend_Controller_Action {
-	
 	public function addAction() {
 		$request = $this->getRequest();
 		if ($request->isPost()) {
 			$article = new Model_ArticleDTO();
 			$article->setData(array(
 				'title'         => strip_tags($request->getPost('title')),
-				'sub_title'     => strip_tags($request->getPost('subTitle')),
 				'slug'          => $request->getPost('slug'),
 			    'description'   => $request->getPost('description'),
 			    'content'       => $request->getPost('content'),
+				'created_date'   => date('Y-m-d H:i:s'),
 				'author'        => strip_tags($request->getPost('author')),
 				'allow_comment' => $request->getPost('allowComment'),
 				'is_hot'        => $request->getPost('hotArticle')
@@ -19,8 +18,25 @@ class News_ArticleController extends Zend_Controller_Action {
 			$news = new Model_NewsBLO();
 			$id = $news->addNews($article);
 			
-			$this->view->message = "Add a new article successful.";
+			
+			$this->view->article_id = $id;
+			$this->view->message = "Add a new article successfully.";
 		}
+	}
+	
+	public function viewAction() {
+		$request = $this->getRequest();
+		$id = $request->getParam('article_id');
+		
+		$news = new Model_NewsBLO();
+		$article = $news->getById($id)->fetch();
+		
+		$this->view->title         = $article['title'];
+		$this->view->sub_title     = $article['sub_title'];
+		$this->view->description   = $article['description'];
+		$this->view->content       = $article['content'];
+		$this->view->author        = $article['author'];
+		$this->view->created_date  = $article['created_date'];
 	}
 
 //DUONG THAN DAN

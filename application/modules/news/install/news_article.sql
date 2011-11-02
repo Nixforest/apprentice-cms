@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `news_article` (
   `activate_user_id` int(11) DEFAULT NULL,
   `activate_user_name` varchar(50) DEFAULT NULL,
   `activate_date` datetime DEFAULT NULL,
-  `allow_comment` tinyint(4) DEFAULT NULL,
+  `allow_comment` tinyint(4) DEFAULT '0',
   `num_comments` int(11) DEFAULT '0',
   `is_hot` tinyint(4) DEFAULT '0',
   `ordering` int(11) DEFAULT '0',

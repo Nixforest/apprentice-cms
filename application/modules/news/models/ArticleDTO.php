@@ -10,7 +10,6 @@ class Model_ArticleDTO
 protected $_data = array(
 		'article_id' 		 => null,	/** Id of article */
 		'title' 			 => null,	/** Main title of article */
-		'sub_title' 		 => null,	/** Sub-title of article */
 		'slug' 				 => null,	/** Slug of article */
 		'description' 		 => null,	/** Description of article */	
 		'content' 			 => null,	/** Content of article */

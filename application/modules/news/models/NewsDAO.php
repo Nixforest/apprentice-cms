@@ -24,7 +24,7 @@ class Model_NewsDAO extends Zend_Db_Table_Abstract
 	}*/
 	
 	public function getById($article_id){
-		$sql = "SELECT article_id, title, description, content, author, allow_comment, is_hot FROM `news_article` where `article_id`=".$article_id;
+		$sql = "SELECT * FROM `news_article` where `article_id`=".$article_id;
 		$db = $this->getDefaultAdapter();
 		return $db->query($sql);
 	}
