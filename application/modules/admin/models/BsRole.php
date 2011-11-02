@@ -14,6 +14,30 @@ class Model_BsRole{
 		$module->addRole($table,$row);
 	}
 	
+	public function lockRole($id)
+	{
+		$module= new Model_DbRole();
+		$module->lock($id);
+	}
+	
+	public function unlockRole($id)
+	{
+		$module= new Model_DbRole();
+		$module->unlock($id);
+	}
+	
+	public function checkNameRole($name)
+	{
+		$module= new Model_DbRole();
+		return $module->checkNameRole($name);
+	}
+	
+	public function numbUsers()
+	{
+		$module= new Model_DbRole();
+		return $module->numbUsers();
+	}
+	
 	public function install($module)
 	{
 		$file = APPLICATION_PATH .'\modules\\'. $module . '\config' .'\about.xml';
