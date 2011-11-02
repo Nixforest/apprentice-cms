@@ -43,6 +43,14 @@ class Model_DbRole extends Zend_Db_Table_Abstract{
 		$db->update($table, $data, "role_id=".$id);
 	}
 	
+	//delete
+	public function deleteRole($id)
+	{
+		$db=$this->getDefaultAdapter();
+		$table='admin_role';
+		$db->delete($table,'role_id='.$id);
+	}
+	
 	//count number of users in each role
 	//SELECT admin_role.role_id, admin_role.name, admin_role.description, admin_role.locked, COUNT( core_user.role_id ) AS number_of_users
 	//FROM admin_role
@@ -57,4 +65,25 @@ class Model_DbRole extends Zend_Db_Table_Abstract{
 					->group('admin_role.role_id');
 		return $db->query($select);
 	}
+	
+	//lấy so user của id tại thời điểm click
+	public function numCurrentUsers($id)
+	{
+		$db=$this->getDefaultAdapter();
+		$select=$db	->select()
+					->from('admin_role')
+					->join('core_user','admin_role.role_id=core_user.role_id',array('number_of_users'=>'COUNT(core_user.role_id)'))
+					->group('admin_role.role_id')
+					->having('admin_role.role_id=?',$id);
+		$sql=$select->__toString();
+		return $db->query($sql);
+	}
+	
+	//lay unlock cua id tai thoi diem click
+	//public function IsUnlock($id)
+	//{
+	//	$db=$this->getDefaultAdapter();
+	//	$select=$db	->select()
+	//				->from()
+	//}
 }

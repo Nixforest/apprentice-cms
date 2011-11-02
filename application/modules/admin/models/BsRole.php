@@ -38,6 +38,18 @@ class Model_BsRole{
 		return $module->numbUsers();
 	}
 	
+	public function numCurrentUsers($id)
+	{
+		$module= new Model_DbRole();
+		return $module->numCurrentUsers($id);
+	}
+	
+	public function deleteRole($id)
+	{
+		$module= new Model_DbRole();
+		$module->deleteRole($id);
+	}
+	
 	public function install($module)
 	{
 		$file = APPLICATION_PATH .'\modules\\'. $module . '\config' .'\about.xml';
