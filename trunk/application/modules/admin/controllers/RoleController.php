@@ -99,6 +99,23 @@ class Admin_RoleController extends Zend_Controller_Action{
 		$this->_redirector->gotoUrl('../public/admin/role/list');
 	}
 	
+	//delete action
+	public function removeAction()
+	{
+		try {
+			$role_id = $this->_request->getParam("id");
+			$role = new Model_BsRole();
+			$role->deleteRole($role_id);
+			//process the data
+	   		$this->_redirector = $this->_helper->getHelper('Redirector');
+			$this->_redirector->gotoUrl('../public/admin/role/list');
+		}
+		catch (Exception $e)
+		{
+			echo $e->getMessage();
+		}
+	}
+	
 	public function permissionAction()
 	{
 		

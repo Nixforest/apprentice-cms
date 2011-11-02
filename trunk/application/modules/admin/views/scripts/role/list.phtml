@@ -22,7 +22,7 @@
 			echo $row['name'];
 			if($row['locked']==0)
 			{
-				echo "<br/><a href='../role/lock/id/".$row['role_id']."'>Lock</a>&nbsp<a href='../role/permission'>Permission</a>";
+				echo "<br/><a href='../role/lock/id/".$row['role_id']."'>Lock</a>&nbsp<a href='../role/remove/id/".$row['role_id']."'>Remove</a>&nbsp<a href='../role/permission'>Permission</a>";
 			}
 			else if ($row['locked']==1)
 			{
@@ -41,7 +41,6 @@
 			echo '</td><td align=\"left\">';
 			echo $row['number_of_users'];
 			//
-			
 			echo '</td></tr>';
 		}
 		echo '</table>';?>
