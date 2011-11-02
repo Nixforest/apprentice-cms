@@ -36,6 +36,7 @@ class News_ArticleController extends Zend_Controller_Action {
 		$this->view->content       = $article['content'];
 		$this->view->author        = $article['author'];
 		$this->view->created_date  = $article['created_date'];
+		$this->view->allowComment  = $article['allow_comment'];
 	}
 
 //DUONG THAN DAN
