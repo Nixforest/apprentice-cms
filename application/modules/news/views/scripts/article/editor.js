@@ -10,6 +10,7 @@ var http = null;
 function getData(id,idTextArea){
 	document.getElementById(id).value = document.getElementById(idTextArea).contentWindow.document.body.innerHTML;
 }
+
 function Editor(_instance,_id,data,_contain,_width,_height,_content){	
 	this.editor=null;
 	this.idTextArea = _id;
@@ -18,6 +19,7 @@ function Editor(_instance,_id,data,_contain,_width,_height,_content){
 	this.content = _content;
 	this.width = _width;
 	this.height = _height;
+	this.baseURL = document.getElementsByTagName('base')[0].href;
 	//onclick="'+this.is+'.doFormat(\'bold\');"
 	this.render=function(){
 		var se = '<iframe id="'+this.idTextArea+'" style="width:'+this.width+'px;height:'+this.height+'px;overflow:auto;"></iframe><input type="hidden" name="'+data+'" id="'+data+'">';	
@@ -35,7 +37,7 @@ function Editor(_instance,_id,data,_contain,_width,_height,_content){
 		this.editor=document.getElementById(this.idTextArea).contentWindow.document;
 		this.editor.designMode='on';
 		this.editor.open();
-		this.editor.write('<html><head></head><body>'+this.content+'</body></html>');
+		this.editor.write('<html><head><base href='+ this.baseURL +'></head><body>'+this.content+'</body></html>');
 		this.editor.close();
 	};
 	
@@ -54,6 +56,7 @@ function Editor(_instance,_id,data,_contain,_width,_height,_content){
 		if(this.editor.queryCommandEnabled(a)){
 			if(!b){b=null;}
 			this.editor.execCommand(a,false,b);
+			 
 			document.getElementById(this.idTextArea).focus();
 		  }
 		//}

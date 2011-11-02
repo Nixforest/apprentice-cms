@@ -55,7 +55,6 @@ protected $_data = array(
 		'language'			 => null,	/** Language of article (@since 2.0.8) */
 	);
 	
-	
 	public function set($name, $value)
 	{
 		$this->_data[$name] = $value;
