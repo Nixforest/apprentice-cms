@@ -8,7 +8,7 @@
 	<?php 
 		while($row=$this->result->fetch()){
 			
-			echo "<td><div class='title'><a href='#'>".$row['title']."</a></div><div>Posted by <b>".$row['created_user_name']."</b> at ".$row['created_date']."</div>";
+			echo "<td><div class='title'><a href='#'>".$row['content']."</a></div><div>Posted by <b>".$row['created_user_name']."</b> at ".$row['created_date']."</div>";
 			
 			echo "<div class='control'><a href='/Apprentice_CMS/public/news/article/edit/id/".$row['article_id']."'>Edit</a>  |  "; 
         	echo "<a href='/Apprentice_CMS/public/news/article/delete/id/".$row['article_id']."'>Delete</a>  |  ";

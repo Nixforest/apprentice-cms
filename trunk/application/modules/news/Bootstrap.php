@@ -22,4 +22,22 @@ class News_Bootstrap extends Zend_Application_Module_Bootstrap
                     )); 
                     return $autoLoader;
         }
+        
+	public function _initRoutes() {
+		$front = Zend_Controller_Front::getInstance();
+ 
+		// Get Router
+		$router = $front->getRouter();
+	 
+		$route = new Zend_Controller_Router_Route(
+	    	'news/article/view/:article_id',
+	    	array(
+	    		'module'     => 'news',
+	        	'controller' => 'article',
+	    		'action'     => 'view'
+	    	)
+		);
+ 		
+		$router->addRoute('news_article_view', $route);
+	}
 }

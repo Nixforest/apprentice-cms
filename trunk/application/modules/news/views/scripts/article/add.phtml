@@ -6,7 +6,7 @@
 	<?php echo $this->headLink()->appendStylesheet("editor.css") ?>
 	<?php echo $this->headStyle()?>
 	<?php echo $this->headScript()->appendFile("editor.js") ?>
-	<h2><center><?php echo $this->message ?></center></h2>
+	<h2><center><a href="<?php echo $this->url(array('article_id' => "$this->article_id"), 'news_article_view'); ?>"><?php echo $this->message ?></a></center></h2>
 </head>
 
 <body>
@@ -19,34 +19,31 @@
 	<hr />
 	
 	<div>
-		<label>Sub title: &nbsp;</label>
-		<input type="text" name="subTitle" id="subTitle" style="width: 440px" />
-	</div>
-	
-	<hr />
-	
-	<div>
 		<label>Slug: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
 		<input type="text" name="slug" id="slug" style="width: 440px" />
 	</div>
 	
 	<hr />
 	
-	<span id="editorDescription">Waiting for loading editor...</span>
-	
-	<script language="javascript">
-		
-		ed = new Editor("ed", "d", "description", "editorDescription", 400, 300,"");
-		ed.render();
-	</script>
+	<div>
+		<label>Description:</label>
+		<span id="editorDescription">Waiting for loading editor...</span>
+		<script language="javascript">
+			ed = new Editor("ed", "d", "description", "editorDescription", 440, 200);
+			ed.render();
+		</script>
+	</div>
 	
 	<hr />
 	
-	<span id="editorContent">Waiting for loading editor...</span>
-	<script language="javascript">
-		ec = new Editor("ec", "c", "content", "editorContent", 400, 800,"");
-		ec.render();
-	</script>
+	<div>
+		<label>Content:</label>
+		<span id="editorContent">Waiting for loading editor...</span>
+		<script language="javascript">
+			ec = new Editor("ec", "c", "content", "editorContent", 440, 600);
+			ec.render();
+		</script>
+	</div>
 	
 	<hr />
 	
