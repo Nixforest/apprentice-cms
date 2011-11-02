@@ -86,13 +86,12 @@ class Admin_ModuleController extends Zend_Controller_Action
 		$i = 0;
 		
 		$subdir = self::getSubDir(APPLICATION_PATH .'\modules\\');
-		
 		foreach ($subdir as $dir) {
 			if ($dir == 'admin')
 				continue;
 			$file = APPLICATION_PATH .'\modules\\'. $dir . '\config' .'\about.xml';
-			if (!file_exists($file)) {
-				return null;
+			if (file_exists($file)) {
+				//return null;
 			}
 			$xml = simplexml_load_file($file);
 			

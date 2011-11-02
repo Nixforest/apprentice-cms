@@ -1,0 +1,37 @@
+<?php 
+/**
+ * TomatoCMS
+ * 
+ * LICENSE
+ *
+ * This source file is subject to the GNU GENERAL PUBLIC LICENSE Version 2 
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@tomatocms.com so we can send you a copy immediately.
+ * 
+ * @copyright	Copyright (c) 2009-2010 TIG Corporation (http://www.tig.vn)
+ * @license		http://www.gnu.org/licenses/gpl-2.0.txt GNU GENERAL PUBLIC LICENSE Version 2
+ * @version 	$Id: show.phtml 474 2010-05-13 09:55:10Z dinhchieu $
+ */
+?>
+<div class="t_g_box t_news_hotest">
+    <div class="t_g_box_content">
+    	<div id="tNewsHotestSlideshow_<?php echo $this->uuid; ?>">
+		<?php if ($this->articles != null) : ?>
+			<?php foreach ($this->articles as $index => $article) : ?>
+			<div class="grid_4 <?php if($index == 0): echo 'alpha'; elseif ($index ==2): echo 'omega'; endif;?>">
+				<h4><a href="<?php echo $this->url($article->getProperties(), 'news_article_details'); ?>"><?php echo $article->title; ?></a><?php echo $this->articleIcons($article->icons); ?></h4>
+				<?php if ($article->image_crop != null) : ?><a href="<?php echo $this->url($article->getProperties(), 'news_article_details'); ?>"><img src="<?php echo $article->image_crop; ?>" width="250px" height="126px" /></a><?php endif; ?>
+				<div><?php echo $this->subString($article->description, 200); ?></div>
+				<span class="t_g_read_more"><a href="<?php echo $this->url($article->getProperties(), 'news_article_details'); ?>"">[ Read More ]</a></span>
+			</div>
+			<?php endforeach; ?>
+			<div class="clearfix"></div>
+		<?php endif; ?>
+		</div>
+	</div>			    
+</div>
+

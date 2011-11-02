@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE layout SYSTEM "http://schemas.tomatocms.com/dtd/layout.dtd">
+<layout>
+    <container cols="12">
+        <widget module="core" name="html" load="php">
+            <title><![CDATA[HTML content]]></title>
+            <resources>
+                <resource type="javascript" src="http://192.168.1.57:8040/js/swfobject/swfobject.js" />
+            </resources>
+            <params>
+                <param name="content"><value><![CDATA[]]></value></param>
+                <param name="file"><value><![CDATA[_banner.phtml]]></value></param>
+            </params>
+        </widget>
+    </container>
+    <container cols="12">
+        <widget module="news" name="hotest" load="php">
+            <title><![CDATA[Hotest articles]]></title>
+            <params>
+                <param name="limit"><value><![CDATA[3]]></value></param>
+            </params>
+        </widget>
+    </container>
+    <container cols="12">
+        <container cols="6" position="first">
+            <widget module="core" name="html" load="php">
+                <title><![CDATA[HTML content]]></title>
+                <resources>
+                    <resource type="javascript" src="http://192.168.1.57:8040/js/swfobject/swfobject.js" />
+                </resources>
+                <params>
+                    <param name="content"><value><![CDATA[
+						<div class="t_g_abount">
+							<div class="t_g_box_head">
+								<h2>About</h2>
+							</div>
+							<div class="t_g_box_content">
+								<a href="http://www.tomatocms.com" target="_blank"><img src="http://demo.tomatotemplates.com/upload/template/admin/2010/05/abount.jpg" style="float: left; margin-right: 15px;"></a>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam convallis eleifend ante, a pulvinar ipsum sollicitudin eget. Nunc rhoncus ornare ipsum, in gravida mi semper et. In at sem mi, vitae suscipit mauris. Ut sagittis urna vitae orci blandit quis aliquet massa  In at sem mi, vitae suscipit mauris. Ut sagittis</p>
+								<p>Curabitur adipiscing pulvinar turpis, id posuere urna interdum ut. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+							</div>
+							<div class="clearfix"></div>
+						</div>					
+						]]></value></param>
+                    <param name="file"><value><![CDATA[]]></value></param>
+                </params>
+            </widget>
+        </container>
+        <container cols="6" position="last">
+            <widget module="utility" name="twitter" load="php">
+                <title><![CDATA[Twitter updates]]></title>
+                <params>
+                    <param name="account"><value><![CDATA[chieund37]]></value></param>
+                    <param name="limit"><value><![CDATA[3]]></value></param>
+                </params>
+                <cache lifetime="3600" />
+            </widget>
+        </container>
+    </container>
+</layout>

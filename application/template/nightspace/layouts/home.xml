@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * TomatoCMS
+ * 
+ * LICENSE
+ *
+ * This source file is subject to the GNU GENERAL PUBLIC LICENSE Version 2 
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.gnu.org/licenses/gpl-2.0.txt
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@tomatocms.com so we can send you a copy immediately.
+ * 
+ * @copyright	Copyright (c) 2009-2010 TIG Corporation (http://www.tig.vn)
+ * @license		http://www.gnu.org/licenses/gpl-2.0.txt GNU GENERAL PUBLIC LICENSE Version 2
+ * @version		$Id: home.xml 480 2010-05-13 11:18:36Z dinhchieu $
+ */
+-->
+<!DOCTYPE layout SYSTEM "http://schemas.tomatocms.com/dtd/layout.dtd">
+<layout>
+	<container cols="12" cssClass="t_g_tempate">
+		<widget name="html" module="core">
+			<title><![CDATA[HTML content]]></title>
+			<params>
+				<param name="content"><value><![CDATA[
+					<h2>template<br /><span style="font-size:48px">for tomatocms<span></h2>
+					]]></value></param>
+				<param name="file">
+					<value><![CDATA[]]></value>
+				</param>
+			</params>
+		</widget>
+	</container>
+	<container cols="12">
+		<widget module="news" name="hotest" load="php">
+			<title><![CDATA[Hotest articles]]></title>
+			<resources>
+				<resource type="javascript" src="{APP_STATIC_SERVER}/js/jquery.cycle/jquery.cycle.all.min.js" />
+			</resources>
+			<params>
+				<param name="limit">
+					<value><![CDATA[3]]></value>
+				</param>
+			</params>
+		</widget>
+	</container>
+	<container cols="12">
+		<container cols="6" position="first">
+			<widget name="html" module="core">
+				<title><![CDATA[HTML content]]></title>
+				<params>
+					<param name="content"><value><![CDATA[
+						<div class="t_g_abount">
+							<div class="t_g_box_head">
+								<h2>About</h2>
+							</div>
+							<div class="t_g_box_content">
+								<a href="http://www.tomatocms.com" target="_blank"><img src="http://demo.tomatotemplates.com/upload/template/admin/2010/05/abount.jpg" style="float: left; margin-right: 15px;"></a>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam convallis eleifend ante, a pulvinar ipsum sollicitudin eget. Nunc rhoncus ornare ipsum, in gravida mi semper et. In at sem mi, vitae suscipit mauris. Ut sagittis urna vitae orci blandit quis aliquet massa  In at sem mi, vitae suscipit mauris. Ut sagittis</p>
+								<p>Curabitur adipiscing pulvinar turpis, id posuere urna interdum ut. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+							</div>
+							<div class="clearfix"></div>
+						</div>					
+						]]></value></param>
+					<param name="file">
+						<value><![CDATA[]]></value>
+					</param>
+				</params>
+			</widget>	
+		</container>
+		<container cols="6" position="last">
+			<widget name="twitter" module="utility" load="php">
+				<title><![CDATA[Twitter updates]]></title>
+				<resources></resources>
+				<params>
+					<param name="account"><value><![CDATA[tomatocms]]></value></param>
+					<param name="limit"><value><![CDATA[3]]></value></param>
+				</params>
+				<cache lifetime="3600" />				
+			</widget>
+		</container>
+	</container>
+</layout>

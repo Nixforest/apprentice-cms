@@ -17,6 +17,7 @@ define('APPRENTICE_APP_DIR',  APPRENTICE_ROOT_DIR . DS . 'application');
 define('APPRENTICE_LIB_DIR',  APPRENTICE_ROOT_DIR . DS . 'libraries');
 define('APPRENTICE_TEMP_DIR', APPRENTICE_ROOT_DIR . DS . 'temp');
 
+
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),
