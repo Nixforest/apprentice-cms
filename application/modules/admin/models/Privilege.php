@@ -1,38 +1,58 @@
 <?php
 class Model_Privilege extends Zend_Db_Table_Abstract{
+	private $tableName = "privilege"; 
+	private $db;
+	
+	//Contructor:
+	public function __construct(){
+		$this->db = $this->getDefaultAdapter();
+	}
+	
+	//Lay tat ca cac quyen:
+	public function getAllPrivilege($ModuleName){
+		return $this->db->select()
+						->from($this->tableName,'*')
+						->where('module_name like ?',$ModuleName)
+						->order('controller_name')
+						->query();
+	}
+	
 	//Lay nhung quyen chua bi xoa:
 	public function getPrivilege($name){
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$privilege = "select * from privilege where isDeleted = 0 and module_name like '$name'";
-		return $privilege;
+		return $this->db->select()
+				  ->from($this->tableName,'*')
+				  ->where('isDeleted=0')
+				  ->where('module_name like ?',$name)
+				  ->order('controller_name')
+				  ->query();		
 	}
 	
 	//Xoa 1 quyen:
 	public function deletePrivilege($id) {
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$delete="update privilege set isDeleted=1 where privilege_id=$id";
-		return $delete;
+		$this->db->update($this->tableName, Array("isDeleted" => "1"),'privilege_id='.$id);
 	}
 	
 	//Them 1 quyen:
 	public function addPrivilege($id) {
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$add="update privilege set isDeleted=0 where privilege_id=$id";
-		return $add;
+		$this->db->update($this->tableName, Array("isDeleted" => "0"),'privilege_id='.$id);
 	}
 	
 	//Lay ten module:
 	public function getModuleName() {
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$name="select distinct module_name from privilege";
-		return $name;
-	}
-
-	//Lay thong tin quyen:
-	public function getDescription($ModuleName){
-		$db = Zend_Db_Table::getDefaultAdapter();
-		$name="select privilege_id,description,module_name,isDeleted from privilege where module_name like '$ModuleName'";
-		return $name;	
-	}
+		return $this->db->select()
+						->distinct()
+						->from($this->tableName,'module_name')
+						//->order('module_name','controller_name','description')
+						->query();
+	}	
 	
+	//Lay ten cac controller trong module xac dinh:
+	public function getControllerName($moduleName){
+		return $this->db->select()
+						->distinct()
+						->from($this->tableName,'controller_name')
+						->where('module_name like ?',$moduleName)
+						->order('controller_name')
+						->query();
+	}
 }
