@@ -119,49 +119,58 @@ class Admin_RoleController extends Zend_Controller_Action{
 	
 	public function permissionAction()
 	{
-		$priArr =null;
+		$priArr[] =0;		//Mang luu id cac quyen cua role
 		$roleId = (int)$_GET['roleId'];
 		$this->view->roleId = $roleId;
-		$priviModel = new Model_Privilege();
-		$ruleModel = new Model_DbRole();	
-		$db = Zend_Registry::get('connectDb');
-		$priAllowQuery = $ruleModel->getPriAllow($roleId);
-		$priAllowResult = $db->query($priAllowQuery);
+		$priDb = new Model_Privilege();
+		$ruleDb = new Model_DbRole();	
+		
+		//Lay cac quyen cua 1 nhom nguoi dung va luu vao mang:
+		$priAllowResult = $ruleDb->getPrivilegeIdAllow($roleId,'role');
 		while($row = $priAllowResult->fetch()){
 			$priArr[] = $row['privilege_id'];
 		}
 		$this->view->priArr = $priArr;
-		
+		$priArr[]=null;
 
 		//Danh sach cac module:
-		$moduleQuery = $priviModel->getModuleName();
-		$moduleResult = $db->query($moduleQuery);
+		$moduleResult = $priDb->getModuleName();
 		$this->view->moduleResult = $moduleResult;
 		
+		//click vao 1 module item:
 		if(isset($_GET['modulename'])){
 			$moduleName = (string)$_GET['modulename'];
-			$desQuery = $priviModel->getPrivilege($moduleName);
-			$desResult = $db->query($desQuery);
+			$priResult = $priDb->getPrivilege($moduleName);						
 			
-			while($row = $desResult->fetch()){
-				$idArr[]= $row['privilege_id'];
-			}							
-			$desResult = $db->query($desQuery);
-			$this->view->desResult = $desResult;
-		}
+			//Add cac quyen da co cua role vao mang de kiem tra:
+			while($row = $priResult->fetch()){
+				$priArray[]= $row['privilege_id'];
+			}	
+			
+			//Luu cac ten controller o trong module vao mang:
+			$conResult = $priDb->getControllerName($moduleName);
+			while($row = $conResult->fetch()){
+				$conArray[]=$row['controller_name'];
+			}
+			$this->view->conArray = $conArray;
 		
-		if(isset($_GET['action'])){
-				if($_GET['action']==="Allow"){
-				$id=$_GET['id'];
-				$addRule = $ruleModel->addRule($roleId, 'role', $id, 1);
-				$addRuleResult = $db->query($addRule);
+			//click vao submit button save:
+			if( $this->getRequest()->isPost()){
+				foreach($priArray as $id){
+					if(isset($_POST[$id])){
+						//Role chua co quyen thi add quyen do cho role:
+						if($ruleDb->checkPrivilege($roleId,'role', $id)==0)
+							$addRuleResult = $ruleDb->addRule($roleId, 'role', $id, 1);
+					}
+					else
+						$ruleDb->deleleRule($roleId,$id,'role');				
+				}			
+				$this->_redirect('admin/role/permission?roleId='.$roleId);
 			}
-			else{
-				$id=$_GET['id'];
-				$delRule = $ruleModel->delRule($id);
-				$delRuleResult = $db->query($delRule);
-			}
-		}			
+			
+			$priResult = $priDb->getPrivilege($moduleName);
+			$this->view->desResult = $priResult;									
+		}							
 	}
 }
 

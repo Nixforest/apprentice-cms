@@ -5,148 +5,181 @@
 <title>Privilege</title>
 
 <style type="text/css">
-a.bt:link,a.bt:visited {
+#controller{
+	font-size:17px;
+	font-weight:bold;
+	color:yellow;
+	text-align: left;
+	margin-left: 40px;
+	cursor: default;
+}
+
+#leftFrame{
+	float:left;
+	margin-left: 40px;
+	height: 295px;
+	width: 130px;
+}
+
+#rightFrame{
+	float:left;
+	margin-left: 37px;
+	height: 360px;
+	width: 400px;
+	background:#320;
+	border-style: inset;
+	border-color: grey;
+	overflow: auto;
+	border-right-style:none;	
+}
+		
+a{
 	text-decoration: none;
+	cursor:default;
 	color: Orange;
 }
 
 #main{
-	background-color: black;
+	background-color: #333;
 }
 
-a#back{
-	font-size:17px;
-	text-decoration: none;
-	color: silver;
-	border-style: outset;
-	border-color: silver;	
-	margin-left: 350px;	
-
-}
-a#back:HOVER{
-	color: orange;
-	border-color: orange;	
-}
-#description{
+#privilegeItem{
 	color:silver;
 	font-weight: bold;
+	cursor: default;	
 }
 
-#description:hover{
+#privilegeItem:hover{
 	background: #333;
 }
 
-#modulelist {
-	float: left;
-	height: 295px;
-	width: 130px;
-	text-align: center;
-	border-color: silver;
-	border-style: inset;
-	background-color:black;
-	margin-left: 130px;
-}
-
-#PrivilegeList {	
-	text-align: center;
-	height: 295px;
-	width: 500px;
-	border-style: inset;
-	background-color:black;
-	border-color: silver;
-	margin-left: 130px;
-}
-
-#Detail{
+#privilegeList{
 	height: 272px;
 	overflow: auto;
 }
 
-#ModuleItem:Hover{
-	background-color: #333;
-}
-
-a.module:link,a.module:visited {
-	text-decoration: none;
-	font-size: 18px;
+	
+#ModuleItem{
+	font-size: 17px;	
 	color: white;
+	height: 28px;
+	background: #300;
+	border-style: inset;
+	border-color: grey; 
+	border-right-style:none;
+}
+	
+#ModuleItem:hover{
+	background-color: gray;
+}
+	
+.module{
+	cursor:default;
+	text-align: center;	
 }
 
 a.bt:hover {
-	text-decoration: underline;
+	color: Red;
+}
+a.bt{
+	float:right;
+	margin-right: 60px;
+	text-align: right;
 }
 
-a.module:hover {
-	font-weight: bolder;
-	text-decoration: underline;
+#description{
+	margin-left: 130px;
+	text-align: left;
 }
-h3{
-	font-size:18px;
-	color:  appworkspace;
-	background-color: black;
+
+.btSubmit{
+	text-align: center;
+	border: none;
+	background:#F90;
+	color:#FFF;
+	width:80px;
+	height:30px;
+	border:none;
+	border-radius:8px 8px;
+	font-weight:900;
+	margin-left:40px;
+	cursor: pointer;
 }
+
 h1{
 	font-size:40px;
-	color: while;
+	color: white;
 	text-align: center;
+	cursor: default;
 }
+
 </style>
 
 <script language="javascript">
 	function changeUrl(name)
 	{
-		window.location.href = '../privilege/list?modulename='+name;
+		window.location.href = "../privilege/list?modulename="+name;
+	}
+	function privilegeChangeUrl(actName,action,id,name){
+		window.location.href = "../privilege/"+actName+"?action="+action+"&id="+id+"&module="+name;
 	}
 	</script>
 </head>	
-<body bgcolor="black">
+<body>
 <h1>Privileges</h1>
-<div class="List">
-<div id='modulelist'>
-<h3><strong>Module List</strong></h3><hr>
+<div id="leftFrame">
 <?php		
 	//hien thi danh sach cac module (danh sach nay co the click duoc):
 	if($this->moduleResult){
-		while ($moduleRows = $this->moduleResult->fetch()){			
-			$moduleName = $moduleRows['module_name'];
-			echo "<div id='ModuleItem'>";					
-			echo "<a href= '../privilege/list?modulename=$moduleName' class='module'>$moduleName</a>";
-			echo "<hr>";
+		while ($rows = $this->moduleResult->fetch()){			
+			$moduleName = $rows['module_name'];
+			echo "<div id='ModuleItem' onclick='changeUrl(\"".$moduleName."\")'>";					
+			echo "<div class='module'>$moduleName</div>";
 			echo "</div>";	
 		}
 	}
 ?>
 </div>
-<div id='PrivilegeList'>
-<h3><strong>Privilige List</strong></h3><hr>
-<div id='Detail'>
+<div id='rightFrame'>
 <?php
-	//Hien thi danh sach cac quyen + cac button Add va Delete tuong ung dzoi module da click:
-	if($this->desResult){
-		while($desRows = $this->desResult->fetch()){
-			//echo "<hr>";
-			$isDeleted = $desRows['isDeleted'];
+	$controllerArray = $this->conArray;
+	$num = count($controllerArray);
+	//Hien thi danh sach cac quyen + cac button Add va Delete tuong ung dzoi module da click:	
+	if($this->priResult){
+		while($rows = $this->priResult->fetch()){
+			$isDeleted = $rows['isDeleted'];
 			if($isDeleted == 0){
 				$btnName = "[ Delete ]";
 				$action = "delete";
 			}
 			else{
-				$btnName = "[ Add ]";
+				$btnName = "[ &nbsp Add &nbsp ]";
 				$action = "add";
 			}
-			$id = (string)$desRows['privilege_id'];	
-			$module = (string)$desRows['module_name'];
-			$description = 	$desRows['description'];	
-			echo "<div id='description'>$description<br>";
-			echo "<a href='../privilege/$action?action=$action&id=$id&module=$module' class='bt'>$btnName</a></div>";
-			echo "<hr>";
+			$id = (string)$rows['privilege_id'];	
+			$module = (string)$rows['module_name'];
+			$description = 	$rows['description'];
+			$controller = $rows['controller_name'];
+			
+			for($i=0;$i<$num;$i++){
+				if($controller == $controllerArray[$i]){
+					$controllerArray[$i] = null;
+					if($controllerArray[0]==null && $num>1){;
+						echo "<br>";
+					}
+					echo "<div id='controller'>+Manage $controller:</div>";	
+				}						
+			}
+			
+			echo "<div id='privilegeItem' onclick='privilegeChangeUrl(\"".$action."\",\"".$action."\",\"".$id."\",\"".$module."\")'><div id='description'><li>$description";
+			echo "<a class='bt'>$btnName</a></li></div></div>";			
 		}
 	}
 ?>
 </div>
-</div>
-</div>
 <br>
-<a href ="../" id='back'">Back</a>
+<form name ="frm" method="post">
+<input type="submit" name="back" class="btSubmit" value="Back"></input>
+</form>
 </body>
 </html>
