@@ -3,9 +3,10 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />		
 		<?php echo $this->headTitle('Admin')?>
-		<?php echo $this->headLink()->appendStylesheet("http://localhost/Apprentice_CMS/public/css/admin.css") ?>
+		<?php echo $this->headLink()->appendStylesheet(URL_CSS.'/admin.css')?>
 		<?php echo $this->headStyle()?>
 		<?php echo $this->headScript()?>
+		
 	</head>
 	<body>
 		<div id="container">
@@ -15,13 +16,14 @@
 	        </div><!--header-->
 	        
 	        <div id="content">
-	            <div id="myAccount"><a href="#"><img src="images/My Account.png"/></a></div>
-	            <div id="systemLog"><a href="#"><img src="images/System Log.png"/></a></div>
-	            <div id="roles"><a href="../admin/role/submit"><img src="images/Roles.png"/></a></div>
-	            <div id="advancedTool"><a href="<?php echo "http://localhost/Apprentice_CMS/public/admin/module/list"?>"><img src="images/Advanced Tool.png"/></a></div>
-	            <div id="contentManager"><a href="#"><img src="images/Content Manager.png"/></a></div>
-	            <div id="memberManager"><a href="#"><img src="images/Member Manager.png"/></a></div>
-	            <div id="siteManager"><a href="<?php echo "http://localhost/Apprentice_CMS/public/admin/template/list"?>"><img src="images/Site Manager.png"/></a></div>
+	        
+	            <div id="myAccount"><a href="#"><img src="<?php echo URL_IMG?>/My Account.png"/></a></div>
+	            <div id="systemLog"><a href="#"><img src="<?php echo URL_IMG?>/System Log.png"/></a></div>
+	            <div id="roles"><a href="../admin/role/submit"><img src="<?php echo URL_IMG?>/Roles.png"/></a></div>
+	            <div id="advancedTool"><a href="<?php echo "http://localhost/Apprentice_CMS/public/admin/module/list"?>"><img src="<?php echo URL_IMG?>/Advanced Tool.png"/></a></div>
+	            <div id="contentManager"><a href="#"><img src="<?php echo URL_IMG?>/Content Manager.png"/></a></div>
+	            <div id="memberManager"><a href="http://localhost/Apprentice_CMS/public/admin/privilege/list"><img src="<?php echo URL_IMG?>/Member Manager.png"/></a></div>
+	            <div id="siteManager"><a href="<?php echo "http://localhost/Apprentice_CMS/public/admin/template/list"?>"><img src="<?php echo URL_IMG?>/Site Manager.png"/></a></div>
 	        </div><!--content-->
 	        
 	        <div id="footer">

@@ -23,7 +23,8 @@ set_include_path(implode(PATH_SEPARATOR, array(
     realpath(APPLICATION_PATH . '/../library'),
     get_include_path(),
 )));
-
+define('URL_IMG','../public/images');
+define('URL_CSS','../public/css');
 /** Zend_Application */
 require_once 'Zend/Application.php';
 
