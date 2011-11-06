@@ -20,7 +20,7 @@
 -->
 <!DOCTYPE template SYSTEM "http://schemas.tomatocms.com/dtd/template_about.dtd">
 <template>
-	<name>test template 1</name>
+	<name>testTemplate1</name>
 	<description>test template 1</description>
 	<thumbnail></thumbnail>
 	<author>TomatoCMS Core Team</author>

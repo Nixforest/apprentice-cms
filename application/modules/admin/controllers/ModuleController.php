@@ -91,7 +91,7 @@ class Admin_ModuleController extends Zend_Controller_Action
 				continue;
 			$file = APPLICATION_PATH .'\modules\\'. $dir . '\config' .'\about.xml';
 			if (file_exists($file)) {
-				//return null;
+				return null;
 			}
 			$xml = simplexml_load_file($file);
 			

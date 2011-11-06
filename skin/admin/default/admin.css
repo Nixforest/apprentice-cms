@@ -1,0 +1,32 @@
+@CHARSET "UTF-8";
+   .container{
+    padding:0px;
+    margin: 0 auto;
+    max-width: 1260px;
+    min-width: 850px;
+
+    background:#205FAA;
+   }
+   .header{
+   	border-bottom: 5px blue solid;"
+	}
+   .header li{
+    display: inline;
+   }
+   .header li a{
+    font-size: 20px;
+    background: #D83505;
+    text-decoration:none;
+    margin-left: 20px;
+    -moz-border-radius:5px;
+   }
+   .header li a:hover{
+    background:#B5B5B5;
+   }
+   .content{
+    width: auto;
+   }
+   .footer{
+    background:#151AC8;
+    text-align:right;
+   }
