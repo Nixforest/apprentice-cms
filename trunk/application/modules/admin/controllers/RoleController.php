@@ -36,30 +36,28 @@ class Admin_RoleController extends Zend_Controller_Action{
 				$data=$frmAddRole->getValues();
 				
 				try {
-				$db = Zend_Registry::get('connectDb');
-				$name=$frmAddRole->getValue('name');
-				$description=$frmAddRole->getValue('description');
-				$locked=$frmAddRole->getValue('locked');
-				
-				$role=new Model_BsRole();
-				$mod=new Model_RoleEntity();
-				$mod->set('name', $name);
-				$mod->set('description',$description);
-				$mod->set('locked',$locked);
-				$table='admin_role';
-				if($role->checkNameRole($name)>0)
-				{
-					$error[]="$name has been registed, please try again";
-					$this->view->error = $error;
-				}
-				else
-				{
-					$role->addRole($table, $mod->data);
-				}
-				
-				//process the data
-	           	$this->_redirector = $this->_helper->getHelper('Redirector');
-				$this->_redirector->gotoUrl('../public/admin/role/list');
+					$db = Zend_Registry::get('connectDb');
+					$name=$frmAddRole->getValue('name');
+					$description=$frmAddRole->getValue('description');
+					$locked=$frmAddRole->getValue('locked');
+					
+					$role=new Model_BsRole();
+					$mod=new Model_RoleEntity();
+					$mod->set('name', $name);
+					$mod->set('description',$description);
+					$mod->set('locked',$locked);
+					$table='admin_role';
+					if($role->checkNameRole($name)>0)
+					{
+						echo "$name has been registed, please try again";
+					}
+					else
+					{
+						$role->addRole($table, $mod->data);
+						//process the data
+	           			$this->_redirector = $this->_helper->getHelper('Redirector');
+						$this->_redirector->gotoUrl('../public/admin/role/list');
+					}
 				}
 				catch (Zend_Db_Exception $e)
 				{
@@ -106,10 +104,17 @@ class Admin_RoleController extends Zend_Controller_Action{
 		try {
 			$role_id = $this->_request->getParam("id");
 			$role = new Model_BsRole();
-			$role->deleteRole($role_id);
-			//process the data
-	   		$this->_redirector = $this->_helper->getHelper('Redirector');
-			$this->_redirector->gotoUrl('../public/admin/role/list');
+			if($role->numCurrentUsers($role_id)==0)
+			{
+				$role->deleteRole($role_id);
+				//process the data
+	   			$this->_redirector = $this->_helper->getHelper('Redirector');
+				$this->_redirector->gotoUrl('../public/admin/role/list');
+			}
+			else
+			{
+				echo 'Not delete because role is used';		
+			}
 		}
 		catch (Exception $e)
 		{

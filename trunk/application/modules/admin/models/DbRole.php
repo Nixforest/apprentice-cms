@@ -120,20 +120,21 @@ class Model_DbRole extends Zend_Db_Table_Abstract{
 	public function numCurrentUsers($id)
 	{
 		$db=$this->getDefaultAdapter();
-		$select=$db	->select()
+		$sql=$db	->select()
 					->from('admin_role')
 					->join('core_user','admin_role.role_id=core_user.role_id',array('number_of_users'=>'COUNT(core_user.role_id)'))
 					->group('admin_role.role_id')
 					->having('admin_role.role_id=?',$id);
-		$sql=$select->__toString();
-		return $db->query($sql);
+		$stmt=$db->query($sql);
+		$row=$stmt->fetchAll();
+		return $row[0]['number_of_users'];
 	}
 	
-	//lay unlock cua id tai thoi diem click
-	//public function IsUnlock($id)
-	//{
-	//	$db=$this->getDefaultAdapter();
-	//	$select=$db	->select()
-	//				->from()
-	//}
+	//check login
+	public function checkLogin($user,$pass)
+	{
+		$db=$this->getDefaultAdapter();
+		$query="SELECT count(*) FROM core_user WHERE user_name='$user' and password='$pass'";
+		return $db->fetchOne($query);
+	}
 }

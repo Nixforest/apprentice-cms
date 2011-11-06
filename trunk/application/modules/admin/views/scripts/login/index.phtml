@@ -8,6 +8,19 @@
 		<?php echo $this->headScript()?>
 	</head>
 	<body>
+		<?php 
+			if($this->error!=null){
+				echo "<ul>";
+				foreach($this->error as $item){
+					echo "<li>$item</li>";
+				}
+				echo "</ul>";
+			}
+			if($this->message!=NULL){
+				echo $this->message;
+		}
+		?>
+		<form action="#" method="post" id="login">
 		<div id="head">
 		</div>
 		<div id="content">
@@ -17,13 +30,13 @@
 				<div class="content-sub">
 					<p id="user">
 						<h6 class="username">User name:</h6>
-						<input type="text" class="txtusername"/>
+						<input type="text" class="txtusername" name="txtuser" id="txtuser"/>
 					</p>
 				</div>
 				<div class="content-sub">
 					<p id="pass"> 
 						<h6 class="password">Password:</h6>
-						<input type="password" class="txtpassword"/>
+						<input type="password" class="txtpassword" name="txtpass" id="txtpass"/>
 					</p>
 				</div>
 				<div class="content-sub">
@@ -43,6 +56,7 @@
 				</div>
 			</div>
 		</div>
+		</form>
 	</body>
 </html>
 

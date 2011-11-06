@@ -50,6 +50,13 @@ class Model_BsRole{
 		$module->deleteRole($id);
 	}
 	
+	//check Login
+	public function checkLogin($user,$pass)
+	{
+		$module= new Model_DbRole();
+		return $module->checkLogin($user, $pass);
+	}
+	
 	public function install($module)
 	{
 		$file = APPLICATION_PATH .'\modules\\'. $module . '\config' .'\about.xml';
