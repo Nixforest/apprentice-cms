@@ -2,72 +2,26 @@
 
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />		
-		<?php echo $this->headTitle('Template')?>
-		<?php echo $this->headLink()?>
-		<?php echo $this->headStyle()?>
-		<?php echo $this->headScript()?>
-		<style type="text/css">
-			@CHARSET "UTF-8";
-			{
-			margin:0;
-			padding:0;
-			}
-			.container{
-			width:960px;
-			height:960px;
-			border:black 1px solid;
-			margin:10px auto;
-			}
-			
-			.header{
-			text-align:center;
-			border:yellow 1px solid;
-			background:#333;
-			}
-			.nav{
-			border:blue 1px solid;	
-			}
-			.content{
-			border:red 2px solid;
-			height:790px;
-			}
-			.template{
-			border:blue 1px solid;
-			width:280px;
-			float:left;
-			margin:10px;
-			margin-left:10px;
-			}
-			.template_infor{
-			font-size:13px;
-			}
-			.template_img{
-			width:120px;
-			height:120px;
-			border:1px solid black;
-			}
-			.skin:hover{
-			background:#333;
-			}
-			
-			.skin_text{
-			float:left;
-			}
-			
-		</style>
-	</head>
-	<body>
-		<div class="container">
-			<div class="header">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script src="http://code.jquery.com/jquery-latest.js"></script><!--
+		<script type="text/javascript">
+			$("document").ready(function(){
+				$(".btnChon").click(function(){
+					alert("sad");
+					
+				});
+			});
+		</script>	
+	--></head>
+	<body style="font-size: 12px; padding:5px; margin:0px;">
+		<div>
+			<div style="margin-left: 20%;">
 				<h1>Template</h1>
-			</div>
-			<div class="nav">
 				<p>Dưới đây là danh sách các template. Bạn có thể chọn template và skin cho trang web.</p>
 			</div>
-			<div class="content">
+			<div class="content" style="border: 1px red solid; margin:10px 10% 10px 10%; width:1008; ">
 				<?php foreach ($this->templates as $template){?>
-					<div class="template">
+					<div class="template" style="border:1px black solid;">
 						<div class="template_name">
 							<h2><?php echo $template['name'];?></h2>
 						</div>
@@ -94,19 +48,20 @@
 						</div>
 						
 						<div class="template_action">
-							<form action="../gui/<?php $this->dirname;?>" method="get">
-								<input type="submit" value="Chọn Template" 
-								onclick="<?php 
-								$this->dirname=$template['name'];
-								echo $this->dirname;?>"/>
+							<?php //echo $template['name'];?>
+							<form action="#" method="post" enctype='multipart/form-data'>					
+								<input type="submit" value="<?php echo $template['name'];?>" name="btnChon" id="btnChon"/>	
 							</form>
 						</div>
 						
 					</div>
+					
 				<?php }?>	
 			</div>
 			
 		</div>
+		
+		
 	</body>
 </html>
 

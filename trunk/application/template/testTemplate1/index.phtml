@@ -3,22 +3,31 @@
 <head>
    <?php echo $this->headMeta(); ?>
    <?php echo $this->headTitle(); ?>
-   <?php echo $this->headLink(); ?>
+   <?php echo $this->headLink()->appendStylesheet('../../../skin/testTemplate1/default/default.css'); ?>
+ 
 </head>
-<body style="width: 80%; margin-left: auto; margin-right: auto">
-<h1>Test Template 1</h1>
-        <div style="width: 100%; background-color: gray">
-            <div style="width: 100%;background-color:teal">
-                <a href="index">home</a><a style="margin-left: 10px" href="layout">Layout</a>
-                <br><br>
-            </div>
+<body>   
+	<div class="container">
+    	<div class="header">
+            <h1>Apprentice_CMS_Template1</h1>
+        	<ul>
+            	<li><a href="http://localhost/Apprentice_CMS/public/admin">Admin</a></li>
+                <li><a href="http://localhost/Apprentice_CMS/public/news/article/list">News</a></li>
+                <li><a href="#">module</a></li>
+            </ul>
+        </div><!--header-->
 
-            <div style="width: 100%; margin-top: 50px">
-
-                <?php echo $this->layout()->content ?>
+        <div class="content">
+			<div class="news" style="">
+				<?php echo $this->layout()->content?>
+			</div>
                 
-            </div>    
-        </div>
-
+        </div><!--content-->  
+            
+        <div class="footer">
+            <h4>Power By Apprectice_CMS</h4>
+        </div> 
+             
+	</div><!--container-->
 </body>
 </html>

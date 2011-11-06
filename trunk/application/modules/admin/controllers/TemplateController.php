@@ -16,90 +16,50 @@ class Admin_TemplateController extends Zend_Controller_Action{
 	 */
 	
 	public function init(){
-		// Chỉ ra đường dẫn đến thư mục chứa các file template
-		$dirName = "testtemplate2";
-		$this->_request->getParam('gui');
-		$this->view->dirName=$dirName;
-	    $dirLayout = APPLICATION_PATH."/template/".$dirName;
-	    
-	    // Dùng thư viện Zend_Layout để gọi layout.
-	    Zend_Layout::startMvc(array(
-	                'layoutPath' => $dirLayout,
-	                'layout' => 'index'
-	                )); 
+		// khi ấn 1 nút chọn template sẽ truyền đường dẫn và load template đó sử dụng. 
+		//đồng thời ghi đường dẫn template đó vào application.ini cái này có thể chạy nhưng sẽ thay đổi lại file application
+      
+		// upload 1 template	
+	
+			
+		}
 		
-	}
+	    // load những file view của các controller vào 1 vị trí trên template bất kỳ
+
+		
+		// ghi vào application.ini edit lại đường dẫn layout cho toàn chương trình
+		/*$dirApp= APPLICATION_PATH . DS. 'configs/application.ini';
+      	$section = 'production';
+      	$options = array('allowModifications'=>true,'skipExtends'=> true);
+      	//load application.ini voi 3 tham số.
+      	$config = new Zend_Config_Ini($dirApp,$section,$options);
+      	//chỉnh sửa bên trong
+      	$config->resources->layout->layoutPath=$dirLayout;
+      	// ghi cung cấp 2 tham số: đường dẫn và file ghi
+      	$writer = new Zend_Config_Writer_Ini(array('config'=> $config,'filename' => $dirApp));
+      	$writer->write();*/
+      		
+/*  	cùng code
+		$config = new Zend_Config_Ini($dirApp, 'production', array('allowModifications' => true));
+		$config->production->resources->layout->layoutPath=$dirLayout;
+		$writer = new Zend_Config_Writer_Ini();
+		$writer->write($dirApp, $config);*/
+     
+	
 		
 	
 	public function indexAction(){
 	
 	}
-	/*
-	public function activateAction() 
-	{
-		$this->_helper->getHelper('viewRenderer')->setNoRender();
-		$this->_helper->getHelper('layout')->disableLayout();
-		
-		$request = $this->getRequest();
-		if ($request->isPost()) {
-			$template = $request->getPost('template');
-			
-			$conn = Tomato_Db_Connection::factory()->getMasterConnection();
-			$templateDao = Tomato_Model_Dao_Factory::getInstance()->setModule('core')->getTemplateDao();
-			$templateDao->setDbConnection($conn);
-			
-			/**
-			 * Update config file
-			 *//*
-			$file 	= TOMATO_APP_DIR . DS . 'config' . DS . 'application.ini';
-			$config = new Zend_Config_Ini($file, null, array('allowModifications' => true));
-			$config->web->template = $template;
-			$writer = new Zend_Config_Writer_Ini();
-			$writer->write($file, $config);
-			*//*
-			/**
-			 * Create template pages
-			 *//*
-			$templateDao->install($template);
-			
-			$this->getResponse()->setBody('RESULT_OK');
-		}
-	}
-	*/
-	/**
-	 * Edit skin of template
-	 * 
-	 * @return void
-	 *//*
-	public function editskinAction() 
-	{
-		$request  = $this->getRequest();
-		$template = $request->getParam('template');
-		$skin 	  = $request->getParam('skin');
-		
-		$file = TOMATO_ROOT_DIR . DS . 'skins' . DS . $template . DS . $skin . DS . 'default.css';
-		if (!$request->isPost()) {
-			$content = file_get_contents($file);
-			$this->view->assign('content', $content); 
-		} else {
-			$content = $request->getPost('content');
-			@file_put_contents($file, $content);
-			
-			$this->_redirect($this->view->serverUrl() . $this->view->url(array('template' => $template, 'skin' => $skin), 'core_template_editskin'));
-		}
-		
-		$this->view->assign('template', $template);
-		$this->view->assign('skin', $skin);
-	}
-	*/
 	
-	
+
 	
 	/**
 	 * List templates
 	 * 
 	 * @return void
 	 */
+	
 	
 	public static function getSubDir($dir) 
 	{
@@ -126,6 +86,25 @@ class Admin_TemplateController extends Zend_Controller_Action{
 	
 	public function listAction() 
 	{
+		$post = $this->getRequest();
+		// cái này sẽ để trong activeAction() sau này
+		if($post->ispost()){
+			
+			if($post->getPost("btnChon")){
+				$dirName=$post->getPost("btnChon");
+
+				// Chỉ ra đường dẫn đến thư mục chứa các file template
+			    $dirLayout = APPLICATION_PATH."/template/".$dirName;
+
+			    // Dùng thư viện Zend_Layout để gọi layout.
+			    $option= array(
+			                'layoutPath' => $dirLayout,
+			                'layout' => 'index'
+			                );
+			    Zend_Layout::startMvc($option);
+			}
+		}
+		
 		$temp = new Zend_Config_Ini('../application/configs/application.ini','production');
 		
 		$dirTemp = $temp->toArray();
@@ -178,42 +157,10 @@ class Admin_TemplateController extends Zend_Controller_Action{
 		//$this->view->assign('currTemplate', $dirTemp->production['template']);
 		//$this->view->assign('currSkin', $dirTemp->production['skin']);
 		$this->view->assign('templates',$templates);
+		
+
 	}
 	
 }
-	/**
-	 * Activate skin
-	 * 
-	 * @return void
-	 */
-	/*
-	public function skinAction() 
-	{
-		$this->_helper->getHelper('viewRenderer')->setNoRender();
-		$this->_helper->getHelper('layout')->disableLayout();
-		
-		$request = $this->getRequest();
-		if ($request->isPost()) {
-			/**
-			 * Update config file
-			 *//*
-			$skin 	= $request->getPost('skin');
-			$file 	= TOMATO_APP_DIR . DS . 'config' . DS . 'application.ini';
-			$config = new Zend_Config_Ini($file, null, array('allowModifications' => true));
-			$config->web->skin = $skin;
-			
-			/**
-			 * Remove skin from cookie
-			 *//*
-			if (isset($_COOKIE['APP_SKIN'])) {
-				unset($_COOKIE['APP_SKIN']);
-			}
-			
-			$writer = new Zend_Config_Writer_Ini();
-			$writer->write($file, $config);
-			
-			$this->getResponse()->setBody('RESULT_OK');
-		}
-	}
-*/	
+	
 }
