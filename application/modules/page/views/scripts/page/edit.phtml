@@ -1,1 +1,36 @@
-<?php
+<?php 
+	$this->headLink()->appendStylesheet($this->url.'public/css/editor.css');
+	$this->headScript()->appendFile($this->url.'public/js/editor.js'); 
+?>
+	
+<form action="" method="post" name="addPageForm" id="addPageForm" enctype="multipart/form-data">
+
+	<div>
+		<label>Name:</label>
+		<input type="text" name='txtName' id='txtName' value='<?php echo $this->pageTitle?>'/>
+	</div>
+	<div>
+		<label>Description:</label>
+		<span id="editorDescription">Waiting for loading editor...</span>
+		<script language="javascript">
+			ed = new Editor("ed", "d", "description", "editorDescription", 440, 200, "<?php echo $this->pageDescription?>");
+			ed.render();
+		</script>
+	</div>
+	<div>
+		<label>Content:</label>
+		<span id="editorContent">Waiting for loading editor...</span>
+		<script language="javascript">
+			ec = new Editor("ec", "c", "content", "editorContent", 440, 800, "<?php echo $this->pageContent?>");
+			ec.render();
+		</script>
+	</div>
+	<div>
+		<label>Language:</label>
+		<input type="text" name='txtLang' id='txtLang' value='<?php echo $this->pageLang?>'/>
+	</div>
+	<div>
+		<label></label>
+		<input type="submit" name="save" value="Save"  onclick="getData('description', 'd'); getData('content', 'c');" />
+	</div>
+</form>

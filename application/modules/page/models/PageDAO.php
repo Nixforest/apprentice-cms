@@ -23,7 +23,7 @@ class Model_PageDAO extends Zend_Db_Table_Abstract{
 	
 	public function updatePage($page)
 	{
-		$row = $this->find( $article->get('page_id') )->current();
+		$row = $this->find( $page->get('page_id') )->current();
 		if ($row)
 		{
 			$row->setFromArray( $page->getData() );
