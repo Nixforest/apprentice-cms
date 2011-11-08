@@ -1,0 +1,31 @@
+<?php 
+	$this->headLink()->appendStylesheet($this->url.'skin/admin/default/adminNews.css');
+?>
+<a href='/Apprentice_CMS/public/page/page/new/'>Create a new page</a>
+<div class="tableArticle">
+
+<table>
+	<tr class="table_Header">
+	<td width="450px">Title</td>
+	<td width="130px">Num.of Views</td>
+	<td width="130px">Language</td>
+	<td width="50px">ID</td></tr>
+	<?php 
+		echo $this->APP_STATIC_SERVER.'asd';
+		
+		while($row=$this->result->fetch()){
+			
+			echo "<td><div class='title'><a href='#'>".$row['name']."</a></div><div>Posted by <b>".$row['user_id']."</b> at ".$row['created_date']."</div>";
+			
+			echo "<div class='control'><a href='/Apprentice_CMS/public/page/page/edit/id/".$row['page_id']."'>Edit</a>  |  "; 
+        	echo "<a href='/Apprentice_CMS/public/page/page/delete/id/".$row['page_id']."'>Delete</a>  |  ";
+        	
+			echo '<td>'.$row['num_views'].'</td>';
+			echo '<td>'.$row['language'].'</td>';
+			echo '<td>'.$row['page_id'].'</td><tr>';
+		}
+		
+	?>
+	
+</table>
+</div>

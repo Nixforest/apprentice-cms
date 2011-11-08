@@ -1,15 +1,10 @@
-<html>
-<head>
-	<base href="http://localhost/apprentice_cms/application/modules/news/views/scripts/article/">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
 	<?php echo $this->headTitle('Add new article') ?>	
-	<?php echo $this->headLink()->appendStylesheet("editor.css") ?>
-	<?php echo $this->headStyle()?>
-	<?php echo $this->headScript()->appendFile("editor.js") ?>
+	<?php 
+		$this->headLink()->appendStylesheet($this->url.'public/css/editor.css');
+		$this->headScript()->appendFile($this->url.'public/js/editor.js'); 
+	?>
 	<h2><center><a href="<?php echo $this->url(array('article_id' => "$this->article_id"), 'news_article_view'); ?>"><?php echo $this->message ?></a></center></h2>
-</head>
 
-<body>
 <form action="" method="post" name="addArticleForm" id="addArticleForm" enctype="multipart/form-data">
 	<div>
 		<label>Main title: </label>
@@ -73,6 +68,3 @@
 		<input type="submit" name="save" value="Save" onclick="getData('description', 'd'); getData('content', 'c');" />
 	</div>
 </form>
-
-</body>
-</html>
