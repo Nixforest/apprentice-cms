@@ -22,6 +22,9 @@ class News_ArticleController extends Zend_Controller_Action {
 			$this->view->article_id = $id;
 			$this->view->message = "Add a new article successfully.";
 		}
+		
+        $url = $request->getScheme() . '://' . $request->getHttpHost().'/Apprentice_CMS/';
+        $this->view->url = $url;
 	}
 	
 	public function viewAction() {
@@ -45,9 +48,17 @@ class News_ArticleController extends Zend_Controller_Action {
 		$module = new Model_NewsBLO();
 		$result=$module->getAll();
 		$this->view->result=$result;
+		
+		$request = $this->getRequest();
+        $url = $request->getScheme() . '://' . $request->getHttpHost().'/Apprentice_CMS/';
+        $this->view->url = $url;
 	}
 	
-	public function editAction(){		
+	public function editAction(){
+		$request = $this->getRequest();
+        $url = $request->getScheme() . '://' . $request->getHttpHost().'/Apprentice_CMS/';
+        $this->view->url = $url;
+        
 		$article_id = $this->_request->getParam('id');
 		
 		if($this->getRequest()->isPost()){
