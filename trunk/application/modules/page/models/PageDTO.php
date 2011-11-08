@@ -3,7 +3,6 @@ class Model_PageDTO{
 	protected $_data = array(
 		'page_id'	=> null,
 		'name'		=> null,
-		'slug'		=> null,
 		'description'=> null,
 		'content'	=> null,
 		'parent_id'	=> null,

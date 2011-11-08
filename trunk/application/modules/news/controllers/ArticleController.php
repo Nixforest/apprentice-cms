@@ -88,12 +88,12 @@ class News_ArticleController extends Zend_Controller_Action {
 			
 			$newsEdit->setFetchMode(Zend_Db::FETCH_NUM);
 			if($row = $newsEdit->fetchAll()){
-				$this->view->newsTitle = $row[0][1];
-				$this->view->newsDescription = $row[0][2];
-				$this->view->newsContent = $row[0][3];
-				$this->view->newsAuthor = $row[0][4];
-				$this->view->newsisComment = $row[0][5];
-				$this->view->newsisHot = $row[0][6];
+				$this->view->newsTitle = $row[0][2];
+				$this->view->newsDescription = $row[0][3];
+				$this->view->newsContent = $row[0][4];
+				$this->view->newsAuthor = $row[0][5];
+				$this->view->newsisComment = $row[0][6];
+				$this->view->newsisHot = $row[0][7];
 			}
 		}
 	}

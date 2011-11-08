@@ -6,7 +6,7 @@
 <form action="" method="post" name="addPageForm" id="addPageForm" enctype="multipart/form-data">
 	<div>
 		<label>Name:</label>
-		<input type="text" name='txtName' />
+		<input type="text" name='txtName' id='txtName'/>
 	</div>
 	<div>
 		<label>Description:</label>
@@ -26,10 +26,10 @@
 	</div>
 	<div>
 		<label>Language:</label>
-		<input type="text" name='txtLang' />
+		<input type="text" name='txtLang' id='txtLang' />
 	</div>
 	<div>
 		<label></label>
-		<input type="submit" name="save" value="Save"  />
+		<input type="submit" name="save" value="Save" onclick="getData('description', 'd'); getData('content', 'c');" />
 	</div>
 </form>
