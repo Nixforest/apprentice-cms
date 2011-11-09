@@ -9,18 +9,48 @@ require_once '/../models/BsRole.php';
 require_once '/../forms/AddRoleForm.php';
 require_once '/../models/RoleEntity.php';
 require_once '/../models/Privilege.php';
+require_once 'acl/acl.php';
 
 class Admin_RoleController extends Zend_Controller_Action{
 	/**
  	 *	view table
  	 *	@return void
  	 */
+	
+	//check login
+	public function preDispatch()
+	{
+		$auth=Zend_Auth::getInstance();
+		if(!$auth->hasIdentity())
+		{
+			$this->_redirect('/admin/auth/login');
+		}
+		else
+		{
+			$userdata=$auth->getIdentity();
+			$this->user_name=$userdata->user_name;
+			$this->user_role=$userdata->role_id;
+		}
+	}
+	
+	//cap quyen cho view role
 	public function listAction()
 	{
-		$role=new Model_BsRole();
-		//$result=$role->getAllRole();
-		$result=$role->numbUsers();	//number of Users
-		$this->view->result=$result;
+		//Access check
+		//$acl=Zend_Registry::get('acl');
+		$acl=new ResAcl();
+		$controller=$this->getRequest()->getControllerName();
+		if (!$acl->isAllowed($this->user_role,'role')) {
+			$this->_redirect('/static/noaccess');
+		}
+		
+		else{
+			//add some code to list controller
+			$role=new Model_BsRole();
+			//$result=$role->getAllRole();
+			$result=$role->numbUsers();	//number of Users
+			$this->view->result=$result;
+		}
 	}
 	
 	public function submitAction()
