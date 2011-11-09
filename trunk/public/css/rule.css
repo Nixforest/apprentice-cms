@@ -1,0 +1,67 @@
+.controllerName{
+	font-size:17px;
+	font-weight:bold;
+	color:yellow;
+	text-align: left;
+	margin-left: 70px;
+	cursor: default;
+}
+.leftFrame{
+	float:left;
+	margin-left: 80px;
+	height: 360px;
+	width: 130px;
+}
+	
+.rightFrame{
+	float:left;
+	margin-left:70px;
+	height: 360px;
+	width: 400px;
+	background:#111;
+	border-style: ridge;
+	border-color: #222;
+	overflow: auto;
+}
+
+#ModuleItem{
+	font-size: 17px;	
+	color: white;
+	height: 28px;
+	background: #111;
+	border-style: ridge;
+	border-color: #222; 	
+}
+	
+#ModuleItem:hover{
+	background-color: #333;
+}
+#module{
+	cursor:default	;
+	text-align: center;	
+}
+	
+.privilegeItem{
+	color:orange;
+	font-weight: bold;
+	cursor: default;	
+	margin-left: 180px;
+}
+	
+.btSubmit{
+	text-align: center;
+	border: none;
+	background:#F90;
+	color:#FFF;
+	width:90px;
+	height:30px;
+	border:none;
+	border-radius:8px 8px;
+	font-weight:900;
+	margin-left:60px;
+	cursor: pointer;
+}
+	
+#main{
+	background-color: #333;
+}

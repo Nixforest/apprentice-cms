@@ -42,7 +42,6 @@ class Model_Privilege extends Zend_Db_Table_Abstract{
 		return $this->db->select()
 						->distinct()
 						->from($this->tableName,'module_name')
-						//->order('module_name','controller_name','description')
 						->query();
 	}	
 	

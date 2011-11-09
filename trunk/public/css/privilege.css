@@ -1,0 +1,99 @@
+.controllerName{
+	font-size:17px;
+	font-weight:bold;
+	color:yellow;
+	text-align: left;
+	margin-left: 40px;
+	cursor: default;
+}
+
+.leftFrame{
+	float:left;
+	margin-left: 80px;
+	height: 295px;
+	width: 130px;
+}
+
+.rightFrame{
+	float:left;
+	margin-left:70px;
+	height: 360px;
+	width: 400px;
+	background:#111;
+	border-style: ridge;
+	border-color: #222;
+	overflow: auto;
+}
+
+
+#main{
+	background-color: #333;
+}
+
+#privilegeItem{
+	color:silver;
+	font-weight: bold;
+	cursor: default;	
+}
+
+#privilegeItem:hover{
+	background: #333;
+}
+
+#privilegeList{
+	height: 272px;
+	overflow: auto;
+}
+
+#ModuleItem{
+	font-size: 17px;	
+	color: white;
+	height: 28px;
+	background: #111;
+	border-style: ridge;
+	border-color: #222; 
+	
+	
+}
+#ModuleItem:hover{
+	background-color: #333;
+}
+	
+#module{
+	cursor:default;
+	text-align: center;	
+}
+
+a{
+	text-decoration: none;
+	cursor:default;
+	color: Orange;
+}
+
+a.bt:hover {
+	color: Red;
+}
+a.bt{
+	float:right;
+	margin-right: 60px;
+	text-align: right;
+}
+
+#description{
+	margin-left: 130px;
+	text-align: left;
+}
+
+.btSubmit{
+	text-align: center;
+	border: none;
+	background:#F90;
+	color:#FFF;
+	width:90px;
+	height:30px;
+	border:none;
+	border-radius:8px 8px;
+	font-weight:900;
+	margin-left:60px;
+	cursor: pointer;
+}

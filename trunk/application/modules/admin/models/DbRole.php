@@ -1,11 +1,8 @@
 <?php
-require_once '/../models/BsRole.php';
-
-
 class Model_DbRole extends Zend_Db_Table_Abstract{
 	protected $_name='role';
-	private $priTableName = 'privilege';
-	private $ruleTableName = "rule";
+	private $ruleTableName = 'rule';
+	private $name = 'privilege';
 	
 	public function getAllRole()
 	{
@@ -27,54 +24,7 @@ class Model_DbRole extends Zend_Db_Table_Abstract{
 		$db=$this->getDefaultAdapter();
 		$db->insert($table,$row);
 	}
-	
-	public function addRule($object_id,$object_type,$privilege_id,$allow){
-		$db = $this->getDefaultAdapter();
-	    $sql="insert into rule(object_id,object_type,privilege_id,allow) values ($object_id,'$object_type',$privilege_id,$allow)";
-		return $db->query($sql);
-	}
-	
-	public function deleleRule($objId,$privilege_id,$type){
-		$db = $this->getDefaultAdapter();
-		$db->delete($this->ruleTableName, array(
-   			 	'privilege_id = ?' => $privilege_id,
-    			'object_id = ?' => $objId,
-				'object_type like ?' => $type
-		));
-	}
-		
-	public function getPrivilegeIdAllow($objId,$type){
-		$db = $this->getDefaultAdapter();
-		return $db->select()
-				  ->from($this->ruleTableName,'privilege_id')
-				  //->join($this->ruleTableName,'privilege.privilege_id = rule.privilege_id')
-				  ->where('object_id='.$objId)
-				  ->where('object_type like ?',$type)
-				  ->query();
-	}
-	
-	public function getPrivilegeUser($objId,$type,$modulename){
-		$db = $this->getDefaultAdapter();
-		return $db->select()
-				  ->from($this->priTableName,'*')
-				  ->join($this->ruleTableName,'privilege.privilege_id = rule.privilege_id')
-				  ->where('object_id='.$objId)
-				  ->where('object_type like ?',$type)
-				  ->where('module_name like ?',$modulename)
-				  ->query();
-	}
-	
-	public function checkPrivilege($id,$type,$priId){
-		$db = $this->getDefaultAdapter();
-		return $db->select()
-				  ->from('rule','*')
-				  ->where('object_id=?',$id)
-				  ->where('object_type like ?',$type)
-				  ->where('privilege_id=?',$priId)
-				  ->query()
-				  ->rowCount();
-	}
-	
+
 	//lock
 	public function lock($id)
 	{
