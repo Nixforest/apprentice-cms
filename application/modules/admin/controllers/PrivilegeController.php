@@ -26,6 +26,7 @@ Class Admin_PrivilegeController extends Zend_Controller_Action{
 			
 		$conArray =null;			
 		$db = new Model_Privilege();	
+		$this->view->base =  $this->_request->getBaseUrl();
 
 		//Danh sach cac module:
 		$moduleResult = $db->getModuleName();
@@ -51,26 +52,25 @@ Class Admin_PrivilegeController extends Zend_Controller_Action{
 	}
 	
 	public function deleteAction() {	
-		$db = new Model_Privilege();			
+		$priDb = new Model_Privilege();	
+		$ruleDb = new Model_Rule();		
 		//Su kien click vao nut Delete de xoa 1 quyen:		
 		if($_GET['action'] ==="delete"){
 			$id = $_GET['id'];	
 			$module = (string)$_GET['module'];
-			$db->deletePrivilege($id);
+			$priDb->deletePrivilege($id);
+			$ruleDb->deleleAllRuleAtPriId($id);
 			$this->_redirect('admin/privilege/list?modulename='.$module);
 		}
 	}
 	
-	public function addAction() {
-		
+	public function addAction() {	
 		$db = new Model_Privilege();		
 		//Su kien click vao nut Add de them 1 quyen:				
 		if($_GET['action'] === "add"){
 			$id = $_GET['id'];	
 			$module = (string)$_GET['module'];
-			$db->addPrivilege($id);
-			
-			
+			$db->addPrivilege($id);			
 			$this->_redirect('admin/privilege/list?modulename='.$module);			
 		}
 	}

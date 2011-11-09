@@ -5,10 +5,6 @@
  *	
  */
 
-require_once '/../models/BsRole.php';
-require_once '/../forms/AddRoleForm.php';
-require_once '/../models/RoleEntity.php';
-require_once '/../models/Privilege.php';
 require_once 'acl/acl.php';
 
 class Admin_RoleController extends Zend_Controller_Action{
@@ -16,6 +12,30 @@ class Admin_RoleController extends Zend_Controller_Action{
  	 *	view table
  	 *	@return void
  	 */
+
+	
+	public  function init()
+	{
+	$autoLoader = Zend_Loader_Autoloader::getInstance(); 
+    $autoLoader->registerNamespace('CMS_'); 
+    $resourceLoader = new Zend_Loader_Autoloader_Resource(array( 
+        'basePath'      => APPLICATION_PATH . '/modules/admin', 
+        'namespace'     => '', 
+        'resourceTypes' => array( 
+            'form' => array( 
+                'path'      => 'forms/', 
+                'namespace' => 'Form_', 
+            ), 
+	 'model' => array( 
+                'path'      => 'models/', 
+                'namespace' => 'Model_' 
+            ),              
+        ), 
+    ));
+    return $autoLoader; 
+	}
+	
+
 	
 	//check login
 	public function preDispatch()
@@ -34,6 +54,7 @@ class Admin_RoleController extends Zend_Controller_Action{
 	}
 	
 	//cap quyen cho view role
+
 	public function listAction()
 	{
 		//Access check
@@ -154,19 +175,19 @@ class Admin_RoleController extends Zend_Controller_Action{
 	
 	public function permissionAction()
 	{
-		$priArr[] =0;		//Mang luu id cac quyen cua role
-		$roleId = (int)$_GET['roleId'];
-		$this->view->roleId = $roleId;
+		$priAllowArray[] =null;		//Mang luu id cac quyen da co cua role
+		$roleId= (int)$this->_request->getParam('id');
+		$this->view->roleId = $roleId;		
 		$priDb = new Model_Privilege();
-		$ruleDb = new Model_DbRole();	
+		$ruleDb = new Model_Rule();	
+		$roleDb = new Model_UserModel();
 		
 		//Lay cac quyen cua 1 nhom nguoi dung va luu vao mang:
 		$priAllowResult = $ruleDb->getPrivilegeIdAllow($roleId,'role');
 		while($row = $priAllowResult->fetch()){
-			$priArr[] = $row['privilege_id'];
+			$priAllowArray[] = $row['privilege_id'];
 		}
-		$this->view->priArr = $priArr;
-		$priArr[]=null;
+		$this->view->priAllowArray = $priAllowArray;
 
 		//Danh sach cac module:
 		$moduleResult = $priDb->getModuleName();
@@ -176,12 +197,7 @@ class Admin_RoleController extends Zend_Controller_Action{
 		if(isset($_GET['modulename'])){
 			$moduleName = (string)$_GET['modulename'];
 			$priResult = $priDb->getPrivilege($moduleName);						
-			
-			//Add cac quyen da co cua role vao mang de kiem tra:
-			while($row = $priResult->fetch()){
-				$priArray[]= $row['privilege_id'];
-			}	
-			
+						
 			//Luu cac ten controller o trong module vao mang:
 			$conResult = $priDb->getControllerName($moduleName);
 			while($row = $conResult->fetch()){
@@ -189,22 +205,42 @@ class Admin_RoleController extends Zend_Controller_Action{
 			}
 			$this->view->conArray = $conArray;
 		
+			//Add cac quyen da co cua role vao mang de kiem tra:
+			while($row = $priResult->fetch()){
+				$priArray[]= $row['privilege_id'];
+			}	
+			
 			//click vao submit button save:
 			if( $this->getRequest()->isPost()){
-				foreach($priArray as $id){
-					if(isset($_POST[$id])){
+				foreach($priArray as $priId){
+					if(isset($_POST[$priId])){
 						//Role chua co quyen thi add quyen do cho role:
-						if($ruleDb->checkPrivilege($roleId,'role', $id)==0)
-							$addRuleResult = $ruleDb->addRule($roleId, 'role', $id, 1);
+						if($ruleDb->checkPrivilege($roleId,'role', $priId)==0)
+							$addRuleResult = $ruleDb->addRule($roleId, 'role', $priId, 1);
 					}
-					else
-						$ruleDb->deleleRule($roleId,$id,'role');				
+					else{
+						//Xoa quyen cua role tuong ung:
+						if($ruleDb->checkPrivilege($roleId,'role', $priId)>=1)
+							$ruleDb->deleleRuleAtPriId($roleId,$priId,'role');
+						
+					    //lay danh sach cac Id cua role luu vao mang:
+						$userIdResult = $roleDb->getUserIdFromRole($roleId);	
+						while($row = $userIdResult->fetch()){
+							$userIdArray[] = $row['user_id'];
+						}
+						
+						//Xoa quyen cua cac user thuoc role tuong ung:
+						foreach ($userIdArray as $userId){
+							if($ruleDb->checkPrivilege($userId,'user', $priId)>=1)
+								$ruleDb->deleleRuleAtPriId($userId,$priId,'user');
+						}
+					}		
 				}			
-				$this->_redirect('admin/role/permission?roleId='.$roleId);
+				$this->_redirect('admin/role/permission/id/'.$roleId);
 			}
-			
+			//truyen danh sach cac quyen cua module qua view:
 			$priResult = $priDb->getPrivilege($moduleName);
-			$this->view->desResult = $priResult;									
+			$this->view->privilegeResult = $priResult;									
 		}							
 	}
 }

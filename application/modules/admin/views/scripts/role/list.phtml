@@ -24,15 +24,15 @@
 			
 			if($row['locked']==0)
 			{
-				echo "<br/><a href='../role/lock/id/".$row['role_id']."'>Lock</a>&nbsp<a href='../role/remove/id/".$row['role_id']."'>Remove</a>&nbsp<a href='../role/permission?roleId=$id'>Permission</a>";
+				echo "<br/><a href='/Apprentice_CMS/public/admin/role/lock/id/".$row['role_id']."'>Lock</a>&nbsp<a href='/Apprentice_CMS/public/admin/role/remove/id/".$row['role_id']."'>Remove</a>&nbsp<a href='/Apprentice_CMS/public/admin/role/permission/id/$id'>Permission</a>";
 			}
 			else if ($row['locked']==1)
 			{
-				echo "<br/><a href='../role/unlock/id/".$row['role_id']."'>UnLock</a>&nbsp<a href='../role/permission?roleId=$id'>Permission</a>";
+				echo "<br/><a href='/Apprentice_CMS/public/admin/role/unlock/id/".$row['role_id']."'>UnLock</a>&nbsp<a href='/Apprentice_CMS/public/admin/role/permission/id/$id'>Permission</a>";
 			}
 			else
 			{	
-				echo "<br/><a href='../role/permission?roleId=$id'>Permission</a>";
+				echo "<br/><a href='/Apprentice_CMS/public/admin/role/permission/id/$id'>Permission</a>";
 			}
 
 			echo '</td><td align=\"left\">';

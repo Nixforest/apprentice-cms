@@ -3,8 +3,9 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <?php
-	echo $this->headLink()->appendStylesheet($this->base."/../css/user.css");
+	echo $this->headLink()->appendStylesheet($this->base."../css/user.css");
 ?>
+
 </head>
 <body>
 <div class="info">
@@ -52,8 +53,13 @@
 				foreach($this->data as $item){
 					echo "<tr>";
 					echo "<td class='cnametd'>".$item["user_name"]."<br />";
+/*<<<<<<< .mine
+					echo "<a href='edit/id/".$item['user_id']."'>edit  </a>";
+					echo "<a href='permission/id/".$item['user_id']."/role/".$item['role_id']."'>| permission  </a>";
+=======*/
 					echo "<a href='/Apprentice_CMS/public/admin/user/edit/id/".$item['user_id']."'>edit  </a>";
-					echo "<a href='/Apprentice_CMS/public/admin/user/rule/id/".$item['user_id']."'>| role  </a>";
+					echo "<a href='/Apprentice_CMS/public/admin/user/permission/id/".$item['user_id']."/role/".$item['role_id']."'>| role  </a>";
+//>>>>>>> .r81
 					if($item['user_name']!="admin"){
 						if($item["is_active"]==0)
 							echo "<a href='/Apprentice_CMS/public/admin/user/active/id/".$item['user_id']."'>| active  </a>";

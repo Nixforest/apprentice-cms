@@ -3,144 +3,35 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Privilege</title>
-
-<style type="text/css">
-#controller{
-	font-size:17px;
-	font-weight:bold;
-	color:yellow;
-	text-align: left;
-	margin-left: 40px;
-	cursor: default;
-}
-
-#leftFrame{
-	float:left;
-	margin-left: 40px;
-	height: 295px;
-	width: 130px;
-}
-
-#rightFrame{
-	float:left;
-	margin-left: 37px;
-	height: 360px;
-	width: 400px;
-	background:#320;
-	border-style: inset;
-	border-color: grey;
-	overflow: auto;
-	border-right-style:none;	
-}
-		
-a{
-	text-decoration: none;
-	cursor:default;
-	color: Orange;
-}
-
-#main{
-	background-color: #333;
-}
-
-#privilegeItem{
-	color:silver;
-	font-weight: bold;
-	cursor: default;	
-}
-
-#privilegeItem:hover{
-	background: #333;
-}
-
-#privilegeList{
-	height: 272px;
-	overflow: auto;
-}
-
-	
-#ModuleItem{
-	font-size: 17px;	
-	color: white;
-	height: 28px;
-	background: #300;
-	border-style: inset;
-	border-color: grey; 
-	border-right-style:none;
-}
-	
-#ModuleItem:hover{
-	background-color: gray;
-}
-	
-.module{
-	cursor:default;
-	text-align: center;	
-}
-
-a.bt:hover {
-	color: Red;
-}
-a.bt{
-	float:right;
-	margin-right: 60px;
-	text-align: right;
-}
-
-#description{
-	margin-left: 130px;
-	text-align: left;
-}
-
-.btSubmit{
-	text-align: center;
-	border: none;
-	background:#F90;
-	color:#FFF;
-	width:80px;
-	height:30px;
-	border:none;
-	border-radius:8px 8px;
-	font-weight:900;
-	margin-left:40px;
-	cursor: pointer;
-}
-
-h1{
-	font-size:40px;
-	color: white;
-	text-align: center;
-	cursor: default;
-}
-
-</style>
-
+<?php
+	echo $this->headLink()->appendStylesheet($this->base."../css/privilege.css");
+?>
 <script language="javascript">
 	function changeUrl(name)
 	{
-		window.location.href = "../privilege/list?modulename="+name;
+		window.location.href = "/Apprentice_CMS/public/admin/privilege/list?modulename="+name;
 	}
 	function privilegeChangeUrl(actName,action,id,name){
-		window.location.href = "../privilege/"+actName+"?action="+action+"&id="+id+"&module="+name;
+		window.location.href = "/Apprentice_CMS/public/admin/privilege/"+actName+"?action="+action+"&id="+id+"&module="+name;
 	}
-	</script>
+</script>
 </head>	
 <body>
-<h1>Privileges</h1>
-<div id="leftFrame">
+	<br />
+<div class="leftFrame">
 <?php		
 	//hien thi danh sach cac module (danh sach nay co the click duoc):
 	if($this->moduleResult){
 		while ($rows = $this->moduleResult->fetch()){			
 			$moduleName = $rows['module_name'];
 			echo "<div id='ModuleItem' onclick='changeUrl(\"".$moduleName."\")'>";					
-			echo "<div class='module'>$moduleName</div>";
+			echo "<div id='module'>$moduleName</div>";
 			echo "</div>";	
 		}
 	}
 ?>
 </div>
-<div id='rightFrame'>
+<div class='rightFrame'>
 <?php
 	$controllerArray = $this->conArray;
 	$num = count($controllerArray);
@@ -164,20 +55,17 @@ h1{
 			for($i=0;$i<$num;$i++){
 				if($controller == $controllerArray[$i]){
 					$controllerArray[$i] = null;
-					if($controllerArray[0]==null && $num>1){;
-						echo "<br>";
-					}
-					echo "<div id='controller'>+Manage $controller:</div>";	
+					echo "<br>";
+					echo "<div class='controllerName'>Manage $controller:</div>";	
 				}						
-			}
-			
+			}			
 			echo "<div id='privilegeItem' onclick='privilegeChangeUrl(\"".$action."\",\"".$action."\",\"".$id."\",\"".$module."\")'><div id='description'><li>$description";
 			echo "<a class='bt'>$btnName</a></li></div></div>";			
 		}
 	}
 ?>
 </div>
-<br>
+<br />
 <form name ="frm" method="post">
 <input type="submit" name="back" class="btSubmit" value="Back"></input>
 </form>

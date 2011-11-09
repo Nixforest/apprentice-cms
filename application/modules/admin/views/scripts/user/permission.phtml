@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+<?php
+	echo $this->headLink()->appendStylesheet("/Apprentice_CMS/public/css/rule.css");
+?>
+	<script language="javascript">
+
+	function changeUrl(url)
+	{
+		window.location.href = url;
+	}
+
+	function controllerClick(array){
+		for (var i = 0; i < array.length; i++) {
+			document.getElementById(array[i]).checked=true;
+		}	
+	}
+	</script>
+	</head>
+	<body>
+	<br />
+	<div class="leftFrame">
+		<?php		
+	//hien thi danh sach cac module (danh sach nay co the click duoc):
+	if($this->moduleResult){
+		while ($rows = $this->moduleResult->fetch()){	
+			$userId = $this->userId;
+			$roleId = $this->roleId;		
+			$moduleName = $rows['module_name'];
+			$url = "/Apprentice_CMS/public/admin/user/permission/id/".$userId."/role/".$roleId."?modulename=".$moduleName;
+			echo "<div id='ModuleItem' onclick='changeUrl(\"".$url."\")'>";			
+			echo "<div id='module'>$moduleName</div>";
+			echo "</div>";
+		}
+	}
+?>
+	</div>
+	<form name='frm' method ="post">
+	<div class="rightFrame">
+<?php
+	$controllerArray = $this->conArray;
+	$num = count($controllerArray);
+	//Hien thi danh sach cac quyen + cac checkbox tuong ung dzoi module da click:
+	if($this->privilegeResult){
+		while($rows = $this->privilegeResult->fetch()){
+			$id = (string)$rows['privilege_id'];	
+			$module = (string)$rows['module_name'];
+			$description = 	$rows['description'];
+			$controller = $rows['controller_name'];
+			if($this->priAllowArray == null)	{
+				$action="";
+			}
+			else{
+				foreach($this->priAllowArray as $priId){
+					if($priId ==$id){
+						$action="Checked";
+						break;
+					}
+					else{
+						$action="";					
+					}
+				}
+			}
+			for($i=0;$i<$num;$i++){
+				if($controller == $controllerArray[$i]){
+					$controllerArray[$i] = null;
+					echo "<br>";
+					echo "<div class='controllerName' onclick= 'controllerClick()'>Manage $controller:</div>";	
+				}						
+			}
+			echo "<div class = 'privilegeItem'>";
+			echo "<input type='checkbox' name=$id $action>";
+			echo "&nbsp&nbsp";
+			echo $description;
+			echo "</div>";
+		}
+	}	
+?>
+</div>
+<br />
+<input type='submit' name='btnSubmit' class ='btSubmit' value='Save' />
+</form>
+
+	</body>
+</html>
+

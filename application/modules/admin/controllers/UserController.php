@@ -2,10 +2,6 @@
 class Admin_UserController extends Zend_Controller_Action{
 	public  function init()
 		{			
-			//$this->view->headScript()->appendFile('http://localhost:81/apprentice_cms/public/js/jquery.js','text/javascript');
-			//$base = $this->_request->getBaseUrl();
-        	//$this->view->base=$base;
-        	//$this->view->headScript()->appendFile($base."/public/js/jquery.js",'text/javascript');
 			$autoLoader = Zend_Loader_Autoloader::getInstance(); 
 		    $autoLoader->registerNamespace('CMS_'); 
 		    $resourceLoader = new Zend_Loader_Autoloader_Resource(array( 
@@ -22,7 +18,6 @@ class Admin_UserController extends Zend_Controller_Action{
 		            ),		             
 		        ), 
 		    ));
-		    // Return it so that it can be stored by the bootstrap 
 		    return $autoLoader; 
 	}
 	public function indexAction(){
@@ -64,6 +59,8 @@ class Admin_UserController extends Zend_Controller_Action{
 	public function addAction(){		
 		$db = new Model_UserModel();
 		$role_user = new Model_BsRole();
+		$ruleDb = new Model_Rule();
+		//$userId = (int)$this->_request->getParam('id');
 		//$role_user = new Model_UserModel();//sửa lại bên role
 		$this->view->role = $role_user->getAllRole();
 		$this->view->base =  $this->_request->getBaseUrl();
@@ -128,8 +125,19 @@ class Admin_UserController extends Zend_Controller_Action{
 						"full_name" => $fullname,
 						"is_active" => $active,
 					);
+					
+					
 					$db->adduser($data);
+					$userId = (int)$db->getUserId($user);
 					$this->view->message = "user has been created";
+					
+					//phan tao them:
+					$priUserResult = $ruleDb->getPrivilegeIdAllow($role_id,'role');
+					while($row = $priUserResult->fetch()){
+						$priId = $row['privilege_id'];
+						$ruleDb->addRule($userId, 'user', $priId, 1);
+					}
+					//
 				}
 			}else{
 				$this->view->error = $error;
@@ -140,11 +148,13 @@ class Admin_UserController extends Zend_Controller_Action{
 	public function editAction(){
 		$db = new Model_UserModel();
 		$role_user = new Model_BsRole();	
+		$ruleDb = new Model_Rule();
 		//$role_user = new Model_UserModel();//sửa lại bên role
 		$this->view->role = $role_user->getAllRole();	
 		$this->view->base =  $this->_request->getBaseUrl();
 		$post = $this->getRequest();
 		$id = $this->_request->getParam('id');
+		$oldRoleId = $db->getRoleIdOfUser($id);
 		$f=0;
 		if($post->isPost()){
 			if($post->getPost("tbxname")==""){
@@ -191,6 +201,17 @@ class Admin_UserController extends Zend_Controller_Action{
 				$this->view->id=$id;
 			}else{
 				$db->updateuser($data, $id);
+				
+				$newRoleId =  $data["role_id"];		//Role Id sau khi cap nhat
+				if($oldRoleId != $newRoleId){
+					$ruleDb->deleleAllRuleOfObj($id, 'user');
+					$priUserResult = $ruleDb->getPrivilegeIdAllow($newRoleId,'role');
+					while($row = $priUserResult->fetch()){
+						$priId = $row['privilege_id'];
+						$ruleDb->addRule($id, 'user', $priId, 1);
+					}
+				}
+
 				$this->_redirect('admin/user/index');
 			}
 		}else{			
@@ -213,4 +234,59 @@ class Admin_UserController extends Zend_Controller_Action{
 		$this->_redirect("admin/user/index");
 	}
 	
+	public function permissionAction(){
+		$priAllowArray[] =null;		//Mang luu id cac quyen cua da~ co cua user
+		$priDb = new Model_Privilege();
+		$ruleDb = new Model_Rule();	
+		$userId = (int)$this->_request->getParam('id');
+		$roleId = (int)$this->_request->getParam('role');
+		$this->view->userId= $userId;
+		$this->view->roleId= $roleId;
+
+		//Lay cac quyen cua 1 nguoi dung va luu vao mang:
+		$priAllowResult = $ruleDb->getPrivilegeIdAllow($userId,'user');
+		while($row = $priAllowResult->fetch()){
+			$priAllowArray[] = $row['privilege_id'];
+		}
+		$this->view->priAllowArray = $priAllowArray;
+
+		//Danh sach cac module:
+		$moduleResult = $priDb->getModuleName();
+		$this->view->moduleResult = $moduleResult;
+		
+		//click vao 1 module item:
+		if(isset($_GET['modulename'])){
+			$moduleName = (string)$_GET['modulename'];
+			$priResult = $ruleDb->getPriAllowAtModule($roleId, 'role', $moduleName);										
+			
+			//Luu cac ten controller o trong module vao mang:
+			$conResult = $priDb->getControllerName($moduleName);
+			while($row = $conResult->fetch()){
+				$conArray[]=$row['controller_name'];
+			}
+			$this->view->conArray = $conArray;
+		
+			//Add cac quyen da co cua user vao mang de kiem tra:
+			while($row = $priResult->fetch()){
+				$priArray[]= $row['privilege_id'];
+			}
+			
+			//click vao submit button save:
+			if( $this->getRequest()->isPost()){
+				foreach($priArray as $id){
+					if(isset($_POST[$id])){
+						//User chua co quyen thi add quyen do cho user:
+						if($ruleDb->checkPrivilege($userId,'user', $id)==0)
+							$addRuleResult = $ruleDb->addRule($userId, 'user', $id, 1);
+					}
+					else
+						$ruleDb->deleleRuleAtPriId($userId, $id,'user');				
+				}			
+				$this->_redirect('admin/user/permission/id/'.$userId.'/role/'.$roleId);
+			}
+			
+			$priResult = $ruleDb->getPriAllowAtModule($roleId,'role',$moduleName);
+			$this->view->privilegeResult = $priResult;									
+		}						
+	}
 }

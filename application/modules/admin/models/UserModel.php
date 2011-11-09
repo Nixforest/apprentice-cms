@@ -2,14 +2,9 @@
 class Model_UserModel extends Zend_Db_Table{
 	private $db;
 	private $_table = "core_user";
+	private $roleTable = "admin_role";
 	//ket noi csld luc khoi tao
 	public function __construct(){
-		/*$this->db = new Zend_Db_Adapter_Pdo_Mssql(array(
-			"host" => "localhost",
-			"username" => "apprentice",
-			"password" => "apprentice",
-			"dbname" => "apprentice_cms",
-		));*/
 		$this->db = $this->getDefaultAdapter();
 	}
 	//them user
@@ -65,5 +60,27 @@ class Model_UserModel extends Zend_Db_Table{
 	//list role ---> cái này của thằng lòi công chưa viết nè, dung` tam rui` xoa
 	public function listrole(){
 		return $this->db->select()->from("admin_role","*")->query()->fetchAll();
+	}
+	
+	public function getUserId($user){
+		$id=  $this->db->select()->from($this->_table,'user_id')->where('user_name like ?',$user)->query()->fetch();
+		return $id['user_id'];
+	}
+	
+	public function getUserIdFromRole($roleId){
+		return $this->db->select()
+						->from($this->_table,'*')
+						->where('role_id='.$roleId)
+						->query();
+	}
+	
+	public function getRoleIdOfUser($userId){
+		$Arr = $this->db->select()
+						->from($this->_table,'role_id')
+						->where('user_id='.$userId)
+						->query()
+						->fetch();
+		$id = $Arr['role_id'];				
+		return $id;
 	}
 }

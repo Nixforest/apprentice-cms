@@ -1,181 +1,79 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 	<head>
-<style type="text/css">
-#controller{
-	font-size:17px;
-	font-weight:bold;
-	color:yellow;
-	text-align: left;
-	margin-left: 80px;
-	cursor: default;
-}
-#leftFrame{
-	float:left;
-	margin-left: 40px;
-	height: 360px;
-	width: 130px;
-}
-	
-#rightFrame{
-	float:left;
-	margin-left: 37px;
-	height: 360px;
-	width: 400px;
-	background:#320;
-	border-style: inset;
-	border-color: grey;
-	overflow: auto;
-	border-right-style:none;	
-}
-
-#ModuleItem{
-	font-size: 17px;	
-	color: white;
-	height: 28px;
-	background: #300;
-	border-style: inset;
-	border-color: grey; 
-	border-right-style:none;
-}
-	
-#ModuleItem:hover{
-	background-color: gray;
-}
-#module{
-	cursor:default	;
-	text-align: center;	
-}
-	
-.privilegeItem{
-	color:orange;
-	font-weight: bold;
-	cursor: default;	
-	margin-left: 200px;
-}
-	
-.btSubmit{
-	text-align: center;
-	border: none;
-	background:#F90;
-	color:#FFF;
-	width:80px;
-	height:30px;
-	border:none;
-	border-radius:8px 8px;
-	font-weight:900;
-	margin-left:50px;
-	cursor: pointer;
-}
-	
-h3{
-	font-size:20px;
-	color:  appworkspace;
-	text-align: center;
-	border-style: inset;
-	border-right-style:none;
-	border-left-style:none;
-	border-bottom-style:none;
-	border-color: grey;
-	background: #319;
-}
-	
-h1{
-	font-size:40px;
-	color: white;
-	text-align: center;
-	cursor: default;
-}
-	
-#main{
-	background-color: #333;
-}
-</style>
-	
-	<script language="javascript">
-
-	function changeUrl(name,id)
-	{
-		window.location.href ="../role/permission?modulename="+name+"&roleId="+id;
-	}
-
-	function controllerClick(array)
-	{
-		for (var i = 0; i < array.length; i++) {
-			//ocument.getElement(array[i]).checked= true;
-			document.getElementById(array[i]).checked=true;
-		}	
-	}
-	</script>
-	</head>
-	<body>
-	<h1>Permission</h1>
-	<div id="leftFrame">
-		<?php		
-	//hien thi danh sach cac module (danh sach nay co the click duoc):
-	if($this->moduleResult){
-		while ($rows = $this->moduleResult->fetch()){			
-			$moduleName = $rows['module_name'];
-			echo "<div id='ModuleItem' onclick='changeUrl(\"".$moduleName."\",\"".$this->roleId."\")'>";			
-			echo "<div id='module'>$moduleName</div>";
-			echo "</div>";
-			//echo "<hr>";
-		}
-	}
-?>
-	</div>
-	<form name='frm' method ="post">
-	<div id="rightFrame">
 <?php
-	$controllerArray = $this->conArray;
-	$num = count($controllerArray);
-	//Hien thi danh sach cac quyen + cac button Add va Delete tuong ung dzoi module da click:
-	if($this->desResult){
-		while($rows = $this->desResult->fetch()){
-			$id = (string)$rows['privilege_id'];	
-			$module = (string)$rows['module_name'];
-			$description = 	$rows['description'];
-			$controller = $rows['controller_name'];
-			if($this->priArr == null)	{
-				$action="";
+	echo $this->headLink()->appendStylesheet("/Apprentice_CMS/public/css/rule.css");
+?>	
+<script language="javascript">
+	function changeUrl(url)
+	{
+		window.location.href =url;
+	}
+</script>
+	</head>
+	
+	<body>
+	<br />
+	<div class="leftFrame">
+	<?php		
+		//hien thi danh sach cac module (danh sach nay co the click duoc):
+		if($this->moduleResult){
+			while ($rows = $this->moduleResult->fetch()){	
+				$roleId = $this->roleId;		
+				$moduleName = $rows['module_name'];
+				$url = "/Apprentice_CMS/public/admin/role/permission/id/".$roleId."?modulename=".$moduleName;
+				echo "<div id='ModuleItem' onclick='changeUrl(\"".$url."\")'>";		
+				echo "<div id='module'>$moduleName</div>";
+				echo "</div>";
 			}
-			else{
-				foreach($this->priArr as $priId){
-					if($priId ==$id){
-						$action="Checked";
-						break;
-					}
-					else{
-						$action="";					
-					}
+		}
+	?>
+	</div>
+	
+	<form name='frm' method ="post">
+	<div class="rightFrame">
+	<?php
+		$controllerArray = $this->conArray;
+		$num = count($controllerArray);
+		//Hien thi danh sach cac quyen + cac button Add va Delete tuong ung dzoi module da click:
+		if($this->privilegeResult){
+			while($rows = $this->privilegeResult->fetch()){
+				$id = $rows['privilege_id'];	
+				$module = (string)$rows['module_name'];
+				$description = 	$rows['description'];
+				$controller = $rows['controller_name'];
+				if($this->priAllowArray == null)	{
+					$action="";
+				}
+				else{
+					foreach($this->priAllowArray as $priId){
+						if($priId ==$id){
+							$action="Checked";
+							break;
+						}
+						else
+							$action="";					
 				}
 			}
-			for($i=0;$i<$num;$i++){
-				if($controller == $controllerArray[$i]){
-					$controllerArray[$i] = null;
-					if($controllerArray[0]==null && $num>1){;
+			
+				for($i=0;$i<$num;$i++){
+					if($controller == $controllerArray[$i]){
+						$controllerArray[$i] = null;
 						echo "<br>";
-					}
-					echo "<div id='controller' onclick= 'controllerClick()'>+Manage $controller:</div>";	
-				}						
+						echo "<div class='controllerName'>Manage $controller:</div>";
+					}						
+				}
+				echo "<div class = 'privilegeItem'>";
+				echo "<input type='checkbox' name=$id $action>";
+				echo "&nbsp&nbsp";
+				echo $description;
+				echo "</div>";
 			}
-			echo "<div class = 'privilegeItem'>";
-			echo "<input type='checkbox' name=$id $action>";
-			echo "&nbsp&nbsp";
-			echo $description;
-			echo "</div>";
-		}
-	}	
-	
-
-?>
-</div>
-<br>
-<div id='btSubmit'>
-<input type='submit' name='btnSubmit' class ='btSubmit' value='Save'>
-</div>
-</form>
-
+		}	
+	?>
+	</div>
+	<br />
+	<input type='submit' name='btnSubmit' class ='btSubmit' value='Save' />
+	</form>
 	</body>
 </html>
-
