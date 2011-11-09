@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ *Apprentice CMS */
+-->
+<module>
+	<name>comment</name>
+	<description langKey="about_Module_comment_description"><![CDATA[This module is used to post a comment for a news]]></description>
+	<thumbnail></thumbnail>
+	<author>buingochuy</author>
+	<email>huyuit@gmail.com</email>
+	<version>1.0.0</version>
+	<license>free</license>
+</module>
