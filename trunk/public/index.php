@@ -25,6 +25,7 @@ set_include_path(implode(PATH_SEPARATOR, array(
 )));
 define('URL_IMG','../public/images');
 define('URL_CSS','../public/css');
+
 /** Zend_Application */
 require_once 'Zend/Application.php';
 
