@@ -1,11 +1,10 @@
 <html>
 <head>
-	<base href="http://localhost/apprentice_cms/application/modules/news/views/scripts/article/">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
 	<?php echo $this->headTitle('View the article') ?>	
-	<?php echo $this->headLink()->appendStylesheet("editor.css") ?>
+	<?php echo $this->headLink()->appendStylesheet("/apprentice_cms/public/css/editor.css") ?>
 	<?php echo $this->headStyle()?>
-	<?php echo $this->headScript()->appendFile("editor.js") ?>
+	<?php echo $this->headScript()->appendFile("/apprentice_cms/public/js/editor.js") ?>
 </head>
 <body>
 	<hr />
@@ -17,15 +16,51 @@
 	<?php echo $this->content ?>
 	<hr />
 	<?php
-		if ($this->allowComment == 1)
-			echo '<div>
-					<label>Comment:</label>
-					<span id="editorComment">Waiting for loading editor...</span>
-					<script language="javascript">
-						ec = new Editor("ec", "c", "description", "editorComment", 440, 200);
-						ec.render();
-					</script>
-				  </div> <hr />'; 
+		echo "<h2>Title</h2><br />";	
+	
+		$has_comment = false;
+		while ($row = $this->comments->fetch()) {
+			if ($row['is_active'] == 1) {
+				$has_comment = true;
+				echo "<strong>" . $row['title'] . "</strong>";
+				echo "<cite> at " . $row['created_date'] . "</cite><br />";
+				echo $row['content'] . "<br /><br />";
+			}
+		}
+		if ($has_comment == false) {
+			echo "There are no comments available.";
+		} 
+	?>
+	<hr />
+	<?php
+		if ($this->allowComment == 1) {
+			$article_id = $this->id;
+			echo "<h2>Write your comment</h2><br />";
+			echo "
+				<form action='public/comment/admin/add' method='post' name='sendCommentForm' id='sendCommentForm' enctype='multipart/form-data'>
+				<div>
+					<label>Full name: </label>
+					<input type='text' name='name_comment' id='name_comment' style='width: 250px;' />
+				</div>
+				<br />
+				<div>
+					<label>Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					<input type='text' name='email_comment' id='email_comment' style='width: 250px;' />
+				</div>
+				<br />
+				<div>
+					<label>Title: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+					<input type='text' name='title_comment' id='title_comment' style='width: 250px;' />
+				</div>
+				<br />
+				<label>Content:</label>
+				<br />
+				<textarea name='content_comment' cols='30' rows='10'></textarea>
+				<br />
+				<input type='submit' name='send' value='Send' />
+				<input type='hidden' name='article_id' id='article_id' value='$article_id' />
+				</form>";
+		}
 	?>
 </body>
 </html>
