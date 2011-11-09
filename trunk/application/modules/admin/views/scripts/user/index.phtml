@@ -34,7 +34,7 @@
 		</table>
 	</form>
 <div class="cadd">
-	<a href="add/">Add user</a>
+	<a href="/Apprentice_CMS/public/admin/user/add/">Add user</a>
 </div>
 </div>
 
@@ -52,13 +52,13 @@
 				foreach($this->data as $item){
 					echo "<tr>";
 					echo "<td class='cnametd'>".$item["user_name"]."<br />";
-					echo "<a href='edit/id/".$item['user_id']."'>edit  </a>";
-					echo "<a href='rule/id/".$item['user_id']."'>| role  </a>";
+					echo "<a href='/Apprentice_CMS/public/admin/user/edit/id/".$item['user_id']."'>edit  </a>";
+					echo "<a href='/Apprentice_CMS/public/admin/user/rule/id/".$item['user_id']."'>| role  </a>";
 					if($item['user_name']!="admin"){
 						if($item["is_active"]==0)
-							echo "<a href='active/id/".$item['user_id']."'>| active  </a>";
+							echo "<a href='/Apprentice_CMS/public/admin/user/active/id/".$item['user_id']."'>| active  </a>";
 						else 
-							echo "<a href='deactive/id/".$item['user_id']."'>| deactive  </a>";
+							echo "<a href='/Apprentice_CMS/public/admin/user/deactive/id/".$item['user_id']."'>| deactive  </a>";
 					}
 					echo "</td>";
 					echo "<td>".$item["email"]."</td>";
