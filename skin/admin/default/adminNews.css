@@ -1,3 +1,59 @@
+	#f_title{
+		margin-top:20px;
+		margin-left: 12%;
+		width:800px;
+	}
+	#f_title label{
+		font-size:20px;
+		
+	}
+	#f_title input{
+		width:300px;
+	}
+	#f_slug{
+		margin-top:5px;
+		margin-left: 12%;
+		width:800px;
+	}
+	#f_slug label{
+		font-size:20px;
+		margin-right:122px;
+	}
+	#f_slug input{
+		width:300px;
+	}
+	.f_descont{
+		margin-top:5px;
+		margin-left: 12%;
+		width:800px;
+	}
+	.f_descont label{
+		font-size:20px;
+		margin-right:122px;		
+	}
+	.f_descont input{
+		width:300px;
+	}
+	#f_author{
+		margin-top:5px;
+		margin-left: 12%;
+		width:800px;
+	}
+	#f_author label{
+		font-size:20px;
+		margin-right:105px;
+	}
+	#f_author input{
+		width:300px;
+	}
+	.f_checkbox{
+		margin-top:5px;
+		margin-left: 29.5%;
+	}
+	#f_save{
+		margin-top:5px;
+		margin-left: 25%;
+	}
 .tableArticle
 {
 	background-color: #1a1a1a;
