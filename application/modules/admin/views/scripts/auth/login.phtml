@@ -8,7 +8,41 @@
 		<?php echo $this->headScript()?>
 	</head>
 	<body>
+		<p>
 		<?php 
+			if ($this->auth) // successful authentication 
+			{ 
+    	?> 
+    	You are already authenticated, 
+    	<?php  echo Zend_Auth::getInstance()->getIdentity()->user_name ?>. 
+    	</p> 
+    	<p> 
+     
+    	<?php 
+			} 
+		else { 
+    	if (isset($this->messages)) { 
+        ?> 
+        The following problems were encountered with your last login attempt: 
+        </p> 
+        <p> 
+        <?php 
+        foreach ($this->messages as $field => $messages) { 
+        ?> 
+            <b><?php echo $this->escape($field) ?></b> 
+            <?php 
+            foreach ($messages as $message) { 
+                echo $this->escape($message) . "\n"; 
+            } 
+            ?> 
+            </p> 
+            <?php 
+        	} 
+    	}    
+    	?> 
+		<form action="#" method="post" id="login">
+		<div id="head">
+			<!--php khi khong dung Zend_auth 
 			if($this->error!=null){
 				echo "<ul>";
 				foreach($this->error as $item){
@@ -17,11 +51,13 @@
 				echo "</ul>";
 			}
 			if($this->message!=NULL){
-				echo $this->message;
-		}
-		?>
-		<form action="#" method="post" id="login">
-		<div id="head">
+				echo "<ul>";
+				foreach($this->message as $item){
+					echo "<li>$item</li>";
+				}
+				echo "</ul>";
+			}
+			?>-->
 		</div>
 		<div id="content">
 			<div class="content-left">
@@ -57,6 +93,9 @@
 			</div>
 		</div>
 		</form>
+		<?php 
+} 
+?> 
 	</body>
 </html>
 
