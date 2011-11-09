@@ -36,4 +36,11 @@ Class Model_MenuBLO {
 		$this->_menuDAO->deleteMenu($menuId);
 	}
 	
+	public function updateMenu($menuDTO)
+	{
+		$this->_itemDAO->deleteItems( $menuDTO->get('menu_id') );
+		$this->_itemDAO->addItems($menuDTO);
+	}
+	
+	
 }
