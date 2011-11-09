@@ -157,6 +157,7 @@ class Admin_TemplateController extends Zend_Controller_Action{
 		//$this->view->assign('currTemplate', $dirTemp->production['template']);
 		//$this->view->assign('currSkin', $dirTemp->production['skin']);
 		$this->view->assign('templates',$templates);
+
 		
 
 	}

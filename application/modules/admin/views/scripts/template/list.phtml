@@ -3,48 +3,27 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<script src="http://code.jquery.com/jquery-latest.js"></script><!--
-		<script type="text/javascript">
-			$("document").ready(function(){
-				$(".btnChon").click(function(){
-					alert("sad");
-					
-				});
-			});
-		</script>	
-	--></head>
-	<body style="font-size: 12px; padding:5px; margin:0px;">
-		<div>
-			<div style="margin-left: 20%;">
+	</head>
+	<body>
+		<div id="container">
+			<div id="title">
 				<h1>Template</h1>
 				<p>Dưới đây là danh sách các template. Bạn có thể chọn template và skin cho trang web.</p>
 			</div>
-			<div class="content" style="border: 1px red solid; margin:10px 10% 10px 10%; width:1008; ">
+			<div class="content">
 				<?php foreach ($this->templates as $template){?>
-					<div class="template" style="border:1px black solid;">
+					<div class="template">
 						<div class="template_name">
 							<h2><?php echo $template['name'];?></h2>
 						</div>
 						
-						<div class="template_infor">
+						<div id="template_infor">
 							<?php echo "Tác Giả: " . $template['author']; ?><br />
 							<?php echo "Phiên Bản: " . $template['version']; ?>
 						</div>
 						
-						<div class="template_img">
+						<div id="template_img">
 							<img src="images/paper.jpg">Hình ảnh Template: <?php echo $template['name'];?></img>
-						</div>
-						
-						<p>Bạn có thể sử dụng một trong các skin sau:</p>
-						
-						<div class="skin">
-							<div class="skin_text">Default Skin: </div>
-							<div class="skin_action">
-								<form action="#" method="get">
-									<input type="button" value="Chọn" id="skin_btnChon"></input>
-									<input type="button" value="Sửa" id="skin_btnSua"/>
-								</form>
-							</div>
 						</div>
 						
 						<div class="template_action">

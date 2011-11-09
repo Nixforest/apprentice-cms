@@ -1,11 +1,9 @@
-<?php 
-/**
- * Apprentice CMS
- */
-?>
-<a href ="/Apprentice_CMS/public/">Home Page</a>
-<h2>Module Manager</h2> 
-<style>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style>
 
 table.spreadsheet {
 	margin: 20px 0;
@@ -25,8 +23,15 @@ table.spreadsheet td {
 }
 
 </style>
-<?php
-
+	</head>
+	<body>
+		<div id="container">
+			<div id="title">
+				<h1>Quản Lý Module</h1>
+				<p>Dưới đây là danh sách các module. Bạn có thể thêm mới hay gỡ bỏ module.</p>
+			</div>
+			<div id="content">
+				<?php
 		echo '<table align="centrer" border="1" cellspacing="2" cellpadding="2">
 		<tr>
 		<td align="left"><b></b></td>
@@ -80,3 +85,10 @@ table.spreadsheet td {
 		
 
 ?>
+			</div>
+	
+	</div>
+	</body>
+</html>
+
+

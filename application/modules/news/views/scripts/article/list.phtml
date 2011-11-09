@@ -1,13 +1,26 @@
-<?php 
-	$this->headLink()->appendStylesheet($this->url.'skin/admin/default/adminNews.css');
-?>
-<div class="tableArticle">
-<table>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<?php 
+		//$this->headLink()->appendStylesheet($this->url.'skin/admin/default/adminNews.css');
+	?>
+</head>
+<body>
+	<div class="tableArticle">
+
+<div id="table">
+	<div style="margin-left: 12%;">
+		<h1>Bài Viết</h1>
+		<p>Dưới đây là danh sách các bài viết. Bạn có thể chọn xem và sửa đổi.</p>
+	</div>
+	<table style="margin:20px auto;">
 	<tr class="table_Header">
-	<td width="450px">Title</td>
-	<td width="100px">Status</td>
-	<td width="130px">Num.of Views</td>
-	<td width="50px">ID</td></tr>
+	<td width="450px" style="font-size:20px;">Title</td>
+	<td width="100px" style="font-size:20px;">Status</td>
+	<td width="130px" style="font-size:20px;">Num.of Views</td>
+	<td width="50px" style="font-size:20px;">ID</td></tr>
 	<?php 
 		while($row=$this->result->fetch()){
 			
@@ -26,9 +39,14 @@
 			echo '<td>'.$row['status'].'</td>';
 			echo '<td>'.$row['num_views'].'</td>';
 			echo '<td>'.$row['article_id'].'</td><tr>';
+			
 		}
 		
 	?>
 	
 </table>
 </div>
+
+</div>
+</body>	
+</html>
