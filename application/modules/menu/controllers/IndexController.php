@@ -5,7 +5,8 @@ class Menu_IndexController extends Zend_Controller_Action {
 		$menuBLO = new Model_MenuBLO();
 		$menus = $menuBLO->getMenus();
 		$items = $menuBLO->getItems('1');
-		foreach ($items as $item)
+		$this->view->items = $items;
+		/*foreach ($items as $item)
 		{
 			$s = "";
 			for($i=0; $i < $item['depth']; $i++)
@@ -13,7 +14,7 @@ class Menu_IndexController extends Zend_Controller_Action {
 				$s .= "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
 			}
 			echo "<br>". $s .$item['label']. '</br>';
-		}
+		}*/
 	}
 	
 	Public function addAction()

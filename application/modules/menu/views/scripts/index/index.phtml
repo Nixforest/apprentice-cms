@@ -1,1 +1,42 @@
-<?php
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Droppable - Revert draggable position</title>
+	<base href='http://jqueryui.com/' />
+	<link rel="stylesheet" href="../../themes/base/jquery.ui.all.css">
+	<script src="../../jquery-1.6.2.js"></script>
+	<script src="../../ui/jquery.ui.core.js"></script>
+	<script src="../../ui/jquery.ui.widget.js"></script>
+	<script src="../../ui/jquery.ui.mouse.js"></script>
+	<script src="../../ui/jquery.ui.draggable.js"></script>
+	<script src="../../ui/jquery.ui.droppable.js"></script>
+	<script src="../../ui/jquery.ui.sortable.js"></script> 
+
+	<style>
+		.demo { color: blue; }
+	</style>
+	<script> 
+		$(function() {
+			$( ".draggable" ).draggable({ revert: "invalid" });
+			
+		});
+	</script>
+</head>
+<body>
+	
+	<table class="demo" id="itemtable">
+		<?php for ($i = 0; $i < count($this->items); $i++) : ?>
+						<tr id="row_id_<?php echo $this->items[$i]['item_id']; ?>" class="row_parent_<?php echo $this->items[$i]['parent_id']; ?>">
+							<td style="padding-left: <?php echo 40 * $this->items[$i]['depth']; ?>px">
+								<span class="draggable" style="cursor: move"><?php echo $this->items[$i]['label']; ?></span>
+								
+							</td>
+						</tr>
+		<?php endfor; ?>
+		
+		
+	</table>
+	
+	
+</body>
+</html>
