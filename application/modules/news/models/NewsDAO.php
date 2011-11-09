@@ -29,6 +29,12 @@ class Model_NewsDAO extends Zend_Db_Table_Abstract
 		return $db->query($sql);
 	}
 	
+	public function getComments($article_id) {
+		$sql = "SELECT * FROM `comment` where `news_id`=".$article_id;
+		$db = $this->getDefaultAdapter();
+		return $db->query($sql);
+	}
+	
 	public function getAll() {
 		$sql  = "SELECT * FROM news_article";
 		$db = $this->getDefaultAdapter();

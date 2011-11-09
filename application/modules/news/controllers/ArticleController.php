@@ -9,7 +9,7 @@ class News_ArticleController extends Zend_Controller_Action {
 				'slug'          => $request->getPost('slug'),
 			    'description'   => $request->getPost('description'),
 			    'content'       => $request->getPost('content'),
-				'created_date'   => date('Y-m-d H:i:s'),
+				'created_date'  => date('Y-m-d H:i:s'),
 				'author'        => strip_tags($request->getPost('author')),
 				'allow_comment' => $request->getPost('allowComment'),
 				'is_hot'        => $request->getPost('hotArticle')
@@ -34,12 +34,14 @@ class News_ArticleController extends Zend_Controller_Action {
 		$news = new Model_NewsBLO();
 		$article = $news->getById($id)->fetch();
 		
+		$this->view->id            = $id;
 		$this->view->title         = $article['title'];
 		$this->view->description   = $article['description'];
 		$this->view->content       = $article['content'];
 		$this->view->author        = $article['author'];
 		$this->view->created_date  = $article['created_date'];
 		$this->view->allowComment  = $article['allow_comment'];
+		$this->view->comments      = $news->getComments($id);
 	}
 
 //DUONG THAN DAN
@@ -47,7 +49,7 @@ class News_ArticleController extends Zend_Controller_Action {
 		//$module = new Model_News();
 		$module = new Model_NewsBLO();
 		$result=$module->getAll();
-		$this->view->result=$result;
+		$this->view->result = $result;
 		
 		$request = $this->getRequest();
         $url = $request->getScheme() . '://' . $request->getHttpHost().'/Apprentice_CMS/';

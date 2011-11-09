@@ -20,6 +20,10 @@ Class Model_NewsBLO {
 		return $this->_newsDAO->getById($id);
 	}
 	
+	public function getComments($id) {
+		return $this->_newsDAO->getComments($id);
+	}
+	
 	public function getAll()
 	{
 		return $this->_newsDAO->getAll();
