@@ -17,7 +17,7 @@
 		echo "</ul>";
 	}
 	?>
-	<form action="../id/<?php echo $this->id?>" method="post" id="adduser">
+	<form action="/Apprentice_CMS/public/admin/user/edit/id/<?php echo $this->id?>" method="post" id="adduser">
 		<table align="center">
 			<tr><td><span class="ctexttd">Fullname :</span></td><td><input type="text" name="tbxname" class="cinput" id="tbxname" value="<?php echo $this->data[0]['full_name'];?>" /></td><td><span id="errorname"></span></td></tr>
 			<tr><td><span class="ctexttd">Username : </span></td><td><input type="text" name="tbxuser" class="cinput" id="tbxuser" value="<?php echo $this->data[0]['user_name'];?>" /></td><td><span id="erroruser"></span></td></tr>
