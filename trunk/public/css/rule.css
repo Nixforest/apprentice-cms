@@ -45,7 +45,7 @@
 	color:orange;
 	font-weight: bold;
 	cursor: default;	
-	margin-left: 180px;
+	margin-left: 200px;
 }
 	
 .btSubmit{
@@ -55,13 +55,12 @@
 	color:#FFF;
 	width:90px;
 	height:30px;
-	border:none;
 	border-radius:8px 8px;
 	font-weight:900;
 	margin-left:60px;
 	cursor: pointer;
 }
-	
+
 #main{
 	background-color: #333;
 }

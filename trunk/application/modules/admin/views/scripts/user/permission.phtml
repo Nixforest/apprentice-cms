@@ -10,12 +10,6 @@
 	{
 		window.location.href = url;
 	}
-
-	function controllerClick(array){
-		for (var i = 0; i < array.length; i++) {
-			document.getElementById(array[i]).checked=true;
-		}	
-	}
 	</script>
 	</head>
 	<body>
@@ -66,7 +60,7 @@
 				if($controller == $controllerArray[$i]){
 					$controllerArray[$i] = null;
 					echo "<br>";
-					echo "<div class='controllerName' onclick= 'controllerClick()'>Manage $controller:</div>";	
+					echo "<div class='controllerName'>Manage $controller:</div>";	
 				}						
 			}
 			echo "<div class = 'privilegeItem'>";
@@ -78,7 +72,6 @@
 	}	
 ?>
 </div>
-<br />
 <input type='submit' name='btnSubmit' class ='btSubmit' value='Save' />
 </form>
 
