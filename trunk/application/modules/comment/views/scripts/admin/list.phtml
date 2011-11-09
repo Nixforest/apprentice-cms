@@ -1,0 +1,40 @@
+<div class="tableArticle">
+<table>
+	<tr class="table_Header">
+	<td width="300px">Title</td>
+	<td width="300px">Content</td>
+	<td width="100px">Status</td>
+	<td width="50px">ID</td></tr>	
+	<?php 
+		while($row=$this->result->fetch()){
+			
+			echo "<td><div class='title'><a href='#'>".$row['title']."</a></div><div>Posted by <b>".$row['email']."</b> at ".$row['created_date']."</div>";
+			
+			echo "<div class='control'><a href='/Apprentice_CMS/public/comment/admin/edit/id/".$row['comment_id']."'>Edit</a>  |  ";
+			
+        	echo "<a href='/Apprentice_CMS/public/comment/admin/delete/id/".$row['comment_id']."'>Delete</a>  |  ";
+        	
+        	if($row['is_active']==1){
+        		echo "<a href='/Apprentice_CMS/public/comment/admin/active/id/".$row['comment_id']."'>Deactive</a></div></td>";
+        	}
+        	else{
+        		echo "<a href='/Apprentice_CMS/public/comment/admin/active/id/".$row['comment_id']."'>Active</a></div></td>";	
+        	}
+			
+        	echo '<td>'.$row['content'].'</td>';
+        	if ($row['is_active']==1)
+				echo '<td>active</td>';
+			else echo '<td>inactive</td>';
+			echo '<td>'.$row['comment_id'].'</td><tr>';
+		}
+		
+	?>	
+	
+</table>
+</div>
+<div class="tableArticle">
+	<?php
+		$this->form->setAction($this->url());
+		echo $this->form;	
+	?>
+</div>

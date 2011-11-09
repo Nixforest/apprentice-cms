@@ -2,9 +2,9 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
 	<?php echo $this->headTitle('View the article') ?>	
-	<?php echo $this->headLink()->appendStylesheet("/apprentice_cms/public/css/editor.css") ?>
+	<?php echo $this->headLink() ?>
 	<?php echo $this->headStyle()?>
-	<?php echo $this->headScript()->appendFile("/apprentice_cms/public/js/editor.js") ?>
+	<?php echo $this->headScript() ?>
 </head>
 <body>
 	<hr />
@@ -37,7 +37,7 @@
 			$article_id = $this->id;
 			echo "<h2>Write your comment</h2><br />";
 			echo "
-				<form action='public/comment/admin/add' method='post' name='sendCommentForm' id='sendCommentForm' enctype='multipart/form-data'>
+				<form action='/apprentice_cms/public/comment/admin/add' method='post' name='sendCommentForm' id='sendCommentForm' enctype='multipart/form-data'>
 				<div>
 					<label>Full name: </label>
 					<input type='text' name='name_comment' id='name_comment' style='width: 250px;' />
