@@ -1,9 +1,15 @@
+<html>
+<head>
 	<?php echo $this->headTitle('Add new article') ?>	
 	<?php 
+		$this->headLink()->appendStylesheet($this->url.'skin/admin/default/adminNews.css');
 		$this->headLink()->appendStylesheet($this->url.'public/css/editor.css');
 		$this->headScript()->appendFile($this->url.'public/js/editor.js'); 
 	?>
-<form action="" method="post" name="addArticleForm" id="addArticleForm" enctype="multipart/form-data">
+</head>
+<body>
+	<div class="form">
+	<form action="" method="post" name="addArticleForm" id="addArticleForm" enctype="multipart/form-data">
 	<div>
 		<label>Main title: </label>
 		<input type="text" name="title" id="title" style="width: 440px" value="<?php echo $this->newsTitle?>" />
@@ -91,3 +97,6 @@
 		<input type="submit" name="save" value="Save" onclick="getData('description', 'd'); getData('content', 'c');" />
 	</div>
 </form>
+</div>
+</body>
+</html>	
