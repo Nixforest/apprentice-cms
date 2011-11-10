@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ * Apprentice_CMS
+ */
+-->
+<module>
+	<name>default</name>
+	<description langKey="about_admin_description"><![CDATA[Core module. This module will be installed at the first time you install website]]></description>
+	<thumbnail></thumbnail>
+	<author>Apprentice CMS Team</author>
+	<email>Nixforest21991920@gmail.com</email>
+	<version>1.0.0</version>
+	<license>free</license>
+</module>
