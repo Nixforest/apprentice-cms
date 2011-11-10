@@ -77,7 +77,11 @@ class Admin_RoleController extends Zend_Controller_Action{
 	public function submitAction()
 	{
 		$frmAddRole=new Form_AddRoleForm();
+
+		$frmAddRole->setAction('http://localhost/Apprentice_CMS/public/admin/role/submit');
+
 		$frmAddRole->setAction('../role/submit');
+
 		$frmAddRole->setMethod('post');
 		if($this->getRequest()->isPost())
 		{
