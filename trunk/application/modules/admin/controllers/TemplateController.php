@@ -16,13 +16,30 @@ class Admin_TemplateController extends Zend_Controller_Action{
 	 */
 	
 	public function init(){
+
+		// Chỉ ra đường dẫn đến thư mục chứa các file template
+		$dirName = "testtemplate1";
+		$this->_request->getParam('gui');
+		$this->view->dirName=$dirName;
+	    $dirLayout = APPLICATION_PATH."/template/".$dirName;
+	    
+	    // Dùng thư viện Zend_Layout để gọi layout.
+	    Zend_Layout::startMvc(array(
+	                'layoutPath' => $dirLayout,
+	                'layout' => 'index'
+	                )); 
+		
+	}
+		
+
 		// khi ấn 1 nút chọn template sẽ truyền đường dẫn và load template đó sử dụng. 
 		//đồng thời ghi đường dẫn template đó vào application.ini cái này có thể chạy nhưng sẽ thay đổi lại file application
       
 		// upload 1 template	
+
 	
 			
-		}
+		
 		
 	    // load những file view của các controller vào 1 vị trí trên template bất kỳ
 

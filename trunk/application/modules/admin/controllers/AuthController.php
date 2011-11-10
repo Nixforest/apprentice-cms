@@ -16,7 +16,7 @@ class Admin_AuthController extends Zend_Controller_Action
 	//
 	public function indexAction()
 	{
-		$this->_redirect('/admin/');
+		$this->_redirect('/admin/index/index');
 	}
 	
 	//check login
@@ -102,7 +102,7 @@ class Admin_AuthController extends Zend_Controller_Action
                 $auth->getStorage() 
                            ->write($authAdapter->getResultRowObject(null, 'password')); 
                 $this->view->auth = true; 
-                $this->_redirect(); 
+                $this->_redirect('/admin/index/index'); 
             } else { 
                 $this->view->auth = false; // fail authentication 
                 switch ($result->getCode()) 
@@ -126,7 +126,7 @@ class Admin_AuthController extends Zend_Controller_Action
 	public function logoutAction()
 	{
 		Zend_Auth::getInstance()->clearIdentity();
-		$this->_redirect('/admin/');
+		$this->_redirect('/admin/index/index');
 	}
 	
 	
