@@ -3,12 +3,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <?php echo $this->headLink()->appendStylesheet('/Apprentice_CMS/skin/admin/default/admin.css'); ?>
+   <?php echo $this->headLink()->appendStylesheet('/Apprentice_CMS/public/css/Menu.css');?>   
    <?php echo $this->headScript()->appendFile('/Apprentice_CMS/js/admin/stmenu.js')
 								   ->appendFile('/Apprentice_CMS/js/admin/stcode.js')
 								   ->appendFile('/Apprentice_CMS/js/admin/steffie.js')
 								   ->appendFile('/Apprentice_CMS/js/admin/steffslip.js')
-								   ->appendFile('/Apprentice_CMS/js/admin/steffrect.js');?>
-   
+								   ->appendFile('/Apprentice_CMS/js/admin/steffrect.js')
+								   ->appendFile('/Apprentice_CMS/public/js/jquery-1.6.js')
+								   ->appendFile('/Apprentice_CMS/public/js/Menu.js');?>
 </head>
 <body>   
 	<div class="container">
@@ -24,35 +26,14 @@
             </div>
         	<div id="h_menu">
         		<div id="menu">
-        			<a href="http://www.dhtml-menu-builder.com"  style="display:none;visibility:hidden;">Drop Down Menu</a>
-					<script type="text/javascript">
-					stm_bm(["menu79fb",970,"","images/blank.gif",0,"","",0,0,250,0,1000,1,0,0,"","",0,0,1,2,"default","hand","",1,25],this);
-					stm_bp("p0",[0,4,0,0,1,0,1,7,100,"",-2,"",-2,50,0,0,"#999999","transparent","",3,0,0,"#000000"]);
-					stm_ai("p0i0",[0,"Quản Trị","","",-1,-1,0,"http://localhost/Apprentice_CMS/public/admin/index/index","_self","","","","",0,0,0,"","",0,0,0,1,1,"#E6EFF9",1,"#FFD602",1,"../../../skin/admin/default/images/middle.gif","../../../skin/admin/default/images/2-middle.gif",3,3,0,0,"#E6EFF9","#000000","#666666","#38697f","12px Tahoma","12px Tahoma",0,0,"../../../skin/admin/default/images/left.gif","../../../skin/admin/default/images/2-left.gif","../../../skin/admin/default/images/right.gif","../../../skin/admin/default/images/2-right.gif",22,19,35],158,35);
-					stm_aix("p0i1","p0i0",[0,"Hệ Thống","","",-1,-1,0,"#","_self","","","","",0,0,0,"","",7,7],158,35);
-					stm_bpx("p1","p0",[1,4,0,0,0,0,0,7,100,"stEffect(\"slip\")",-2,"stEffect(\"slip\")",-2,100]);
-					stm_ai("p1i0",[0,"Template","","",-1,-1,0,"http://localhost/Apprentice_CMS/public/admin/template/list","_self","","","","",0,0,0,"","",0,0,0,1,1,"#E6EFF9",1,"#FFD602",1,"../../../skin/admin/default/images/3-middle.gif","../../../skin/admin/default/images/4-middle.gif",3,3,0,0,"#E6EFF9","#000000","#666666","#38697f","12px Tahoma","12px Tahoma",0,0,"../../../skin/admin/default/images/3-left.gif","../../../skin/admin/default/images/4-left.gif","../../../skin/admin/default/images/3-right.gif","../../../skin/admin/default/images/4-right.gif",25,19,38],158,1);
-					stm_aix("p1i1","p1i0",[0,"Quan ly module","","",-1,-1,0,"http://localhost/Apprentice_CMS/public/admin/module/list"],158,1);
-					stm_aix("p1i2","p1i0",[0,"Quản Lý Người Dùng","","",-1,-1,0,"","_self","","","","",0,0,0,"","",7,7],158,1);
-					stm_bpx("p2","p1",[1,2,0,0,0,0,0,0]);
-					stm_aix("p2i0","p1i0",[0,"Nhóm","","",-1,-1,0,"http://localhost/Apprentice_CMS/public/admin/role/list"],158,1);
-					stm_aix("p2i1","p2i0",[0,"Người Dùng","","",-1,-1,0,"http://localhost/Apprentice_CMS/public/admin/privilege/list"],158,1);
-					stm_aix("p2i2","p1i1",[0,"Phân Quyền","","",-1,-1,0,"http://localhost/Apprentice_CMS/public/admin/privilege/list"],158,1);
-					stm_ep();
-					stm_ep();
-					stm_aix("p0i2","p0i1",[0,"Module","","",-1,-1,0,"#","_self","","","","",1,1],158,35);
-					stm_bpx("p3","p1",[]);
-					stm_aix("p3i0","p1i2",[0,"Quản Lý Bài Viết","","",-1,-1,0,"#"],158,38);
-					stm_bpx("p4","p2",[]);
-					stm_aix("p4i0","p1i1",[0,"Danh Sách Bài Viết","","",-1,-1,0,"http://localhost/Apprentice_CMS/public/news/article/list"],158,1);
-					stm_aix("p4i1","p1i1",[0,"Thêm Bài Viết Mới","","",-1,-1,0,"http://localhost/Apprentice_CMS/public/news/article/add"],158,1);
-					stm_aix("p4i2","p1i1",[0,"Thay Đổi Bài Viết","","",-1,-1,0,"http://localhost/Apprentice_CMS/public/news/article/edit"],158,1);
-					stm_ep();
-					stm_ep();
-					stm_aix("p0i3","p0i0",[0,"Cá Nhân","","",-1,-1,0,"http://localhost/Apprentice_CMS/public/admin/privilege/list"],158,35);
-					stm_ep();
-					stm_em();
-				</script>
+   					<ul class="t_menu_menu">
+   					<?php 
+   						$menuBLO = new Model_MenuBLO();
+   						$menus = $menuBLO->getMenus();
+						$items = $menuBLO->getItems('2');
+   						$menuBLO->CreateMenuMultiLevel($items)
+   					?>
+   					</ul>
         		</div>
                 
 
