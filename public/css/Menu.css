@@ -1,0 +1,40 @@
+*{margin: 0; padding: 0;}
+.t_menu_menu {
+    list-style:  none;
+    position: relative;
+    line-height: 1.5em;
+}
+.t_menu_menu a:link, 
+.t_menu_menu a:active,
+.t_menu_menu a:visited {
+    display: block;
+    padding: 0px 5px;
+    border: 1px solid #3883cc;
+    color: white;
+    text-decoration: none;
+    background: #3883cc;
+}
+.t_menu_menu a:hover {
+    background: #fff;
+    color: #333;
+}
+.t_menu_menu li {
+    float: left;
+    position: relative;
+	display: block;
+}
+.t_menu_menu li ul ul {
+    left: 12em;
+	margin: -25px 0 0 10px;
+}
+.dropdownMenu {
+    position: absolute;
+    width: 12em;
+    top: 1.5em;
+    display:none ;
+}
+.dropdownMenu a {
+    width: 12em;
+    float: left;
+}
+

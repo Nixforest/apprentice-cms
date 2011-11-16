@@ -41,6 +41,18 @@ Class Model_MenuBLO {
 		$this->_itemDAO->deleteItems( $menuDTO->get('menu_id') );
 		$this->_itemDAO->addItems($menuDTO);
 	}
-	
+	public function CreateMenuMultiLevel($arr,$id='0')
+	{// dua cac item trong menu vao mang da chieu	
+		foreach($arr as $item){
+		if($item['parent_id']==$id){
+			echo '<li><a href="'.$item['link'].'" >',$item['label'],'</a>';
+				echo '<ul class="dropdownMenu" >';
+					$this->CreateMenuMultiLevel($arr,$item['item_id']);
+				echo '</ul>';
+			echo '</li>';
+		}
+		
+	}
+}
 	
 }
