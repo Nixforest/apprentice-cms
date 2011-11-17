@@ -1,0 +1,90 @@
+<?php echo $this->doctype(); ?>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <?php echo $this->headLink()->appendStylesheet('/Apprentice_CMS/skin/admin/default/admin.css'); ?>
+   <?php echo $this->headScript()->appendFile('/Apprentice_CMS/js/admin/stmenu.js')
+								   ->appendFile('/Apprentice_CMS/js/admin/stcode.js')
+								   ->appendFile('/Apprentice_CMS/js/admin/steffie.js')
+								   ->appendFile('/Apprentice_CMS/js/admin/steffslip.js')
+								   ->appendFile('/Apprentice_CMS/js/admin/steffrect.js');?>
+   
+</head>
+<body>   
+	<div class="container">
+	
+    	<div id="header">
+            <div id="h_banner">
+                <div id="h_title">
+                	<h1>Apprentice_CMS</h1>
+                </div>
+                <div id="h_infor">
+                    <p>Chào, Admin. Trang Chủ Website. Đăng Xuất</p>
+                </div>
+            </div>
+        	<div id="h_menu">
+        		<div id="menu">
+        			<a href="http://www.dhtml-menu-builder.com"  style="display:none;visibility:hidden;">Drop Down Menu</a>
+					<script type="text/javascript">
+					stm_bm(["menu79fb",970,"","images/blank.gif",0,"","",0,0,250,0,1000,1,0,0,"","",0,0,1,2,"default","hand","",1,25],this);
+					stm_bp("p0",[0,4,0,0,1,0,1,7,100,"",-2,"",-2,50,0,0,"#999999","transparent","",3,0,0,"#000000"]);
+					stm_ai("p0i0",[0,"Quản Trị","","",-1,-1,0,"/Apprentice_CMS/public/admin/index/index","_self","","","","",0,0,0,"","",0,0,0,1,1,"#E6EFF9",1,"#FFD602",1,"../../../skin/admin/default/images/middle.gif","../../../skin/admin/default/images/2-middle.gif",3,3,0,0,"#E6EFF9","#000000","#666666","#38697f","12px Tahoma","12px Tahoma",0,0,"../../../skin/admin/default/images/left.gif","../../../skin/admin/default/images/2-left.gif","../../../skin/admin/default/images/right.gif","../../../skin/admin/default/images/2-right.gif",22,19,35],158,35);
+					stm_aix("p0i1","p0i0",[0,"Hệ Thống","","",-1,-1,0,"#","_self","","","","",0,0,0,"","",7,7],158,35);
+					stm_bpx("p1","p0",[1,4,0,0,0,0,0,7,100,"stEffect(\"slip\")",-2,"stEffect(\"slip\")",-2,100]);
+					stm_ai("p1i0",[0,"Template","","",-1,-1,0,"/Apprentice_CMS/public/admin/template/list","_self","","","","",0,0,0,"","",0,0,0,1,1,"#E6EFF9",1,"#FFD602",1,"../../../skin/admin/default/images/3-middle.gif","../../../skin/admin/default/images/4-middle.gif",3,3,0,0,"#E6EFF9","#000000","#666666","#38697f","12px Tahoma","12px Tahoma",0,0,"../../../skin/admin/default/images/3-left.gif","../../../skin/admin/default/images/4-left.gif","../../../skin/admin/default/images/3-right.gif","../../../skin/admin/default/images/4-right.gif",25,19,38],158,1);
+					stm_aix("p1i1","p1i0",[0,"Quan ly module","","",-1,-1,0,"/Apprentice_CMS/public/admin/module/list"],158,1);
+					stm_aix("p1i2","p1i0",[0,"Quản Lý Người Dùng","","",-1,-1,0,"","_self","","","","",0,0,0,"","",7,7],158,1);
+					stm_bpx("p2","p1",[1,2,0,0,0,0,0,0]);
+					stm_aix("p2i0","p1i0",[0,"Nhóm","","",-1,-1,0,"/Apprentice_CMS/public/admin/role/list"],158,1);
+					stm_aix("p2i1","p2i0",[0,"Người Dùng","","",-1,-1,0,"/Apprentice_CMS/public/admin/user/index"],158,1);
+					stm_aix("p2i2","p1i1",[0,"Phân Quyền","","",-1,-1,0,"/Apprentice_CMS/public/admin/privilege/list"],158,1);
+					stm_ep();
+					stm_ep();
+					stm_aix("p0i2","p0i1",[0,"Module","","",-1,-1,0,"#","_self","","","","",1,1],158,35);
+					stm_bpx("p3","p1",[]);
+					stm_aix("p3i0","p1i2",[0,"Quản Lý Bài Viết","","",-1,-1,0,"#"],158,38);
+					stm_bpx("p4","p2",[]);
+					stm_aix("p4i0","p1i1",[0,"Danh Sách Bài Viết","","",-1,-1,0,"/Apprentice_CMS/public/news/article/list"],158,1);
+					stm_aix("p4i1","p1i1",[0,"Thêm Bài Viết Mới","","",-1,-1,0,"/Apprentice_CMS/public/news/article/add"],158,1);
+					stm_aix("p4i2","p1i1",[0,"Thay Đổi Bài Viết","","",-1,-1,0,"/Apprentice_CMS/public/news/article/edit"],158,1);
+					stm_ep();
+					stm_aix("p3i1","p2i0",[0,"Category","","",-1,-1,0,"#"],158,1);
+					stm_bpx("p5","p2",[]);
+					stm_aix("p5i0","p2i0",[0,"Thêm Category","","",-1,-1,0,"#"],158,1);
+					stm_aix("p5i1","p2i0",[0,"Sửa Category","","",-1,-1,0,"#"],158,1);
+					stm_ep();
+					stm_aix("p3i2","p2i0",[0,"Menu","","",-1,-1,0,"#"],158,1);
+					stm_bpx("p6","p2",[]);
+					stm_aix("p6i0","p2i0",[0,"Xem Menu","","",-1,-1,0,"/Apprentice_CMS/public/menu/index/index"],158,1);
+					stm_aix("p6i1","p2i0",[0,"Thêm Menu","","",-1,-1,0,"/Apprentice_CMS/public/menu/index/add"],158,1);
+					stm_aix("p6i2","p2i0",[0,"Xóa Menu","","",-1,-1,0,"/Apprentice_CMS/public/menu/index/delete"],158,1);
+					stm_ep();
+					stm_aix("p3i3","p2i0",[0,"Page","","",-1,-1,0,"#"],158,1);
+					stm_bpx("p7","p2",[]);
+					stm_aix("p7i0","p2i0",[0,"Xem Page","","",-1,-1,0,"/Apprentice_CMS/public/page/page/list"],158,1);
+					stm_aix("p7i1","p2i0",[0,"Thêm Page","","",-1,-1,0,"/Apprentice_CMS/public/page/page/new"],158,1);
+					stm_aix("p7i2","p2i0",[0,"Sửa Page","","",-1,-1,0,"/Apprentice_CMS/public/page/page/edit"],158,1);
+					stm_ep();
+					stm_ep();
+					stm_aix("p0i3","p0i0",[0,"Cá Nhân","","",-1,-1,0,"/Apprentice_CMS/public/admin/privilege/list"],158,35);
+					stm_ep();
+					stm_em();
+					</script>
+        		</div>
+                
+
+            </div>
+            
+        </div><!--header-->
+
+        <div id="content">
+			<?php echo $this->layout()->content?>
+		</div><!--content-->  
+            
+        <div id="footer">
+            <h4>Power By Apprentice_CMS</h4>
+        </div> 
+             
+	</div><!--container-->
+</body>
+</html>
