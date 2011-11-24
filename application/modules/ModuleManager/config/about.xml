@@ -4,8 +4,8 @@
  *Apprentice CMS */
 -->
 <module>
-	<name>comment</name>
-	<description langKey="about_Module_comment_description"><![CDATA[This module is used to post a comment for a news]]></description>
+	<name>ModuleManager</name>
+	<description langKey="about_Module_comment_description"><![CDATA[Module manages other modules]]></description>
 	<thumbnail></thumbnail>
 	<author>buingochuy</author>
 	<email>huyuit@gmail.com</email>

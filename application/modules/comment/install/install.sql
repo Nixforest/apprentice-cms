@@ -18,9 +18,6 @@ CREATE TABLE IF NOT EXISTS `comment` (
   KEY `idx_lastest` (`news_id`,`is_active`,`ordering`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
---
--- Dumping data for table `comment`
---
 $$
 INSERT INTO `comment` (`comment_id`, `title`, `content`, `full_name`, `email`, `user_id`, `user_name`, `news_id`, `created_date`, `is_active`, `activate_date`, `ordering`, `depth`, `reply_to`) VALUES
 (1, 'Hello', 'Chao ca nha nhe. Lam quen di.', 'bui ngoc huy', 'huylamtheo@yahoo.com', NULL, NULL, 1, '2011-10-31 22:17:37', 0, NULL, 1, 0, 0),

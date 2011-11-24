@@ -57,8 +57,8 @@ a:hover{
 	text-decoration:none;
 }
 .cadd a:hover{
-	color:#F00;	
-	text-decoration:none;
+	color:green;
+	text-decoration:under-line;
 	font-weight:900;
 }
 .list{
