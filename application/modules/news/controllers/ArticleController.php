@@ -42,6 +42,9 @@ class News_ArticleController extends Zend_Controller_Action {
 		$this->view->created_date  = $article['created_date'];
 		$this->view->allowComment  = $article['allow_comment'];
 		$this->view->comments      = $news->getComments($id);
+		$request = $this->getRequest();
+        $url = $request->getScheme() . '://' . $request->getHttpHost().'/Apprentice_CMS/';
+        $this->view->url = $url;
 	}
 
 //DUONG THAN DAN
