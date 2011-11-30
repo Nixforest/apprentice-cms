@@ -87,4 +87,9 @@ class Model_NewsDAO extends Zend_Db_Table_Abstract
 			throw new Zend_Exception("Delete function failed; could not find row!");
 		}
 	}
+	
+	public function updateNewsAtAttr($attrName,$id,$newContent){
+		$db = $this->getDefaultAdapter();
+		$db->update($this->_name, Array($attrName => $newContent),'article_id='.$id);
+	}
 }

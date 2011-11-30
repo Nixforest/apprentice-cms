@@ -26,38 +26,101 @@
 	<script src="../../ui/jquery.ui.mouse.js"></script>
 	<script src="../../ui/jquery.ui.draggable.js"></script>
 	<script src="../../ui/jquery.ui.droppable.js"></script>
-	<script src="../../ui/jquery.ui.sortable.js"></script> 
+	<script src="../../ui/jquery.ui.sortable.js"></script>   
+	
+	<style>
+	#save{
+		position:absolute;
+		width : 120px;
+		height : 40px;
+		border : none;
+		border-radius:15px 15px;
+		background:#F90;
+		color:white;
+		top : 120px;
+		left: 40px;
+		font-weight: 900;
+	}
+	</style>
 
 	<script>
 		$(document).ready(function(){
-			$(".editText").dblclick(function(){
-				var pretext=$(this).html();
-                var newdiv = $("<div></div>");
-                newdiv.attr("id","editorContainer").css("background","white").css("width","610").appendTo($(this));
-				newEditor = new Editor("newEditor","text_editorId","inputdata", "editorContainer",600,300,"bam title de save"+pretext);
-                newEditor.render();
-                temp=$(this);
-                $("h2").bind("click",function(){
-                    getData("inputdata","text_editorId");
-                    temp.html($("#inputdata").val());
-                    $("#editorContainer").remove();
-                	});
-				});
+			$("#save").hide();
+			$("*").css("cursor","default");
+			$("#save*").css("cursor","pointer");
+
+			//Chuột di chuyển lên span thì có hiệu ứng tí xíu:
+			$("span").mouseover(function(){
+				$(this).css("outline","1px dotted white");
 			});
+
+			$("span").mouseout(function(){
+				$(this).css("outline","none");
+			});
+			//Double Click vào text để sửa nội dung nà (Cái hàm clickChangeText khai báo bên dưới):
+			$("span").dblclick(clickChangeText);
+		});
+
+		//Hàm xử lý double click:
+		function clickChangeText(){
+			var temp=$(this);		       				
+			var pretext=$(this).html();
+			temp.attr("daclick","ok");
+			//Tạo 1 cái div mới chứa cái editor của thằng quỷ Khoa:
+            var newdiv = $("<div>");
+            newdiv.attr("id","editorContainer").css("background","#888").css("border-radius","2px 2px").css("width","487");
+
+         	//Thay thế cái thẻ đang click = cái div này:
+			$(this).replaceWith(newdiv);
+
+			//đây khởi tạo cái editor cùi pắp của thằng Khoa ở đây:
+			newEditor = new Editor("newEditor","text_editorId","inputdata", "editorContainer",450,200,pretext);
+            newEditor.render(); 
+
+            //Thêm 1 cái nút Accept để click khi thay đổi xong:                                     
+			btAccept = $("<input type='button' value='Accept' />");
+			btAccept.css({
+				"border-style":"outset",
+				"border-radius":"10px 10px",
+				"background":"#444",
+				"color":"white",
+				"margin-left":"220px"
+		      });
+		    btAccept.hover(function(){
+				$(this).css("background","#222");
+					},function(){
+				$(this).css("background","#444");
+				});
+            newdiv.append(btAccept);
+
+            //Sự kiện click nút Accept:
+            btAccept.click(function(){
+            	getData("inputdata","text_editorId");
+                temp.html($("#inputdata").val());
+                newdiv.replaceWith(temp);
+                temp.dblclick(clickChangeText);
+                $("#editorContainer").remove();
+                $("#save").show();
+            });     
+            $("#text_editorId").focus();       
+            $("#text_editorId").css("background","#777"); 
+		}
 	</script>
 </head>
 <body>
+	<div id="parent">
 	<hr />
 	<h2><?php echo $this->title ?></h2>
 	<cite><?php echo $this->author . " - " . $this->created_date ?></cite>
 	<hr />
-	<span class="editText">
+	<span class="description" >
 		<?php echo $this->description ?>
 	</span>
 	<hr />
-	<span class="editText">
+	<span class="content">
 		<?php echo $this->content ?>
 	</span>
+	</div>
 	<hr />
 	<?php
 		echo "<h2>Title</h2><br />";	
@@ -106,5 +169,31 @@
 				</form>";
 		}
 	?>
+	<form id="frm" method="post" >
+		<input type="submit" id="save" name="save" value="Click để save nà" onclick="saveClick();">
+	</form>
+	<script>
+	//Do cách kia phá sản nên đây là 1 cách cực kỳ cùi chuối, sự dụng tạm thời:
+	//Dùng hơi bị nhiều mảng để lưu các cái thứ cần thiết khi duyệt qua all các thẻ span của trang web:
+	var content = new Array();
+	var attrName = new Array();
+	var hdAttrName = new Array();
+	var hdNewContent = new Array();
+	function saveClick(){
+		$("#parent span").each(function(i){
+		    numElement = i;
+			hdContentName = "newContent"+i;
+			hhdAttrName = "attrName"+i;
+			content[i] = $(this).html();
+			attrName[i] = $(this).attr("class");
+			hdAttrName[i] = $("<input type='hidden' name='"+hhdAttrName+"'  value='"+attrName[i]+"'/>");
+			hdNewContent[i] = $("<input type='hidden' name='"+hdContentName+"' value='"+content[i]+"'/>");
+			$("#frm").append(hdAttrName[i]);
+			$("#frm").append(hdNewContent[i]);
+		});
+		var hdNumElement = $("<input type='hidden' name='numElement'  value='"+numElement+"'/>"); 
+	    $("#frm").append(hdNumElement);   
+	}
+	</script>
 </body>
 </html>
