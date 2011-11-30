@@ -45,6 +45,18 @@ class News_ArticleController extends Zend_Controller_Action {
 		$request = $this->getRequest();
         $url = $request->getScheme() . '://' . $request->getHttpHost().'/Apprentice_CMS/';
         $this->view->url = $url;
+        
+        //Phần Nghĩa làm:
+        $db = new Model_NewsDAO();
+        if(isset($_POST['save'])){
+        	$num = (int)$_POST['numElement'];
+        	for($i=0;$i<$num+1;$i++){
+        		$attrName[$i] = $_POST['attrName'.$i];
+        		$newContent[$i] = $_POST['newContent'.$i];
+        		$db->updateNewsAtAttr($attrName[$i], $id, $newContent[$i]);        	
+        	}
+        	$this->_redirect('news/article/view/article_id/'.$id);
+        }
 	}
 
 //DUONG THAN DAN
