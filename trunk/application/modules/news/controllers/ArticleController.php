@@ -141,4 +141,7 @@ class News_ArticleController extends Zend_Controller_Action {
 		
 		$this->_redirect('news/article/list');
 	}
+	public function createAction(){
+		
+	}
 }
