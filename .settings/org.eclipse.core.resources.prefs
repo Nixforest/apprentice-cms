@@ -1,4 +1,4 @@
-#Wed Nov 16 22:32:19 ICT 2011
+#Tue Jan 03 15:16:09 ICT 2012
 eclipse.preferences.version=1
 encoding//application/modules/ModuleManager/controllers/IndexController.php=UTF-8
 encoding//application/modules/ModuleManager/models/BsModuleManager.php=UTF-8
@@ -7,3 +7,4 @@ encoding//application/modules/ModuleManager/models/ModuleManagerEntity.php=UTF-8
 encoding//application/modules/admin/controllers/ModuleController.php=UTF-8
 encoding//application/modules/bug/Bootstrap.php=UTF-8
 encoding/<project>=UTF-8
+encoding/aaaaaaa.html=UTF-8
