@@ -1,0 +1,21 @@
+<?php
+	function showMenu($parentId,$aCats,$res = '',$sep = '')
+	{
+		foreach($aCats as $v)
+		{
+			if($v['parent_id'] == $parentId)
+			{
+				$re = $sep.$v['name']."<br />";
+				$res.= showMenu($v['category_id'],$aCats,$re,$sep."--");
+			}
+		}
+		return $res;
+	}
+	$aCats = array();
+	foreach ($this->result as $row)
+	{
+		$aCats[]=$row;
+	}	
+	$sMenu = showMenu(0,$aCats);
+	echo $sMenu;
+?>

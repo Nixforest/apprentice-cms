@@ -1,0 +1,18 @@
+<html>
+<head>
+	<style type="text/css">
+	huylamtheo{margin-left: 10px;}
+	</style>
+	
+</head>
+</html>
+<?php
+	//$this->headLink()->appendStylesheet($this->url.'skin/admin/default/adminNews.css');
+	echo $this->form;
+	echo "Ban da chon:"."<br>";
+	//echo $this->test."<br>";
+	//echo $this->list_checked;
+	foreach ($this->list_checked as $key=>$value) {
+		echo "Key: $key; Value: $value<br />\n";
+	}	
+?>
