@@ -3,11 +3,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
    <?php echo $this->headLink()->appendStylesheet('/Apprentice_CMS/skin/admin/default/admin.css'); ?>
+   <?php echo $this->headLink()->appendStylesheet('/Apprentice_CMS/public/css/Menu.css');?> 
    <?php echo $this->headScript()->appendFile('/Apprentice_CMS/js/admin/stmenu.js')
 								   ->appendFile('/Apprentice_CMS/js/admin/stcode.js')
 								   ->appendFile('/Apprentice_CMS/js/admin/steffie.js')
 								   ->appendFile('/Apprentice_CMS/js/admin/steffslip.js')
-								   ->appendFile('/Apprentice_CMS/js/admin/steffrect.js');?>
+								   ->appendFile('/Apprentice_CMS/js/admin/steffrect.js')
+								   ->appendFile('/Apprentice_CMS/public/js/jquery-1.6.js')
+								   ->appendFile('/Apprentice_CMS/public/js/Menu.js');?>
    
 </head>
 <body>   
@@ -71,7 +74,16 @@
 					stm_em();
 					</script>
         		</div>
-                
+                <!-- <div id="menu2" style="margin-left:13%;">
+   					<ul class="t_menu_menu">
+   					<?php 
+   						$menuBLO = new Model_MenuBLO();
+   						$menus = $menuBLO->getMenus();
+						$items = $menuBLO->getItems('2');
+   						$menuBLO->CreateMenuMultiLevel($items)
+   					?>
+   					</ul>
+        		</div> -->
 
             </div>
             
