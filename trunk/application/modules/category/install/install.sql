@@ -1,0 +1,41 @@
+CREATE TABLE IF NOT EXISTS `category` (
+  `category_id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) CHARACTER SET utf8 NOT NULL,
+  `slug` varchar(100) CHARACTER SET utf8 NOT NULL,
+  `left_id` int(11) NOT NULL,
+  `right_id` int(11) NOT NULL,
+  `parent_id` int(11) NOT NULL DEFAULT '0',
+  `is_active` tinyint(4) DEFAULT '1',
+  `created_date` datetime DEFAULT NULL,
+  `modified_date` datetime DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `num_views` int(11) DEFAULT NULL,
+  PRIMARY KEY (`category_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+
+INSERT INTO `category` (`category_id`, `name`, `slug`, `left_id`, `right_id`, `parent_id`, `is_active`, `created_date`, `modified_date`, `user_id`,`num_views`) VALUES
+(1, 'Destinations', 'destinations', 1, 8, 0, 1, '2010-08-31 10:19:41', NULL, 1, NULL),
+(2, 'Cuisine', 'cuisine', 9, 16, 0, 1, '2010-08-31 10:20:00', NULL, 1, NULL),
+(3, 'Holiday', 'holiday', 17, 24, 0, 1, '2010-08-31 10:20:07', NULL, 1, NULL),
+(4, 'Hanoi', 'hanoi', 2, 3, 1, 1, '2010-08-31 10:20:27', NULL, 1, NULL),
+(5, 'Hue', 'hue', 4, 5, 1, 1, '2010-08-31 10:20:38', NULL, 1, NULL),
+(6, 'Ho Chi Minh City', 'ho-chi-minh-city', 6, 7, 1, 1, '2010-08-31 10:20:48', NULL, 1, NULL),
+(7, 'Phở', 'pho', 10, 11, 2, 1, '2010-08-31 10:21:05', NULL, 1, NULL),
+(8, 'Rice', 'rice', 12, 13, 2, 1, '2010-08-31 10:21:19', NULL, 1, NULL),
+(9, 'Banh Chung', 'banh-chung', 14, 15, 2, 1, '2010-08-31 10:21:47', NULL, 1, NULL),
+(10, 'Tet', 'tet', 18, 19, 3, 1, '2010-08-31 10:22:08', NULL, 1, NULL),
+(11, 'Hung Kings'' Temple Festival', 'hung-kings-temple-festival', 20, 21, 3, 1, '2010-08-31 10:22:20', NULL, 1, NULL),
+(12, 'Mid-Autumn Festival', 'mid-autumn-festival', 22, 23, 3, 1, '2010-08-31 10:22:29', NULL, 1, NULL),
+(13, 'Địa điểm', 'dia-diem', 25, 32, 0, 1, '2010-08-31 10:23:01', NULL, 1, NULL),
+(14, 'Hà Nội', 'ha-noi', 26, 27, 13, 1, '2010-08-31 10:23:24', NULL, 1, NULL),
+(15, 'Huế', 'hue', 28, 29, 13, 1, '2010-08-31 10:23:37', NULL, 1, NULL),
+(16, 'TP Hồ Chí Minh', 'tp-ho-chi-minh', 30, 31, 13, 1, '2010-08-31 10:23:55', NULL, 1, NULL),
+(17, 'Ẩm thực', 'am-thuc', 33, 40, 0, 1, '2010-08-31 10:24:16', NULL, 1, NULL),
+(18, 'Phở', 'pho', 34, 35, 17, 1, '2010-08-31 10:24:30', NULL, 1, NULL),
+(19, 'Cơm', 'com', 36, 37, 17, 1, '2010-08-31 10:24:43', NULL, 1, NULL),
+(20, 'Bánh Chưng', 'banh-chung', 38, 39, 17, 1, '2010-08-31 10:24:57', NULL, 1, NULL),
+(21, 'Lễ Hội', 'le-hoi', 41, 48, 0, 1, '2010-08-31 10:25:46', NULL, 1, NULL),
+(22, 'Tết Âm Lịch', 'tet-am-lich', 42, 43, 21, 1, '2010-08-31 10:26:03', NULL, 1, NULL),
+(23, 'Giỗ Tổ Hùng Vương', 'gio-to-hung-vuong', 44, 45, 21, 1, '2010-08-31 10:26:28', NULL, 1, NULL),
+(24, 'Tết Trung Thu', 'tet-trung-thu', 46, 47, 21, 1, '2010-08-31 10:26:43', NULL, 1, NULL);

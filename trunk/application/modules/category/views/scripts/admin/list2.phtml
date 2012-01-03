@@ -1,0 +1,62 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<?php 
+	$this->headLink()->appendStylesheet($this->url.'skin/admin/default/adminNews.css');
+	?>
+	<style>
+		.demo { color: blue; }
+	</style>
+	<script> 
+		$(function() {
+			$( ".draggable" ).draggable({ revert: "invalid" });
+			
+		});
+	</script>
+</head>
+<body>
+	
+	<table class="demo" id="itemtable">
+	
+		<tr class="table_Header">
+		<td width="300px">Name</td>
+		<td width="100px">Parent ID</td>
+		<td width="300px">Created Date</td>
+		<td width="300px">Modified Date</td>
+		<td width="100px">Active Status</td>
+		<td width="100px">Total view</td>	
+		<td width="50px">ID</td></tr>
+		<?php for ($i = 0; $i < count($this->items); $i++) : ?>
+			<tr id="row_id_<?php echo $this->items[$i]['category_id']; ?>" class="row_parent_<?php echo $this->items[$i]['parent_id']; ?>">
+				<td style="padding-left: <?php echo 40 * $this->items[$i]['depth']; ?>px">
+					<span class="draggable" style="cursor: move"><?php echo $this->items[$i]['name']; ?></span>
+					<?php 
+					echo "<div class='control'><a href='/Apprentice_CMS/public/category/view/id/".$this->items[$i]['category_id']."'>View</a>  |  ";
+					echo "<a href='/Apprentice_CMS/public/category/admin/edit/id/".$this->items[$i]['category_id']."'>Edit</a>  |  ";
+
+		        	echo "<a href='/Apprentice_CMS/public/category/admin/delete/id/".$this->items[$i]['category_id']."'>Delete</a>  |  ";
+		        	
+		        	if($this->items[$i]['is_active']==1){
+		        		echo "<a href='/Apprentice_CMS/public/category/admin/active/id/".$this->items[$i]['category_id']."'>Deactive</a></div></td>";
+		        	}
+		        	else{
+		        		echo "<a href='/Apprentice_CMS/public/category/admin/active/id/".$this->items[$i]['category_id']."'>Active</a></div></td>";	
+		        	}					        	
+					?>
+				</td>
+					<?php
+					echo '<td>'.$this->items[$i]['parent_id'].'</td>';        	
+		        	echo '<td>'.$this->items[$i]['created_date'].'</td>';
+		        	echo '<td>'.$this->items[$i]['modified_date'].'</td>';       	
+		        	if ($this->items[$i]['is_active']==1)
+						echo '<td>active</td>';
+					else echo '<td>inactive</td>';			
+					echo '<td>'.$this->items[$i]['num_views'].'</td>';
+					echo '<td>'.$this->items[$i]['category_id'].'</td>'; 
+					?>
+			</tr>
+		<?php endfor; ?>						
+	</table>
+	<a href='/Apprentice_CMS/public/category/admin/add/'><input type='submit' value='Add New Category' ></a>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<?php 
+	$this->headLink()->appendStylesheet($this->url.'skin/admin/default/adminNews.css');
+?>
+<div class="tableArticle">
+<table>
+	<tr class="table_Header">
+	<td width="300px">Name</td>
+	<td width="100px">Parent ID</td>
+	<td width="300px">Created Date</td>
+	<td width="300px">Modified Date</td>
+	<td width="100px">Active Status</td>
+	<td width="100px">Total view</td>	
+	<td width="50px">ID</td></tr>	
+	<?php 
+		//while($row=$this->result->fetch()){
+		foreach ($this->result as $row)
+		{	
+			echo "<td><div class='title'><a href='/Apprentice_CMS/public/category/admin/count/id/".$row['category_id']."'>".$row['name']."</a>";
+			
+			echo "<div class='control'><a href='/Apprentice_CMS/public/category/admin/edit/id/".$row['category_id']."'>Edit</a>  |  ";
+			
+        	echo "<a href='/Apprentice_CMS/public/category/admin/delete/id/".$row['category_id']."'>Delete</a>  |  ";
+        	
+        	if($row['is_active']==1){
+        		echo "<a href='/Apprentice_CMS/public/category/admin/active/id/".$row['category_id']."'>Deactive</a></div></td>";
+        	}
+        	else{
+        		echo "<a href='/Apprentice_CMS/public/category/admin/active/id/".$row['category_id']."'>Active</a></div></td>";	
+        	}
+
+        	echo '<td>'.$row['parent_id'].'</td>';        	
+        	echo '<td>'.$row['created_date'].'</td>';
+        	echo '<td>'.$row['modified_date'].'</td>';
+        	
+        	if ($row['is_active']==1)
+				echo '<td>active</td>';
+			else echo '<td>inactive</td>';
+			
+			echo '<td>'.$row['num_views'].'</td>';
+			echo '<td>'.$row['category_id'].'</td><tr>';
+			
+			
+			/*foreach ($this->result1 as $row1)
+			{
+				if ($row1['parent_id']==$row['category_id'])
+				{
+					
+					echo "<td><div class='title'><a href='/Apprentice_CMS/public/category/admin/count/id/".$row1['category_id']."'>".$row1['name']."</a>";
+			
+					echo "<div class='control'><a href='/Apprentice_CMS/public/category/admin/edit/id/".$row1['category_id']."'>Edit</a>  |  ";
+					
+		        	echo "<a href='/Apprentice_CMS/public/category/admin/delete/id/".$row1['category_id']."'>Delete</a>  |  ";
+		        	
+		        	if($row['is_active']==1){
+		        		echo "<a href='/Apprentice_CMS/public/category/admin/active/id/".$row1['category_id']."'>Deactive</a></div></td>";
+		        	}
+		        	else{
+		        		echo "<a href='/Apprentice_CMS/public/category/admin/active/id/".$row1['category_id']."'>Active</a></div></td>";	
+		        	}
+		
+		        	echo '<td>'.$row1['parent_id'].'</td>';        	
+		        	echo '<td>'.$row1['created_date'].'</td>';
+		        	echo '<td>'.$row1['modified_date'].'</td>';
+		        	
+		        	if ($row1['is_active']==1)
+						echo '<td>active</td>';
+					else echo '<td>inactive</td>';
+					
+					echo '<td>'.$row1['num_views'].'</td>';
+					echo '<td>'.$row1['category_id'].'</td><tr>';
+
+				}
+			}*/
+		}
+		
+	?>	
+	
+</table>
+</div>
+<div class="tableArticle">
+	<?php
+		$this->form->setAction($this->url());
+		echo $this->form;	
+	?>
+</div>

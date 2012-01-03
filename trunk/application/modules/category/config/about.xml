@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/**
+ *Apprentice CMS */
+-->
+<module>
+	<name>category</name>
+	<description langKey="about_Module_category_description"><![CDATA[This module is used to manage the category]]></description>
+	<thumbnail></thumbnail>
+	<author>buingochuy</author>
+	<email>huyuit@gmail.com</email>
+	<version>1.0.0</version>
+	<license>free</license>
+</module>
