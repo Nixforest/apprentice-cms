@@ -5,6 +5,7 @@ class IndexController extends Zend_Controller_Action
 
     public function init()
     {
+        $this->_helper->layout->disableLayout();
         /* Initialize action controller here */
     	//$base = $this->_request->getBaseUrl();
        	//$this->view->headScript()->appendFile("../application/models/jquery-1.6.js");

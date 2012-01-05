@@ -17,8 +17,34 @@ class Admin_IndexController extends Zend_Controller_Action
 	 * 
 	 * @return void
 	 */
+	
+	/*
+	 * Công 
+	 * Zend_Navigation
+	 */
+	private $_acl=null;
+	
 	public function indexAction()
 	{
+		$auth=Zend_Auth::getInstance();
+		if(!$auth->hasIdentity())
+		{
+			//process the data
+	        $this->_redirector = $this->_helper->getHelper('Redirector');
+			$this->_redirector->gotoUrl('../public/index');
+		}
+		else
+		{
+			$userdata=$auth->getIdentity();
+			$this->user_name=$userdata->user_name;
+			$this->user_role=$userdata->role_id;
+			$this->_acl=new ResAcl();
+			
+			$config = new Zend_Config_Xml(APPLICATION_PATH . '/configs/navigation.xml', 'nav');
+
+			$container = new Zend_Navigation($config);
 		
+			$this->view->navigation($container)->setAcl($this->_acl)->setRole($this->user_role);
+		}
 	}
 }

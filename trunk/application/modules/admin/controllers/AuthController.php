@@ -21,54 +21,6 @@ class Admin_AuthController extends Zend_Controller_Action
 	
 	//check login
 	public function loginAction() {
-		/*//disable layout
-		$this->_helper->layout->disableLayout();
-		$login=new Model_BsRole();
-		$this->view->base =  $this->_request->getBaseUrl();
-		$post=$this->getRequest();
-		$user=NULL;
-		$str=NULL;
-		if ($post->ispost())
-		{
-			if ($post->getPost('txtuser')==NULL)
-			{
-				$error[]="Please enter username";
-			}
-			else {
-				$user=$post->getPost('txtuser');
-			}
-			if ($post->getPost('txtpass')==NULL)
-			{
-				$error[]="Please enter password";
-			}
-			else {
-				$str=$post->getPost('txtpass');
-				$pass=md5($str);
-			}
-			if($user!=NULL && $str!=NULL)
-			{
-				try{
-					$row=$login->checkLogin($user, $pass);
-					if($row==1)
-					{
-						$message[]="Login is successfull.";
-					}
-					else
-					{
-						$message[]="Login fail";
-					}
-					$this->view->message=$message; 
-				}
-				catch (Exception $e)
-				{
-					echo $e->getMessage();
-				}
-			}
-			else{
-				$this->view->error = $error;
-			}
-		}*/
-		
 		//Zend_Auth
 		//retrieve form data
 		$user=$this->getRequest()->getPost('txtuser');

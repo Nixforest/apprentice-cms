@@ -61,7 +61,7 @@ class Admin_RoleController extends Zend_Controller_Action{
 		//$acl=Zend_Registry::get('acl');
 		$acl=new ResAcl();
 		$controller=$this->getRequest()->getControllerName();
-		if (!$acl->isAllowed($this->user_role,'role')) {
+		if (!$acl->isAllowed($this->user_role,'role','list')) {
 			$this->_redirect('/static/noaccess');
 		}
 		
@@ -78,7 +78,7 @@ class Admin_RoleController extends Zend_Controller_Action{
 	{
 		$frmAddRole=new Form_AddRoleForm();
 
-		$frmAddRole->setAction('http://localhost/Apprentice_CMS/public/admin/role/submit');
+		$frmAddRole->setAction('/Apprentice_CMS/public/admin/role/submit');
 
 		$frmAddRole->setAction('../role/submit');
 
@@ -179,73 +179,92 @@ class Admin_RoleController extends Zend_Controller_Action{
 	
 	public function permissionAction()
 	{
-		$priAllowArray[] =null;		//Mang luu id cac quyen da co cua role
-		$roleId= (int)$this->_request->getParam('id');
-		$this->view->roleId = $roleId;		
-		$priDb = new Model_Privilege();
-		$ruleDb = new Model_Rule();	
-		$roleDb = new Model_UserModel();
-		
-		//Lay cac quyen cua 1 nhom nguoi dung va luu vao mang:
-		$priAllowResult = $ruleDb->getPrivilegeIdAllow($roleId,'role');
-		while($row = $priAllowResult->fetch()){
-			$priAllowArray[] = $row['privilege_id'];
-		}
-		$this->view->priAllowArray = $priAllowArray;
-
-		//Danh sach cac module:
-		$moduleResult = $priDb->getModuleName();
-		$this->view->moduleResult = $moduleResult;
-		
-		//click vao 1 module item:
-		if(isset($_GET['modulename'])){
-			$moduleName = (string)$_GET['modulename'];
-			$priResult = $priDb->getPrivilege($moduleName);						
-						
-			//Luu cac ten controller o trong module vao mang:
-			$conResult = $priDb->getControllerName($moduleName);
-			while($row = $conResult->fetch()){
-				$conArray[]=$row['controller_name'];
-			}
-			$this->view->conArray = $conArray;
-		
-			//Add cac quyen da co cua role vao mang de kiem tra:
-			while($row = $priResult->fetch()){
-				$priArray[]= $row['privilege_id'];
-			}	
+		//Công bổ sung khi đã lock thì không cho chỉnh sửa quyền.
+		try{
+			$priAllowArray[] =null;		//Mang luu id cac quyen da co cua role
+			$roleId= (int)$this->_request->getParam('id');
+			$this->view->roleId = $roleId;		
+			$priDb = new Model_Privilege();
+			$ruleDb = new Model_Rule();	
+			$roleDb = new Model_UserModel();
 			
-			//click vao submit button save:
-			if( $this->getRequest()->isPost()){
-				foreach($priArray as $priId){
-					if(isset($_POST[$priId])){
-						//Role chua co quyen thi add quyen do cho role:
-						if($ruleDb->checkPrivilege($roleId,'role', $priId)==0)
-							$addRuleResult = $ruleDb->addRule($roleId, 'role', $priId, 1);
+			//Công
+			$role = new Model_BsRole();
+		
+			//Công bổ sung khi đã lock thì không cho chỉnh sửa quyền.
+			if ($role->getStatus($roleId)==0)
+			{
+				//Lay cac quyen cua 1 nhom nguoi dung va luu vao mang:
+				$priAllowResult = $ruleDb->getPrivilegeIdAllow($roleId,'role');
+				while($row = $priAllowResult->fetch()){
+					$priAllowArray[] = $row['privilege_id'];
+				}
+				$this->view->priAllowArray = $priAllowArray;
+		
+				//Danh sach cac module:
+				$moduleResult = $priDb->getModuleName();
+				$this->view->moduleResult = $moduleResult;
+				
+				//click vao 1 module item:
+				if(isset($_GET['modulename'])){
+					$moduleName = (string)$_GET['modulename'];
+					$priResult = $priDb->getPrivilege($moduleName);						
+								
+					//Luu cac ten controller o trong module vao mang:
+					$conResult = $priDb->getControllerName($moduleName);
+					while($row = $conResult->fetch()){
+						$conArray[]=$row['controller_name'];
 					}
-					else{
-						//Xoa quyen cua role tuong ung:
-						if($ruleDb->checkPrivilege($roleId,'role', $priId)>=1)
-							$ruleDb->deleleRuleAtPriId($roleId,$priId,'role');
-						
-					    //lay danh sach cac Id cua role luu vao mang:
-						$userIdResult = $roleDb->getUserIdFromRole($roleId);	
-						while($row = $userIdResult->fetch()){
-							$userIdArray[] = $row['user_id'];
-						}
-						
-						//Xoa quyen cua cac user thuoc role tuong ung:
-						foreach ($userIdArray as $userId){
-							if($ruleDb->checkPrivilege($userId,'user', $priId)>=1)
-								$ruleDb->deleleRuleAtPriId($userId,$priId,'user');
-						}
-					}		
-				}			
-				$this->_redirect('admin/role/permission/id/'.$roleId);
+					$this->view->conArray = $conArray;
+				
+					//Add cac quyen da co cua role vao mang de kiem tra:
+					while($row = $priResult->fetch()){
+						$priArray[]= $row['privilege_id'];
+					}	
+					
+					//click vao submit button save:
+					if( $this->getRequest()->isPost()){
+						foreach($priArray as $priId){
+							if(isset($_POST[$priId])){
+								//Role chua co quyen thi add quyen do cho role:
+								if($ruleDb->checkPrivilege($roleId,'role', $priId)==0)
+									$addRuleResult = $ruleDb->addRule($roleId, 'role', $priId, 1);
+							}
+							else{
+								//Xoa quyen cua role tuong ung:
+								if($ruleDb->checkPrivilege($roleId,'role', $priId)>=1)
+									$ruleDb->deleleRuleAtPriId($roleId,$priId,'role');
+								
+							    //lay danh sach cac Id cua role luu vao mang:
+								$userIdResult = $roleDb->getUserIdFromRole($roleId);	
+								while($row = $userIdResult->fetch()){
+									$userIdArray[] = $row['user_id'];
+								}
+								
+								//Xoa quyen cua cac user thuoc role tuong ung:
+								foreach ($userIdArray as $userId){
+									if($ruleDb->checkPrivilege($userId,'user', $priId)>=1)
+										$ruleDb->deleleRuleAtPriId($userId,$priId,'user');
+								}
+							}		
+						}			
+						$this->_redirect('admin/role/permission/id/'.$roleId);
+					}
+					//truyen danh sach cac quyen cua module qua view:
+					$priResult = $priDb->getPrivilege($moduleName);
+					$this->view->privilegeResult = $priResult;									
+				}
 			}
-			//truyen danh sach cac quyen cua module qua view:
-			$priResult = $priDb->getPrivilege($moduleName);
-			$this->view->privilegeResult = $priResult;									
-		}							
+			else{
+				echo "Role is blocked. Not set permission. Let's unlock.";
+				$this->_helper->viewRenderer()->setNoRender();
+				//$this->_helper->viewRenderer('permission')->setNoRender();
+			}
+		}
+		catch (Exception $e)
+		{
+			echo $e->getMessage();
+		}
 	}
 }
 

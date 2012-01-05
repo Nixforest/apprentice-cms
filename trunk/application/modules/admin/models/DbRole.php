@@ -51,6 +51,15 @@ class Model_DbRole extends Zend_Db_Table_Abstract{
 		$db->delete($table,'role_id='.$id);
 	}
 	
+	//get status
+	public function getStatus($id)
+	{
+		$db=$this->getDefaultAdapter();
+		$table='admin_role';
+		$query=$db->select()->from('admin_role','locked')->where('role_id=?',$id);
+		return $db->fetchOne($query);
+	}
+	
 	//count number of users in each role
 	//SELECT admin_role.role_id, admin_role.name, admin_role.description, admin_role.locked, COUNT( core_user.role_id ) AS number_of_users
 	//FROM admin_role
