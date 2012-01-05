@@ -6,7 +6,7 @@
 </head>
 <body>
     <div id="main">  
-    	<h4>Tạo mới bài viết</h4>      
+    	<h4>Chỉnh sửa bài viết</h4>      
         <div class="block">
             <h3>Title</h3>
             <div id="titles">
@@ -43,27 +43,129 @@
             <div class="clear"></div>
         </div>
         
-        <?php 
-        	$temp=new SimpleXMLElement($this->newsContent);
-        	//$doc=new DOMDocument();
-        	//$doc->loadHTML($this->newsContent);
-        	//$dom=$doc->getElementsByTagName("div");
-        	//foreach($dom as $d){
-        		//echo $d->item(0)->nodevalue;
-        	//}
-        	foreach ($temp as $t){
-        		if($t["class"]=="block")
-        			echo "<div>".$t."</div>";
+        <?php         	
+        	$temp=new SimpleXMLElement($this->newsContent);        		
+        	foreach ($temp->children() as $t){
+        		$i=0;
+        		foreach($t->children() as $s){        			
+        			if($s["class"]=='img'){
+        				$i++;
+        				break;
+        			}
+        		}
+        		if($i==0){
+        			$dom=dom_import_simplexml($t);
+        			$child=$dom->ownerDocument->createElement("h3","Block Content");
+        			$control=$dom->ownerDocument->createElement("div");
+        			$control->setAttribute("class", "control");
+        			
+        			$edit=$control->ownerDocument->createElement("a");
+        			$edit->setAttribute("href", "#");
+        			$edit->setAttribute("title", "Edit");
+        			$imgEdit=$edit->ownerDocument->createElement("img");
+        			$imgEdit->setAttribute("src", "/Apprentice_CMS/public/images/icon/Edit.png");
+        			$edit->appendChild($imgEdit);
+        			$control->appendChild($edit);
+        			
+        			$moveup=$control->ownerDocument->createElement("a");
+        			$moveup->setAttribute("href", "#");
+        			$moveup->setAttribute("title", "Move Up");
+        			$imgMoveup=$moveup->ownerDocument->createElement("img");
+        			$imgMoveup->setAttribute("src", "/Apprentice_CMS/public/images/icon/Up.png");
+        			$moveup->appendChild($imgMoveup);
+        			$control->appendChild($moveup);
+        			
+        			$movedown=$control->ownerDocument->createElement("a");
+        			$movedown->setAttribute("href", "#");
+        			$movedown->setAttribute("title", "Move Down");
+        			$imgMovedown=$movedown->ownerDocument->createElement("img");
+        			$imgMovedown->setAttribute("src", "/Apprentice_CMS/public/images/icon/Down.png");
+        			$movedown->appendChild($imgMovedown);
+        			$control->appendChild($movedown);
+        			
+        			$delete=$control->ownerDocument->createElement("a");
+        			$delete->setAttribute("href", "#");
+        			$delete->setAttribute("title", "Delete Block");
+        			$imgDelete=$delete->ownerDocument->createElement("img");
+        			$imgDelete->setAttribute("src", "/Apprentice_CMS/public/images/icon/Delete.png");
+        			$delete->appendChild($imgDelete);
+        			$control->appendChild($delete);
+        			
+        			//$clear=$dom->ownerDocument->createElement("div");
+        			//$clear->setAttribute("class", "clear");
+        			//$control->appendChild($clear);
+        			
+        			$dom->insertBefore($child,$dom->firstChild);
+        			$dom->appendChild($control);
+        			//$dom->appendChild($clear);       			
+        			echo $t->asXML();
+        			
+        			$te=new SimpleXMLElement("<div class='panel'>
+            		<a href='#' title='New block content'><img src='/Apprentice_CMS/public/images/icon/New-document.png' /> </a>
+            		<a href='#' title='New image'><img src='/Apprentice_CMS/public/images/icon/New-image.png' /> </a>
+            		<a href='#' title='New table'><img src='/Apprentice_CMS/public/images/icon/New-table.png' /> </a>
+        			</div>");
+        			echo $te->asXML();
+        		}
+        		
+        		else{
+        			$dom=dom_import_simplexml($t);
+        			$child=$dom->ownerDocument->createElement("h3","Block Image");
+        			$control=$dom->ownerDocument->createElement("div");
+        			$control->setAttribute("class", "control");
+        			
+        			$edit=$control->ownerDocument->createElement("a");
+        			$edit->setAttribute("href", "#");
+        			$edit->setAttribute("title", "Edit");
+        			$imgEdit=$edit->ownerDocument->createElement("img");
+        			$imgEdit->setAttribute("src", "/Apprentice_CMS/public/images/icon/Edit.png");
+        			$edit->appendChild($imgEdit);
+        			$control->appendChild($edit);
+        			
+        			$moveup=$control->ownerDocument->createElement("a");
+        			$moveup->setAttribute("href", "#");
+        			$moveup->setAttribute("title", "Move Up");
+        			$imgMoveup=$moveup->ownerDocument->createElement("img");
+        			$imgMoveup->setAttribute("src", "/Apprentice_CMS/public/images/icon/Up.png");
+        			$moveup->appendChild($imgMoveup);
+        			$control->appendChild($moveup);
+        			
+        			$movedown=$control->ownerDocument->createElement("a");
+        			$movedown->setAttribute("href", "#");
+        			$movedown->setAttribute("title", "Move Down");
+        			$imgMovedown=$movedown->ownerDocument->createElement("img");
+        			$imgMovedown->setAttribute("src", "/Apprentice_CMS/public/images/icon/Down.png");
+        			$movedown->appendChild($imgMovedown);
+        			$control->appendChild($movedown);
+        			
+        			$delete=$control->ownerDocument->createElement("a");
+        			$delete->setAttribute("href", "#");
+        			$delete->setAttribute("title", "Delete Block");
+        			$imgDelete=$delete->ownerDocument->createElement("img");
+        			$imgDelete->setAttribute("src", "/Apprentice_CMS/public/images/icon/Delete.png");
+        			$delete->appendChild($imgDelete);
+        			$control->appendChild($delete);
+        			
+        			//$clear=$dom->ownerDocument->createElement("div");
+        			//$clear->setAttribute("class", "clear");
+        			//$control->appendChild($clear);
+        			
+        			$dom->insertBefore($child,$dom->firstChild);
+        			$dom->appendChild($control);
+        			//$dom->appendChild($clear);       			
+        			echo $t->asXML();
+        			
+        			$te=new SimpleXMLElement("<div class='panel'>
+            		<a href='#' title='New block content'><img src='/Apprentice_CMS/public/images/icon/New-document.png' /> </a>
+            		<a href='#' title='New image'><img src='/Apprentice_CMS/public/images/icon/New-image.png' /> </a>
+            		<a href='#' title='New table'><img src='/Apprentice_CMS/public/images/icon/New-table.png' /> </a>
+        			</div>");
+        			echo $te->asXML(); 
+        		}
+        				
         	}
         ?>
-        
-        <div class="panel">
-            <a href="#" title="New block content"><img src="/Apprentice_CMS/public/images/icon/New-document.png" /> </a>
-            <a href="#" title="New image"><img src="/Apprentice_CMS/public/images/icon/New-image.png" /> </a>
-            <a href="#" title="New table"><img src="/Apprentice_CMS/public/images/icon/New-table.png" /> </a>
-        </div>
-        
-        
+
         <div class="block">
             <h3>Author</h3>
             <div id="author">
