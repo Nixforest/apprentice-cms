@@ -57,6 +57,13 @@ class Model_BsRole{
 		return $module->checkLogin($user, $pass);
 	}
 	
+	//getStatus
+	public function getStatus($id)
+	{
+		$module=new Model_DbRole();
+		return $module->getStatus($id);
+	}
+	
 	public function install($module)
 	{
 		$file = APPLICATION_PATH .'\modules\\'. $module . '\config' .'\about.xml';

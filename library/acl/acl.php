@@ -25,11 +25,16 @@ class ResAcl extends Zend_Acl{
 	{
 		//retrieve database from Registry
 		$db=Zend_Registry::get('connectDb');
-		$sql='	SELECT admin_role.role_id,privilege.module_name,privilege.controller_name 
+		
+		$sql='	SELECT admin_role.role_id,privilege.module_name,privilege.controller_name,privilege.action_name 
 				FROM privilege, rule, admin_role
 				WHERE admin_role.role_id = rule.object_id
 				AND rule.privilege_id = privilege.privilege_id';
 		$resources=$db->query($sql);
+
+		//
+		$sql='SELECT DISTINCT(controller_name) FROM privilege';
+		$allResources=$db->query($sql);
 		
 		$sql='SELECT role_id, name FROM admin_role';
 		$role=$db->query($sql);
@@ -43,13 +48,35 @@ class ResAcl extends Zend_Acl{
 			$roleArray[$r['role_id']] = $role;
 		}
 		
+		//
+		foreach ($allResources as $r)
+		{
+			$allResources=new Zend_Acl_Resource($r['controller_name']);
+			$this->add($allResources);
+		}
+		
 		foreach ($resources as $r)
 		{
 			$resources=new Zend_Acl_Resource($r['controller_name']);
-			$this->add($resources);
-			$role = $roleArray[$r['role_id']];
-			$this->allow($role,$resources);
+			$action=$r['action_name'];
+			$role=$roleArray[$r['role_id']];
+			$this->allow($role,$resources,$action);
 		}
+		
+		/*$check=null;
+		
+		foreach ($resources as $r)
+		{
+			$resources=new Zend_Acl_Resource($r['controller_name']);
+			if($check!=$r['controller_name'])
+			{
+				$this->add($resources);
+				$check=$r['controller_name'];
+			}
+			$action=$r['action_name'];
+			$role = $roleArray[$r['role_id']];
+			$this->allow($role,$resources,$action);
+		}*/
 		//access the ACL variable from anywhere
 		//Zend_Registry::set('acl', $this);
 	}

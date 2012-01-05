@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configdata>
+	<nav>
+		<system>
+			<label>System</label>
+			<uri>/Apprentice_CMS/public/admin/index</uri>
+			<pages>
+				<role>
+				<label>Roles</label>
+				<uri>/Apprentice_CMS/public/admin/index</uri>
+					<pages>
+						<add_role>
+							<label>Add Role</label>
+							<uri>/Apprentice_CMS/public/admin/role/submit</uri>
+							<module>admin</module>
+							<controller>role</controller>
+							<action>submit</action>
+		    				<resource>role</resource>
+		    				<privilege>submit</privilege>
+						</add_role>
+						<view_role>
+							<label>View Role</label>
+							<uri>/Apprentice_CMS/public/admin/role/list</uri>
+							<module>admin</module>
+							<controller>role</controller>
+							<action>list</action>
+		    				<resource>role</resource>
+		    				<privilege>list</privilege>
+						</view_role>
+					</pages>
+				</role>
+				
+				<user>
+				<label>User</label>
+				<uri>/Apprentice_CMS/public/admin/index</uri>
+					<pages>
+						<add_user>
+							<label>Add a user</label>
+							<uri>/Apprentice_CMS/public/admin/user/add</uri>
+							<module>admin</module>
+							<controller>user</controller>
+							<action>add</action>
+							<resource>user</resource>
+							<privilege>add</privilege>
+						</add_user>
+						<edit_user>
+							<label>Edit a user</label>
+							<uri>/Apprentice_CMS/public/admin/user/edit</uri>
+							<module>admin</module>
+							<controller>user</controller>
+							<action>edit</action>
+							<resource>user</resource>
+							<privilege>edit</privilege>
+						</edit_user>
+						<index_user>
+							<label>View users</label>
+							<uri>/Apprentice_CMS/public/admin/user/index</uri>
+							<module>admin</module>
+							<controller>user</controller>
+							<action>index</action>
+							<resource>user</resource>
+							<privilege>index</privilege>
+						</index_user>
+					</pages>
+				</user>
+				
+				<privi>
+					<label>Privileges</label>
+					<uri>/Apprentice_CMS/public/admin/privilege/list</uri>
+					<module>admin</module>
+					<controller>privilege</controller>
+					<action>list</action>
+		    		<resource>privilege</resource>
+		    		<privilege>list</privilege>
+				</privi>
+			</pages>
+		</system>
+		<modul>
+			<label>Modules</label>
+			<uri>/Apprentice_CMS/public/admin/index</uri>
+			<pages>
+				<mag_menu>
+					<label>Manage menu</label>
+					<uri>/Apprentice_CMS/public/admin/index</uri>
+					<pages>
+						<index_menu>
+							<label>View menu</label>
+							<uri>/Apprentice_CMS/public/menu/index/index</uri>
+							<module>menu</module>
+							<controller>index</controller>
+							<action>index</action>
+		    				<resource>index</resource>
+		    				<privilege>index</privilege>
+						</index_menu>
+						<add_menu>
+							<label>Add a menu</label>
+							<uri>/Apprentice_CMS/public/menu/index/add</uri>
+							<module>menu</module>
+							<controller>index</controller>
+							<action>add</action>
+		    				<resource>index</resource>
+		    				<privilege>add</privilege>
+						</add_menu>
+						<delete_menu>
+							<label>Delete a menu</label>
+							<uri>/Apprentice_CMS/public/menu/index/delete</uri>
+							<module>menu</module>
+							<controller>index</controller>
+							<action>delete</action>
+		    				<resource>index</resource>
+		    				<privilege>delete</privilege>
+						</delete_menu>
+					</pages>
+				</mag_menu>
+				<mag_comment>
+					<label>Manage comment</label>
+					<uri>/Apprentice_CMS/public/admin/index</uri>
+					<pages>
+						<index_comment>
+							<label>View comment</label>
+							<uri>/Apprentice_CMS/public/comment/admin/index</uri>
+							<module>comment</module>
+							<controller>admin</controller>
+							<action>index</action>
+		    				<resource>admin</resource>
+		    				<privilege>index</privilege>
+						</index_comment>
+						<list_comment>
+							<label>List comment</label>
+							<uri>/Apprentice_CMS/public/comment/admin/list</uri>
+							<module>comment</module>
+							<controller>admin</controller>
+							<action>list</action>
+		    				<resource>admin</resource>
+		    				<privilege>list</privilege>
+						</list_comment>
+						<edit_comment>
+							<label>Edit a comment</label>
+							<uri>/Apprentice_CMS/public/comment/admin/edit</uri>
+							<module>comment</module>
+							<controller>admin</controller>
+							<action>edit</action>
+		    				<resource>admin</resource>
+		    				<privilege>edit</privilege>
+						</edit_comment>
+					</pages>
+				</mag_comment>
+				<mag_news>
+					<label>Manage news</label>
+					<uri>/Apprentice_CMS/public/admin/index</uri>
+					<pages>
+						<view_news>
+							<label>View article</label>
+							<uri>/Apprentice_CMS/public/news/article/view</uri>
+							<module>news</module>
+							<controller>article</controller>
+							<action>view</action>
+		    				<resource>article</resource>
+		    				<privilege>view</privilege>
+						</view_news>
+						<add_news>
+							<label>Add article</label>
+							<uri>/Apprentice_CMS/public/news/article/add</uri>
+							<module>news</module>
+							<controller>article</controller>
+							<action>add</action>
+		    				<resource>article</resource>
+		    				<privilege>add</privilege>
+						</add_news>
+						<list_news>
+							<label>List article</label>
+							<uri>/Apprentice_CMS/public/news/article/list</uri>
+							<module>news</module>
+							<controller>article</controller>
+							<action>list</action>
+		    				<resource>article</resource>
+		    				<privilege>list</privilege>
+						</list_news>
+						<edit_news>
+							<label>Edit article</label>
+							<uri>/Apprentice_CMS/public/news/article/edit</uri>
+							<module>news</module>
+							<controller>article</controller>
+							<action>edit</action>
+		    				<resource>article</resource>
+		    				<privilege>edit</privilege>
+						</edit_news>
+					</pages>
+				</mag_news>
+				<mag_page>
+					<label>Manage page</label>
+					<uri>/Apprentice_CMS/public/admin/index</uri>
+					<pages>
+						<list_page>
+							<label>List page</label>
+							<uri>/Apprentice_CMS/public/page/page/list</uri>
+							<module>page</module>
+							<controller>page</controller>
+							<action>list</action>
+		    				<resource>page</resource>
+		    				<privilege>list</privilege>
+						</list_page>
+						<new_page>
+							<label>New page</label>
+							<uri>/Apprentice_CMS/public/page/page/new</uri>
+							<module>page</module>
+							<controller>page</controller>
+							<action>new</action>
+		    				<resource>page</resource>
+		    				<privilege>new</privilege>
+						</new_page>
+						<edit_page>
+							<label>Edit a page</label>
+							<uri>/Apprentice_CMS/public/page/page/edit</uri>
+							<module>page</module>
+							<controller>page</controller>
+							<action>edit</action>
+		    				<resource>page</resource>
+		    				<privilege>edit</privilege>
+						</edit_page>
+					</pages>
+				</mag_page>
+			</pages>
+		</modul>
+		<temp>
+			<label>Template</label>
+			<uri>/Apprentice_CMS/public/admin/index</uri>
+			<pages>
+				<index_temp>
+					<label>View template</label>
+					<uri>/Apprentice_CMS/public/admin/template/index</uri>
+					<module>admin</module>
+					<controller>template</controller>
+					<action>index</action>
+		    		<resource>template</resource>
+		    		<privilege>index</privilege>
+				</index_temp>
+				<list_temp>
+					<label>List template</label>
+					<uri>/Apprentice_CMS/public/admin/template/list</uri>
+					<module>admin</module>
+					<controller>template</controller>
+					<action>list</action>
+		    		<resource>template</resource>
+		    		<privilege>list</privilege>
+				</list_temp>
+			</pages>
+		</temp>
+		<lang>
+			<label>Language</label>
+			<uri>/Apprentice_CMS/public/admin/index</uri>
+		</lang>
+		<acc>
+			<label>Account</label>
+			<uri>/Apprentice_CMS/public/admin/index</uri>
+		</acc>
+	</nav>
+</configdata>
