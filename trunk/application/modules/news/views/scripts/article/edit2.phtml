@@ -91,13 +91,13 @@
         			$delete->appendChild($imgDelete);
         			$control->appendChild($delete);
         			
-        			//$clear=$dom->ownerDocument->createElement("div");
-        			//$clear->setAttribute("class", "clear");
+        			$clear=$dom->ownerDocument->createElement("div","");
+        			$clear->setAttribute("class", "clear");
         			//$control->appendChild($clear);
         			
         			$dom->insertBefore($child,$dom->firstChild);
         			$dom->appendChild($control);
-        			//$dom->appendChild($clear);       			
+        			$dom->appendChild($clear);       			
         			echo $t->asXML();
         			
         			$te=new SimpleXMLElement("<div class='panel'>
@@ -146,13 +146,13 @@
         			$delete->appendChild($imgDelete);
         			$control->appendChild($delete);
         			
-        			//$clear=$dom->ownerDocument->createElement("div");
-        			//$clear->setAttribute("class", "clear");
+        			$clear=$dom->ownerDocument->createElement("div","");
+        			$clear->setAttribute("class", "clear");
         			//$control->appendChild($clear);
         			
         			$dom->insertBefore($child,$dom->firstChild);
         			$dom->appendChild($control);
-        			//$dom->appendChild($clear);       			
+        			$dom->appendChild($clear);       			
         			echo $t->asXML();
         			
         			$te=new SimpleXMLElement("<div class='panel'>
