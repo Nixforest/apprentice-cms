@@ -1,0 +1,70 @@
+<html>
+<head>
+	<base href="/Apprentice_cms/application/modules/news/views/scripts/article/">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<?php echo $this->headTitle('Add new article') ?>	
+	<?php 
+		$this->headLink()->appendStylesheet($this->url.'skin/admin/default/adminNews.css');
+		$this->headLink()->appendStylesheet($this->url.'public/css/editor.css');
+		$this->headScript()->appendFile($this->url.'public/js/editor.js'); 
+	?>
+	<h2><center><a href="<?php echo $this->url(array('article_id' => "$this->article_id"), 'news_article_view'); ?>"><?php echo $this->message ?></a></center></h2>
+</head>
+<body>
+	<div class="form">
+		<div style="margin-left: 12%;">
+			<h1>Thêm Bài Viết</h1>
+			<p>Điền thông tin bài viết mới.</p>
+		</div>
+		<form action="" method="post" name="addArticleForm" id="addArticleForm" enctype="multipart/form-data">
+			<div id="f_title">
+				<label>Main title: </label>
+				<input type="text" name="title" id="title"/>
+			</div>
+			<div id="f_slug">
+				<label>Slug: </label>
+				<input type="text" name="slug" id="slug"/>
+			</div>
+			<div class="f_descont">
+				<label>Description:</label>
+				<span id="editorDescription">Waiting for loading editor...</span>
+				<script language="javascript">
+					ed = new Editor("ed", "d", "description", "editorDescription", 440, 200);
+					ed.render();
+				</script>
+			</div>
+			<div class="f_descont">
+				<label>Content:</label>
+				<span id="editorContent">Waiting for loading editor...</span>
+				<script language="javascript">
+					ec = new Editor("ec", "c", "content", "editorContent", 440, 600);
+					ec.render();
+				</script>
+			</div>
+			<div id="f_author">
+				<label>Author:</label>
+				<input type="text" name="author" id="author"/>
+			</div>
+			<div class="f_checkbox">
+				<input type="checkbox" name="allowComment" id="allowComment" value="1" /> Allow user to comment article
+			</div>
+			<div class="f_checkbox">
+				<input type="checkbox" name="hotArticle" id="hotArticle" value="1" /> Hot article
+			</div>
+			<div id="f_save">
+				<input type="submit" name="save" value="Save" onclick="getData('description', 'd'); getData('content', 'c');" />
+			</div>
+		</form>
+	</div>
+</body>
+</html>
+	
+
+
