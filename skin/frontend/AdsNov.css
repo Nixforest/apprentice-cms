@@ -1,0 +1,55 @@
+.CPMS_2_AB{float:left; overflow:hidden; padding-bottom:1px; display:inline;}
+.CPMS_2_L{background:url('http://go.polyad.net/Images/Context/2/left.gif') no-repeat; width:5px; height:23px; float:left;}
+.CPMS_2_C{background:url('http://go.polyad.net/Images/Context/2/center.gif') repeat-x; height:23px;float:left; }
+.CPMS_2_R{background:url('http://go.polyad.net/Images/Context/2/right.gif') no-repeat; width:6px; height:23px; float:left;}
+.CPMS_2_D{width:auto; height:16px;padding-top:7px; padding-left:7px; overflow:hidden;}
+.CPMS_2_DN{width:auto; height:23px;padding-top:7px; padding-left:7px; overflow:hidden; float:left;}
+.CPMS_2_SL{background:url('http://go.polyad.net/Images/Context/2/Subleft.gif') no-repeat; width:4px; height:16px; float:left;}
+.CPMS_2_SC{background:url('http://go.polyad.net/Images/Context/2/Subcenter.gif') repeat-x; height:16px; width:auto;position:relative; float:left; font-family:Arial; color:#900000; font-size:11px; padding: 3px 10px 0 5px;}
+.CPMS_2_SR{background:url('http://go.polyad.net/Images/Context/2/Subright.gif') no-repeat; width:5px; height:16px; float:left;}
+.CPMS_2_B{width:11px; float:right; padding-top:4px; height:23px; overflow:hidden;}
+.CPMS_2_BN{background:url('http://go.polyad.net/Images/Context/2/Next.gif') no-repeat; width:11px; height:7px; float:left; margin-bottom:2px; cursor:pointer;overflow:hidden;}
+.CPMS_2_BR{background:url('http://go.polyad.net/Images/Context/2/Pre.gif') no-repeat; width:11px; height:7px; float:left; cursor:pointer;overflow:hidden;}
+.CPMS_2_DT{ bottom:1px; position:relative;overflow:hidden; height:3px; top :-3px; z-index:200 }
+.CPMS_2_DL{background:url('http://go.polyad.net/Images/Context/2/leOv.gif') no-repeat; width: 3px; height: 3px; top:0px; left:0px; position:absolute;z-index:300;}
+.CPMS_2_DR{background:url('http://go.polyad.net/Images/Context/2/botOv.gif') no-repeat; width: 3px; height: 3px; top:0px;right:0px; position:absolute;z-index:300;}
+.CPMS_2_AT{font-size:10px;font-family:Tahoma;margin-left:10px;position:relative;color:#7fa64b; margin-top:6px; margin-bottom :5px; font-weight:bold;float:left; display:inline;}
+.CPMS_2_ACB{float:left;background-color:#9bc7e0; overflow:hidden; display:inline; padding-bottom:0px;*padding-bottom:1px!important;_padding-bottom:0px!important;}
+.CPMS_2_AC{float:left;margin: 0px 1px 1px 1px; background-color:White; overflow:hidden; display:inline; padding-bottom:10px;}
+.CPMS_2_SAN{margin-top:2px; margin-left:10px; float:left; display:none;}
+.CPMS_2_SA{margin-top:2px; margin-left:10px; float:left; display:inline;}
+.CPMS_2_SAT{color:#043184;font-weight:bold; font-size:11px;font-family:Arial;padding-top: 10px; overflow:hidden;}
+.CPMS_2_SAC{height:auto;font-family:Arial; font-size:11px;overflow:hidden; color:#6f706a;}
+.CPMS_2_SAT a:hover,.CPMS_1_SAT a:visited{color:#043184; text-decoration:none;}
+.CPMS_2_SAL{height:15px;color:#008000; font-family:Arial;font-size:10px; overflow:hidden;}
+.CPMS_2_IMG{position:absolute; top:6px; right:3px;background:url('http://go.polyad.net/Images/Context/2/Arr.gif') no-repeat; width:5px; height:5px;margin-top:2px;}
+.CPMS_2_SAT a:hover,.CPMS_2_SAT a:visited,.CPMS_2_SAT a:link{color:#043184; text-decoration:none;}
+.CPMS_2_SC a:hover,.CPMS_2_SC a:visited,.CPMS_2_SC a:link{color:#900000; text-decoration:none;}
+.fl{float: left;} /* default.css */
+.cpms_it_body {height:auto; }
+.cpms_it_tabL{background: url('http://go.polyad.net/Images/Intext/Default/tab_left.gif') no-repeat; width : 11px; height: 25px;}
+.cpms_it_tabC{background: url('http://go.polyad.net/Images/Intext/Default/tab_Center.gif') repeat-x; height: 23px; width:63px; top:2px;left:3px;  overflow:hidden;}
+.cpms_it_tabT{font-family:Arial; font-size:12px;  color:#4b4c4c;}
+.cpms_it_topR{background: url('http://go.polyad.net/Images/Intext/Default/top_right.gif') no-repeat; width : 10px; }
+.cpms_it_topC{background: url('http://go.polyad.net/Images/Intext/Default/top_Center.gif') repeat-x;height: 25px; width:100%;}
+.cpms_it_topC_bg{background: url('http://go.polyad.net/Images/Intext/Default/top_Center.gif') repeat-x; }
+.cpms_it_tabR{background:url('http://go.polyad.net/Images/Intext/Default/tab_right.gif') no-repeat; width:8px; height:25px; float:left; }
+.cpms_it_logo{background:url('http://go.polyad.net/Images/Intext/Default/logo.gif') no-repeat; width:57px; height:25px; float:right;  padding-right:2px;}
+.cpms_it_q{background:url('http://go.polyad.net/Images/Intext/Default/q.gif') no-repeat; width:14px; height:16px; float:right; padding-bottom :2px; }
+.cpms_it_c{background:url('http://go.polyad.net/Images/Intext/Default/c.gif') no-repeat; width:16px; height:20px; float:right; padding-bottom:2px;}
+.cpms_it_bottomL{background:url('http://go.polyad.net/Images/Intext/Default/bottom_left.gif') no-repeat; width:8px; height:7px; float:left;}
+.cpms_it_bottomR{background:url('http://go.polyad.net/Images/Intext/Default/bottom_right.gif') no-repeat; width:7px; height:7px; float:right;}
+.cpms_it_content{background:#e9f1ef; height:auto;margin:0px; border-left:1px solid #40695f; border-right:1px solid #40695f; float:left;  overflow:hidden;}
+.cpms_it_contentL{font-family:Arial; font-size:12px; font-weight:bold; color:#1645b0; margin: 0px 0px 5px 0px;}
+.cpms_it_contentR{font-family:Arial; font-size:11px; color:#2c2b2b; text-align:justify;}
+.cpms_it_contentC{font-family:Arial; font-size:11px; color:#0c5c23;}
+.cpms_it_bottomC{background: url('http://go.polyad.net/Images/Intext/Default/bottom_Center.gif') repeat-x;  height: 7px; width:100%; overflow:hidden;}
+.cmps_it_intextLink{ background:url('http://go.polyad.net/Images/Intext/Default/external.gif') no-repeat; background-position:center right;color:#0066ff;background-color:transparent;cursor:pointer;cursor:hand; padding-right:12px; text-decoration: none; padding-bottom:-1px;}
+
+/*Vertical Banner NS*/
+.Vertical-Background{width:300px; height:26px; background:#9BC9E3 url('http://180.148.142.152/adimages/Bg.jpg') repeat-x; margin-top:3px;}
+.Vertical-Prev{width:14px; height:26px; background:#2D5B99 url('http://180.148.142.152/adimages/Prev.jpg') no-repeat; float:left; cursor:pointer;}        
+.Vertical-Item{width:18px; height:18px; background-color:#CEE5F3; float:left; font-family: arial; font-size: 12px; line-height:18px; text-align:center; margin-top:3px; margin-left:3px;cursor:pointer; color:Black; border:solid 1px #CEE5F3;}
+.Vertical-Item:hover{border:solid 1px #21546E;}
+.Vertical-Active-Item{width:18px; height:18px; background-color:#21546E; float:left; font-family: arial; font-size: 12px; line-height:18px; text-align:center; margin-top:3px; margin-left:3px;cursor:pointer; color:White; border:solid 1px #21546E;}
+.Vertical-Next{width:14px; height:26px; background:#2D5B99 url('http://180.148.142.152/adimages/Next.jpg') no-repeat; float:left;cursor:pointer;}        

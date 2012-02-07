@@ -35,10 +35,58 @@ class Model_NewsDAO extends Zend_Db_Table_Abstract
 		return $db->query($sql);
 	}
 	
-	public function getAll() {
-		$sql  = "SELECT * FROM news_article";
+	public function getHotestNews($number){
+		$rows = $this->fetchAll('true', 'article_id DESC', $number,0);
+		return $rows;
+	}
+	
+	public function getNewsByCategoryId($category_id){
+		$sql = "SELECT * FROM `news_article` WHERE `category_id` =".$category_id;
 		$db = $this->getDefaultAdapter();
 		return $db->query($sql);
+	}
+	
+	public function getSomeNewsByCategoryId($category_id, $number){
+		$rows = $this->fetchAll("category_id =".$category_id, "article_id DESC", $number, 0);
+		return $rows;
+		//$sql = "SELECT * FROM `news_article` WHERE `category_id` =".$category_id."ORDER BY";
+		//$db = $this->getDefaultAdapter();
+		//return $db->query($sql);
+	}
+	
+	public function getSomeMostViewNews($number){
+		$rows = $this->fetchAll('true', "num_views DESC", $number, 0);
+		return $rows;
+	}
+	
+	/*public function getSomeNewsFromUpdateTime($updated_date, $number){
+		$sql = "SELECT * FROM `news_article` WHERE `updated_date` >=".$updated_date;
+		$db = $this->getDefaultAdapter();
+		return $db->query($sql)->fetchAll();
+		$rows = $this->fetchAll("updated_date >=".$date, "article_id DESC", $number, 0);
+		if ($rows) {
+			return rows;
+		}else{
+			throw new Zend_Exception("Could not find row!");
+		}
+	}*/
+	
+	public function getSomeNewsFromUpdateTime($category_id, $updated_date, $number){
+		$rows = $this->fetchAll("category_id = ".$category_id." AND updated_date > '".$updated_date."'", "article_id DESC", $number, 0);
+		if ($rows) {
+			return $rows;
+		}else{
+			throw new Zend_Exception("Could not find row!");
+		}
+	}
+	
+	
+	public function getAll() {
+		//$sql  = "SELECT * FROM news_article ORDER BY `article_id` DESC";
+		//$db = $this->getDefaultAdapter();
+		//return $db->query($sql);
+		$rows = $this->fetchAll()->toArray();
+		return $rows;
 	}
 	
 	public function changeStatus($id, $status){
@@ -52,8 +100,6 @@ class Model_NewsDAO extends Zend_Db_Table_Abstract
 			throw new Zend_Exception("Update function failed; could not find row!");
 		}
 	}
-	
-	
 	
 	public function addNews($article)
 	{
@@ -75,6 +121,17 @@ class Model_NewsDAO extends Zend_Db_Table_Abstract
 		}
 	}
 	
+	public function updateNewsNumberView($article_id){
+		$row = $this->find($article_id)->current();
+		if ($row) {
+			$row->num_views +=1;
+			$row->save();
+			return true;
+		}else{
+			throw new Zend_Exception("Could not find row!");
+		}
+	}
+	
 	public function deleteNews($id)
 	{
 		// find the row that matches the id
@@ -85,50 +142,6 @@ class Model_NewsDAO extends Zend_Db_Table_Abstract
 			return true;
 		} else {
 			throw new Zend_Exception("Delete function failed; could not find row!");
-		}
-	}
-	
-	public function updateNewsAtAttr($attrName,$id,$newContent){
-		$db = $this->getDefaultAdapter();
-		$db->update($this->_name, Array($attrName => $newContent),'article_id='.$id);
-	}
-	
-	public function editTitle($id,$title)
-	{
-		$row = $this->find( $id )->current();
-		if ($row)
-		{
-			$row->title = $title;
-			$row->save();
-			return true;
-		} else {
-			throw new Zend_Exception("Update function failed; could not find row!");
-		}
-	}
-	
-	public function editDescription($id,$description)
-	{
-		$row = $this->find( $id )->current();
-		if ($row)
-		{
-			$row->title = $description;
-			$row->save();
-			return true;
-		} else {
-			throw new Zend_Exception("Update function failed; could not find row!");
-		}
-	}
-	
-	public function editAuthor($id,$author)
-	{
-		$row = $this->find( $id )->current();
-		if ($row)
-		{
-			$row->title = $author;
-			$row->save();
-			return true;
-		} else {
-			throw new Zend_Exception("Update function failed; could not find row!");
 		}
 	}
 }

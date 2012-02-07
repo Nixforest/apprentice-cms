@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style>
+
+table.spreadsheet {
+	margin: 20px 0;
+	border: #999 3px solid;
+}
+
+table.spreadsheet th {
+	background: #ccc;
+	font-weight: bold;
+	font-size: 14px;
+	padding: 10px 10px;
+}
+
+table.spreadsheet td {
+	border-top: #999 1px solid;
+	padding: 10px 15px;
+}
+
+</style>
+	</head>
+	<body>
+	<form action="" method="post" name="updateNewsInterface" id="updateNewsInterface" enctype="multipart/form-data">
+		<table align="center" border="1" cellspacing="2" cellpadding="2">
+			<tr>
+				<td >
+					<img src="/Apprentice_CMS/upload/news/config/homeInterface.PNG"></img>
+				</td>
+				<td>
+					<table align="center" border="1" cellspacing="2" cellpadding="2">
+						<tr style="height: 230px"><td>Host News Area</td></tr>
+						<tr style="height: 110px"><td>
+							<select id="category_up_select" name="category_up_select">
+								<?php 
+									foreach ($this->categories as $value) {
+										//echo "<option value=".$value['category_id'].">".$value['name']."</option>";
+										if ($value['category_id'] == $this->category_up['category_id']) {
+											echo "<option value=".$value['category_id']." selected='true'>".$value['name']."</option>";
+										}else{
+											echo "<option value=".$value['category_id'].">".$value['name']."</option>";
+										}
+									}
+								?>
+							</select>
+						</td></tr>
+						<tr style="height: 110px"><td>
+							<select id="category_middle_select" name="category_middle_select">
+								<?php 
+									foreach ($this->categories as $value) {
+									if ($value['category_id'] == $this->category_middle['category_id']) {
+											echo "<option value=".$value['category_id']." selected='true'>".$value['name']."</option>";
+										}else{
+											echo "<option value=".$value['category_id'].">".$value['name']."</option>";
+										}
+									}
+								?>
+							</select>
+						</td></tr>
+						<tr style="height: 110px"><td>
+							<select id="category_down_select" name="category_down_select">
+								<?php 
+									foreach ($this->categories as $value) {
+									if ($value['category_id'] == $this->category_down['category_id']) {
+											echo "<option value=".$value['category_id']." selected='true'>".$value['name']."</option>";
+										}else{
+											echo "<option value=".$value['category_id'].">".$value['name']."</option>";
+										}
+									}
+								?>
+							</select>
+						</td></tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<input type="submit" name="update" value="Update" /> 
+	</form>
+	</body>
+</html>
+
+

@@ -3,12 +3,12 @@ class Model_MenuDAO extends Zend_Db_Table_Abstract
 {
 	
 	protected $_name = 'menu';
-	protected $_dependentTables = array('Model_ItemDao');
+	protected $_dependentTables = array('Model_ItemDAO');
 	
 	
 	public function getMenus() 
 	{
-		$rows = $this->fetchAll();
+		$rows = $this->fetchAll()->toArray();
 		return $rows;
 	}
 	
@@ -19,14 +19,14 @@ class Model_MenuDAO extends Zend_Db_Table_Abstract
 		return $result;
 	}
 	/*Use it to delete a Menu. It automatically deletes items relates to this Menu */
-	public function deleteMenu ($menuId)
+	public function deleteMenu ()
 	{
-		$row = $this->find($menuId)->current();
-		if ($row) {
+		$rows = $this->fetchAll();
+		foreach($rows as $row) {
 			$row->delete();
-		} else {
-			throw new Zend_Exception('Error loading menu');
 		}
+		
+		
 	}
 	
 	/*
@@ -50,15 +50,12 @@ class Model_MenuDAO extends Zend_Db_Table_Abstract
 		}
 	}
 	
-	public function updateMenu($id, $name)
+	public function getInfoMenu($menuId)
 	{
-		$currentMenu = $this->find($id)->current();
-		if ($currentMenu) {
-			$currentMenu->name = $name;
-			return $currentMenu->save();
-		} else {
-			return false;
-		}
+		$menu = $this->find($menuId)->current();
+			if ($menu){
+				$result = $row->toArray();
+		return $result;
 	}
 	
 	

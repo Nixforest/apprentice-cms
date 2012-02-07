@@ -1,199 +1,194 @@
 <html>
 <head>
+   <link href="/Apprentice_CMS/skin/frontend/default.css" rel="Stylesheet" type="text/css" />
+   <link href="/Apprentice_CMS/css/frontend/all.min.css" media="screen" rel="stylesheet" type="text/css">
+   <script type="text/javascript" src="/Apprentice_CMS/js/frontend/jquery.min.js"></script>
+   <script type="text/javascript" src="/Apprentice_CMS/js/frontend/jquery.json.min.js"></script>
+   <script type="text/javascript" src="/Apprentice_CMS/js/frontend/jquery.ajaxq.min.js"></script>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
 	<?php echo $this->headTitle('View the article') ?>	
+	<?php echo $this->headLink() ?>
 	<?php echo $this->headStyle()?>
-	<?php 		
-		$this->headLink()->appendStylesheet($this->url.'public/css/editor.css');
-		$this->headScript()->appendFile($this->url.'public/js/editor.js'); 
-		//$this->headScript()->appendFile($this->url.'public/js/jquery-ui-1.8.16.custom.min.js'); 
-		//$this->headScript()->appendFile($this->url.'public/js/jquery-1.6.js'); 
-		//$this->headLink()->appendStylesheet($this->url.'public/css/jquery-ui-1.8.16.custom.css');	
-		  
-		?>
-	<!--  
-	<script src="../../../../js/jquery-1.6.2.min.js"></script>
-	<script src="../../../../js/jquery-ui-1.8.16.custom.min.js"></script>
-	<script src="../../../../css/jquery-ui-1.8.16.custom.css"></script>
-	-->
-
-
-	<base href='http://jqueryui.com/' />
-	<link rel="stylesheet" href="../../themes/base/jquery.ui.all.css"> 
-	<script src="../../jquery-1.6.2.js"></script>
-	<script src="../../ui/jquery.ui.core.js"></script>
-	<script src="../../ui/jquery.ui.widget.js"></script>
-	<script src="../../ui/jquery.ui.mouse.js"></script>
-	<script src="../../ui/jquery.ui.draggable.js"></script>
-	<script src="../../ui/jquery.ui.droppable.js"></script>
-	<script src="../../ui/jquery.ui.sortable.js"></script>   
-	
-	<style>
-	#save{
-		position:absolute;
-		width : 120px;
-		height : 40px;
-		border : none;
-		border-radius:15px 15px;
-		background:#F90;
-		color:white;
-		top : 120px;
-		left: 40px;
-		font-weight: 900;
-	}
-	</style>
-
-	<script>
-		$(document).ready(function(){
-			$("#save").hide();
-			$("*").css("cursor","default");
-			$("#save*").css("cursor","pointer");
-
-			//Chuột di chuyển lên span thì có hiệu ứng tí xíu:
-			$("span").mouseover(function(){
-				$(this).css("outline","1px dotted white");
-			});
-
-			$("span").mouseout(function(){
-				$(this).css("outline","none");
-			});
-			//Double Click vào text để sửa nội dung nà (Cái hàm clickChangeText khai báo bên dưới):
-			$("span").dblclick(clickChangeText);
-		});
-
-		//Hàm xử lý double click:
-		function clickChangeText(){
-			var temp=$(this);		       				
-			var pretext=$(this).html();
-			temp.attr("daclick","ok");
-			//Tạo 1 cái div mới chứa cái editor của thằng quỷ Khoa:
-            var newdiv = $("<div>");
-            newdiv.attr("id","editorContainer").css("background","#888").css("border-radius","2px 2px").css("width","487");
-
-         	//Thay thế cái thẻ đang click = cái div này:
-			$(this).replaceWith(newdiv);
-
-			//đây khởi tạo cái editor cùi pắp của thằng Khoa ở đây:
-			newEditor = new Editor("newEditor","text_editorId","inputdata", "editorContainer",450,200,pretext);
-            newEditor.render(); 
-
-            //Thêm 1 cái nút Accept để click khi thay đổi xong:                                     
-			btAccept = $("<input type='button' value='Accept' />");
-			btAccept.css({
-				"border-style":"outset",
-				"border-radius":"10px 10px",
-				"background":"#444",
-				"color":"white",
-				"margin-left":"220px"
-		      });
-		    btAccept.hover(function(){
-				$(this).css("background","#222");
-					},function(){
-				$(this).css("background","#444");
-				});
-            newdiv.append(btAccept);
-
-            //Sự kiện click nút Accept:
-            btAccept.click(function(){
-            	getData("inputdata","text_editorId");
-                temp.html($("#inputdata").val());
-                newdiv.replaceWith(temp);
-                temp.dblclick(clickChangeText);
-                $("#editorContainer").remove();
-                $("#save").show();
-            });     
-            $("#text_editorId").focus();       
-            $("#text_editorId").css("background","#777"); 
-		}
-	</script>
+	<?php echo $this->headScript() ?>
 </head>
-<body>
-	<div id="parent">
-	<hr />
-	<h2><?php echo $this->title ?></h2>
-	<cite><?php echo $this->author . " - " . $this->created_date ?></cite>
-	<hr />
-	<span class="description" >
-		<?php echo $this->description ?>
-	</span>
-	<hr />
-	<span class="content">
-		<?php echo $this->content ?>
-	</span>
-	</div>
-	<hr />
-	<?php
-		echo "<h2>Title</h2><br />";	
+<body data-rendering="true">
+	<div id="wrapper">
+		<div id="header">
+			<div class="container_12">
+				<div class="grid_4">
+					<h1>
+						<a href="/Apprentice_CMS/public/">Apprentice CMS</a>
+					</h1>
+				</div>
+			</div>
+		</div>
+		<div id="container" class="container_12">
+			<div class="widget_container grid_12 t_space_bottom" id="container_1"></div>
+			<div class="widget_container grid_12 t_space_bottom" id="container_2"></div>
+			<div class="widget_container grid_12 t_space_bottom" id="container_3">
+				<div class="widdget_container grid_9 alpha" id="container_4">
+					<div class="widget" id="container_4_1">
+						<div class="t_news_breadcrumb">
+							<h2>
+								<span><a href="/Apprentice_CMS/public/">Home</a></span>
+								/
+								<span><a href="/Apprentice_CMS/public/news/category/view/id/<?php echo $this->category['category_id']?>"><?php echo $this->category['name']?></a></span>
+							</h2>
+						</div>
+					</div>
+					<div class="widget" id="container_4_2">
+						<div class="t_utility_textresizer">
+							Text size:
+							<span>
+								<a class="smaller" href="javascript: void(0);">
+									A
+									<sup>-</sup>
+								</a>
+							</span>
+							<span>
+								<a class="default" href="javascript: void(0);">
+									A
+								</a>
+							</span>
+							<span>
+								<a class="larger" href="javascript: void(0);">
+									A
+									<sup>+</sup>
+								</a>
+							</span>
+						</div>
+					</div>
+					<div class="t_news_details">
+						<h2><?php echo $this->article['title']?></h2>
+						<cite>
+							<?php echo $this->article['author']?> - 
+							<?php echo $this->article['updated_date']?>	
+						</cite>
+						<div class="description">
+							<p><?php echo $this->article['description']?></p>
+						</div>
+						<div class="content">
+							<p><?php echo $this->article['content']?></p>
+						</div>
+					</div>
+					<div class="widget" id="container_4_3"></div>
+					<div class="widget" id="container_4_4"></div>
+					<div class="widget" id="container_4_5">
+						<div class="t_tag_tags">
+							<h2>Từ khóa</h2>
+							<span>
+								<?php echo $this->slug?>
+							</span>
+						</div>
+					</div>
+					<div class="widget" id="container_4_6">
+						<div class="t_comment_comment" id="tCommentComment">
+							<h2>Bình luận</h2>
+							<div id="comment">
+								<?php
+								$has_comment = false;
+								while ($row = $this->comments->fetch()) {
+									if ($row['is_active'] == 1) {
+										$has_comment = true;
+										echo "<strong>" . $row['title'] . "</strong><br />";
+										echo $row['content'] . "<br />";
+										$full_name = $row['full_name'];
+										$email = $row['email'];
+										echo "
+											<strong>$full_name | $email</strong>
+										";
+										echo "<cite> at " . $row['created_date'] . "</cite><br />";
+										echo "------------------------------------------<br/>";
+									}
+								}
+								if ($has_comment == false) {
+									echo "There are no comments available.";
+								} 
+								?>
+							</div>
+							<div id="tCommentFormContainer">
+								<?php
+								if ($this->allowComment == 1) {
+									$article_id = $this->id;
+									echo "<h2 class='title'>Viết bình luận của bạn</h2><div></div>
+										<a name='commentForm'></a>";
+									echo "
+										<form action='/Apprentice_CMS/public/comment/admin/add' method='post' name='sendCommentForm' id=sendCommentForm' class='form' enctype='multipart/form-data'>
+										<div class='clearfix'>
+											<label>Tên đầy đủ: </label>
+											<input type='text' name='name_comment' id='name_comment' style='width: 250px; padding: 3px 0' />
+										</div>
+										<div class='clearfix'>
+											<label>Email:</label>
+											<input type='text' name='email_comment' id='email_comment' style='width: 250px; padding: 3px 0' />
+										</div>
+										<div class='clearfix'>
+											<label>Title:</label>
+											<input type='text' name='title_comment' id='title_comment' style='width: 250px; padding: 3px 0' />
+										</div>
+										<div class='clearfix'>
+											<div><label>Nội dung</label></div>
+											<div>
+												<textarea name='content_comment' cols='30' rows='10'
+													style='width:400px; height: 150px;'
+												></textarea>
+											</div>
+										</div>
+										<div class='clearfix'>
+											<label> </label>
+											<input type='submit' id='tCommentSendButton' class='' name='send' value='Gửi' />
+										</div>										
+										<input type='hidden' name='article_id' id='article_id' value='$article_id' />
+										</form>";
+								}
+							?>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="widdget_container grid_3 omega" id="container_5">
+					<div class="widget" id="container_5_1">
+						<div class="t_news_newer">
+							<h2>Các tin mới hơn</h2>
+							<ul>
+								<?php 
+									$i = 0;
+									foreach ($this->article_newers as $value) {
+										if ($i > $this->number_newer) {
+											break;
+										}else{
+											$article_idX = $value['article_id'];
+											$titleX = $value['title']; 
+											echo "
+											<li>
+												<a href='/Apprentice_CMS/public/news/article/view/$article_idX'>
+												$titleX
+												</a>
+											</li>
+											";
+										}										
+									}
+								?>
+							</ul>
+						</div>
+					</div>
+				<div class="widget" id="container_5_2"></div>
+				</div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div id="footer">
+			<div class="container_12">
+				<div>
+					<a href="https://groups.google.com/group/apprentice_pm?hl=vi" title="Powered by Apprentice_CMS" 
+					target="_blank">Powered by Apprentice_CMS</a>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>	</div>
 	
-		$has_comment = false;
-		while ($row = $this->comments->fetch()) {
-			if ($row['is_active'] == 1) {
-				$has_comment = true;
-				echo "<strong>" . $row['title'] . "</strong>";
-				echo "<cite> at " . $row['created_date'] . "</cite><br />";
-				echo $row['content'] . "<br /><br />";
-			}
-		}
-		if ($has_comment == false) {
-			echo "There are no comments available.";
-		} 
-	?>
-	<hr />
-	<?php
-		if ($this->allowComment == 1) {
-			$article_id = $this->id;
-			echo "<h2>Write your comment</h2><br />";
-			echo "
-				<form action='/Apprentice_CMS/public/comment/admin/add' method='post' name='sendCommentForm' id='sendCommentForm' enctype='multipart/form-data'>
-				<div>
-					<label>Full name: </label>
-					<input type='text' name='name_comment' id='name_comment' style='width: 250px;' />
-				</div>
-				<br />
-				<div>
-					<label>Email: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-					<input type='text' name='email_comment' id='email_comment' style='width: 250px;' />
-				</div>
-				<br />
-				<div>
-					<label>Title: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-					<input type='text' name='title_comment' id='title_comment' style='width: 250px;' />
-				</div>
-				<br />
-				<label>Content:</label>
-				<br />
-				<textarea name='content_comment' cols='30' rows='10'></textarea>
-				<br />
-				<input type='submit' name='send' value='Send' />
-				<input type='hidden' name='article_id' id='article_id' value='$article_id' />
-				</form>";
-		}
-	?>
-	<form id="frm" method="post" >
-		<input type="submit" id="save" name="save" value="Click để save nà" onclick="saveClick();">
-	</form>
-	<script>
-	//Do cách kia phá sản nên đây là 1 cách cực kỳ cùi chuối, sự dụng tạm thời:
-	//Dùng hơi bị nhiều mảng để lưu các cái thứ cần thiết khi duyệt qua all các thẻ span của trang web:
-	var content = new Array();
-	var attrName = new Array();
-	var hdAttrName = new Array();
-	var hdNewContent = new Array();
-	function saveClick(){
-		$("#parent span").each(function(i){
-		    numElement = i;
-			hdContentName = "newContent"+i;
-			hhdAttrName = "attrName"+i;
-			content[i] = $(this).html();
-			attrName[i] = $(this).attr("class");
-			hdAttrName[i] = $("<input type='hidden' name='"+hhdAttrName+"'  value='"+attrName[i]+"'/>");
-			hdNewContent[i] = $("<input type='hidden' name='"+hdContentName+"' value='"+content[i]+"'/>");
-			$("#frm").append(hdAttrName[i]);
-			$("#frm").append(hdNewContent[i]);
-		});
-		var hdNumElement = $("<input type='hidden' name='numElement'  value='"+numElement+"'/>"); 
-	    $("#frm").append(hdNumElement);   
-	}
-	</script>
 </body>
+	
 </html>

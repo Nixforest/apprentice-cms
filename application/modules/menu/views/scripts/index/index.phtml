@@ -1,42 +1,404 @@
-<html>
-<head>
-	<meta charset="utf-8">
-	<title>jQuery UI Droppable - Revert draggable position</title>
-	<base href='http://jqueryui.com/' />
-	<link rel="stylesheet" href="../../themes/base/jquery.ui.all.css">
-	<script src="../../jquery-1.6.2.js"></script>
-	<script src="../../ui/jquery.ui.core.js"></script>
-	<script src="../../ui/jquery.ui.widget.js"></script>
-	<script src="../../ui/jquery.ui.mouse.js"></script>
-	<script src="../../ui/jquery.ui.draggable.js"></script>
-	<script src="../../ui/jquery.ui.droppable.js"></script>
-	<script src="../../ui/jquery.ui.sortable.js"></script> 
 
+<?php
+$this->headTitle("Back End Menu");
+
+$this->headLink()
+	->appendStylesheet($this->url. 'public' . '/js/themes/base/jquery.ui.all.css')
+	->appendStylesheet($this->url. 'public' . '/js/themes/base/demos.css');
+$this->headScript()
+	->appendFile($this->url. 'public' . '/js/jquery-1.6.2.js')
+	->appendFile($this->url. 'public' . '/js/jquery.ui.position.js')
+	->appendFile($this->url. 'public' . '/js/jquery.ui.core.js')
+	->appendFile($this->url. 'public' . '/js/jquery.ui.widget.js')
+	->appendFile($this->url. 'public' . '/js/jquery.ui.mouse.js')
+	->appendFile($this->url. 'public' . '/js/jquery.ui.button.js')
+	->appendFile($this->url. 'public' . '/js/jquery.ui.tabs.js')
+	->appendFile($this->url. 'public' . '/js/jquery.ui.dialog.js')
+	->appendFile($this->url. 'public' . '/js/jquery.editinplace.js')
+	->appendFile($this->url. 'public' . '/js/jquery-ui-1.8.11.custom.min.js')
+	->appendFile($this->url. 'public' . '/js/jquery.ui.nestedSortable.js')
+	->appendFile($this->url. 'public' . '/js/jquery.json.min.js')
+	->appendFile($this->url. 'public' . '/js/jquery.ui.accordion.js');	
+	//$base      = $this->baseUrl($this->url);	
+
+?>	
 	<style>
-		.demo { color: blue; }
+	#dialog label, #dialog input { display:block; }
+	#dialog label { margin-top: 0.5em; }
+	#dialog input, #dialog textarea { width: 95%; }
+	#tabs { margin-top: 1em; }
+	#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+	#add_tab { cursor: pointer; }
+	
+	.nav-menu-frame { width: 280px; float: left; padding-bottom: 100px; }
+	.portlet { margin: 0 1em 1em 0; }
+	.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
+	.portlet-header .ui-icon { float: right; }
+	.portlet-content { padding: 0.4em; }
+	
+	li
+		{
+		margin:0px 0px 0px 5px;
+		padding:0px;
+		list-style-type:none;
+		text-align:left;
+		font-family:Arial,Helvetica,sans-serif;
+		font-size:13px;
+		font-weight:normal;
+		}
+	
+	
+	.placeholder  { border: 1px dashed BlueViolet; visibility: visible !important; height: 25px !important; background-color: #f5f5f5;}
+	.ui-nestedSortable-error { visibility: hidden; }
+
+	a.deleteAction:link {color: blue; text-decoration: none; }
+	a.deleteAction:visited {color: purple; text-decoration: none; }
+	a.deleteAction:hover {color: orange; text-decoration: underline; }
+	a.deleteAction:active {color: red; }
+	
+	a.item_add:link {color: blue; text-decoration: none; }
+	a.item_add:visited {color: purple; text-decoration: none; }
+	a.item_add:active {color: red; }
+	
 	</style>
-	<script> 
-		$(function() {
-			$( ".draggable" ).draggable({ revert: "invalid" });
+	
+
+	
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+<div class='Tab'>
+	<button id=addMenu_tab class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Add Menu</span></button>
+	<button id=save class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Save Menu</span></button>
+
+
+	<div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+		<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+			<?php foreach ($this->menus as $menu) {echo $menu['htmlMenu'];} ?>
+		</ul>
+		<?php foreach ($this->menus as $menu) {
+				echo $menu['htmlItems'];
+			} 
+		?>
+		
+	</div>
+
+</div><!-- End demo -->
+
+<div id="accordion" class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons" role="tablist">
+	<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-top" role="tab" aria-expanded="true" aria-selected="true" tabindex="0"><span class="ui-icon ui-icon-triangle-1-s"></span><a>View Article</a></h3>
+	
+		<div class="t_a_bottom ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" role="tabpanel" style="display: block; padding-top: 0px; padding-bottom: 0px; overflow-x: auto; overflow-y: auto; ">
+			<ul class="t_a_ui_list">
+				<?php 
+					$newsBLO= new Model_NewsBLO();
+					$articles = $newsBLO->getAll();
+					while($row= $articles->fetch() ){
+						echo "<li><a href='/news/article/view/id/'".$row['article_id']." onclick='return false;' class='item_add'>".$row['title']."</a></li>";
+					}
+				
+				?>
+			</ul>
+		
+		</div>
+	<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" role="tab" aria-expanded="false" aria-selected="false" tabindex="-1"><span class="ui-icon ui-icon-triangle-1-e"></span><a href="http://jqueryui.com/demos/accordion/collapsible.html#">View Category</a></h3>
+	<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" style="height: 103px; display: none; " role="tabpanel">
+		<?php 
+			$categoryBLO = new Model_CategoryBLO();
+			$items = $categoryBLO->getTree();
+			for ($i = 0; $i < count($items); $i++):
+		?>	
+			<li><a href=<?php echo "/category/index/view/id/".$items[$i]['category_id'];?> onclick='return false;' class='item_add' style="margin-left: <?php echo 30*$items[$i]['depth'];?>px;"><?php echo $items[$i]['name'];?> </a></li>
+		<?php endfor?>
+		
+	</div>
+</div>
+
+<div class="nav-menu-frame">
+
+	<div id="add-custom-link" class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="width: 280px;">
+		<div class="portlet-header ui-widget-header ui-corner-all">  Pages Links <span class='ui-icon ui-icon-minusthick'></span></div>
+		<div class="portlet-content">
+			<p> <label for="name" > Label </label> <input id="name" style="float:right;margin:-2px;width:200px" type="text" name="txtName" /> </p>
+			<p> <label for="link" > URL</label> <input id="link" style="float:right;margin:-2px;width:200px" type="text" name="txtURL" value="http://"/> </p>
 			
+			<div style="clear:both;float:right"> <input  id="add_item" type="button"  value="add to Menu" /> </div>
+		</div>
+		
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		
+		var $content_tab_selected;
+		var tab_counter = 2;
+		var tab_selected = 0;
+		var name,link;
+		// tabs init with a custom tab template and an "add" callback filling in the content
+		var $tabs = $("#tabs").tabs({
+			tabTemplate: "<li class='ui-state-default ui-corner-top '><a href='#{href}' class='editable'>#{label}</a> <span class='ui-icon ui-icon-close'>Remove Tab</span></li>",
+			panelTemplate: "<ul></ul>" ,
+			show: function(event, ui) {
+				$content_tab_selected = $( ui.panel );
+				
+			},
+			add: function( event, ui ) {
+				$content_tab_selected = $( ui.panel );
+				
+				//var tab_content = $tab_content_input.val() || "This is content of Tab" + tab_counter;
+				//$( ui.panel ).append( "<p>" + tab_content + "</p>" );
+				
+			},
+			select: function(event, ui) {
+             	$content_tab_selected = $( ui.panel );
+				tab_selected = ui.index;
+         	}		
 		});
+
+		
+		// actual addTab function: adds new tab using the title input from the form portlet below
+		function addTab() {
+			tab_counter = $("#tabs").tabs("length")+1;
+			var tab_title =  "Menu " + tab_counter;
+			$tabs.tabs( "add", "#tabs-" + tab_counter, tab_title );
+			
+			//var index = $("#tabs").tabs("length") - 1;
+			$tabs.tabs("select", tab_counter - 1 );
+			tab_counter++;
+		}
+
+		// addTab button
+		$( "#addMenu_tab" )
+			.button()
+			.click(function() {
+				addTab();
+				$('.editable').editInPlace({
+					callback: function(unused, enteredText) { 
+						return enteredText; 
+					},
+					bg_over: null
+				});
+			});
+		//get id of panel inside tab through index
+		function getIdforIndex(searchIndex){                                                                                             
+			var existingIndex = $tabs.tabs('option','selected');                                                                   
+            $tabs.tabs("select",searchIndex);
+            var myId = $("li.ui-state-active a").attr("href");;                                             
+            $tabs.tabs("select", existingIndex);                                                                                 
+            return myId; 
+         } 
+		function saveMenu(){
+			var n = $("#tabs").tabs("length");
+			var menus = new Array();
+			var items = new Array("a","c");
+			for (i=0; i<n; i++){
+				var id = getIdforIndex(i);
+				items = $(id).nestedSortable('toArray');
+				//add linkitem,labelitem,nameMenu
+				if (items.length>1) {
+					items[0]['name'] = $('a[href='+ id +']').text();
+					$(id).find('div').each(function(i) {
+						items[i+1]['label'] = $(this).find('span:first span.editable').text();
+						items[i+1]['link'] = $(this).find('span:last ').text();
+					});
+					menus[i] = items;
+				}
+			}	
+			$.post("./add", 'menus='+ $.toJSON(menus),function(data) {
+				   alert(data);} );	
+			
+		}
+		
+		// save button
+		$( "#save" )
+			.button()
+			.click(function() {
+				saveMenu();
+			});
+
+		// close icon: removing the tab on click
+		// note: closable tabs gonna be an option in the future - see http://dev.jqueryui.com/ticket/3924
+		$( "#tabs span.ui-icon-close" ).live( "click", function() {
+			var index = $( "li", $tabs ).index( $( this ).parent() );
+			$tabs.tabs( "remove", index );
+		});
+		
+			
+		
+		//Place which related to Items
+			//add nav
+			
+		
+
+		$( ".portlet-header .ui-icon" ).click(function() {
+			$( this ).toggleClass( "ui-icon-minusthick" ).toggleClass( "ui-icon-plusthick" );
+			$( this ).parents( ".portlet" ).find( ".portlet-content" ).toggle();
+		});
+		
+		addEventItem();
+		//function add Eventitem
+		function addEventItem(){
+				//event click of Deletion
+			$(".deleteAction").click(function() {
+				
+				$(this).parents("li:first").remove();
+				
+				$('#' + $content_tab_selected.context.id ).nestedSortable('refresh');
+			});
+				//event hover item
+			$('div .item').hover(function() {
+				$(this).find('a.deleteAction').show();
+				$( this ).toggleClass( "ui-state-hover" );
+			}, function() {
+				$(this).find('a.deleteAction').hide();
+				$( this ).toggleClass( "ui-state-hover" );
+			});
+				//add event edit label and url
+			$('.editable').editInPlace({
+				callback: function(unused, enteredText) { 
+					return enteredText; 
+				},
+				bg_over: null
+			});
+			
+			var n = $("#tabs").tabs("length");
+			for (i=0; i<n; i++){
+					var id = getIdforIndex(i);
+					//add event sort
+				$(id ).nestedSortable({
+					nested: 'ul',
+					forcePlaceholderSize: true,
+					handle: 'div',
+					helper:	'clone',
+					items: 'li',
+					listType: 'ul',
+					maxLevels: 3,
+					opacity: .6,
+					placeholder: 'placeholder',
+					revert: 250,
+					tabSize: 25,
+					tolerance: 'pointer',
+					toleranceElement: '> div'
+				
+				});
+			}
+			
+			
+		}
+		function getMaxRowId () {
+			var maxRowId = 0;
+			$('#' + $content_tab_selected.context.id).find('li').each(function() {
+				var rowId = parseInt($(this).attr('id').split('-')[3]);
+				if (maxRowId < rowId) {
+					maxRowId = rowId;
+				}
+			});
+			return maxRowId;
+		}
+		
+			//function add item
+		function addItem(){
+			var label_item = name || 'name',
+				link_item = link || 'http://';
+			
+			//add content item into panel of tab.
+			var id = $content_tab_selected.context.id + '-item-' + (getMaxRowId()+1);
+			//var html = "<li>" + $('<div>').append( $('#item').clone().attr('id',id) ).remove().html() + "</li>";
+			//$content_tab_selected.append( html );
+			
+			//tomato
+			var deleteLink = $('<a/>').attr('href', 'javascript: void(0);')
+							.addClass('deleteAction')
+							.html('Xoa');
+			$(deleteLink).hide().click(function() {
+				$('#'+id).remove();
+				$('#' + $content_tab_selected.context.id ).nestedSortable('refresh');
+			});
+
+			var labelcell = $('<span/>')//.css('width','360px')
+				.append($('<span/>').addClass('editable').css('cursor', 'move').css('padding-right', '20px').html(label_item ))
+				.append($(deleteLink));
+			
+			var item = $('<div/>').append($(labelcell)).css('height','25px').addClass('item');	
+			
+			$(item).append( $('<span/>').append( $('<span/>').addClass('editable').html(link_item ).css('padding-left', '0px') ).css({'float':'right','width':'400px'}) ).append('<hr/>');
+			$('<li/>').attr('id',id).append($(item)).appendTo($content_tab_selected);
+
+			$('div .item').hover(function() {
+				$(this).find('a.deleteAction').show();
+				$( this ).toggleClass( "ui-state-hover" );
+			}, function() {
+				$(this).find('a.deleteAction').hide();
+				$( this ).toggleClass( "ui-state-hover" );
+			});
+			
+			
+			/**
+			 * Make the label and link editable
+			 */
+			$('div').find('.editable').editInPlace({
+				callback: function(unused, enteredText) { 
+					return enteredText; 
+				},
+				bg_over: null
+			});
+			//tomato
+			
+			
+			
+			
+				//add event click.
+				
+				//add event sort
+				$('#' + $content_tab_selected.context.id ).nestedSortable({
+					nested: 'ul',
+					forcePlaceholderSize: true,
+					handle: 'div',
+					helper:	'clone',
+					items: 'li',
+					listType: 'ul',
+					maxLevels: 3,
+					opacity: .6,
+					placeholder: 'placeholder',
+					revert: 250,
+					tabSize: 25,
+					tolerance: 'pointer',
+					toleranceElement: '> div'
+				
+				});
+		}
+		//Add 1 item custom_link vào Tab Menu
+		$("#add_item")
+			.button()
+			.click(function() {
+				name = $( "#name").val() || 'name';
+				link = $( "#link" ).val() || 'http://';
+				addItem();
+		});
+		//Add 1 item article_link vào Tab Menu
+		$('.item_add').click(function() {
+				link = $(this).attr('href');
+				name = $(this).text();
+				alert(name);
+				addItem();
+		});
+		//Accordion chứa các loại link
+		$( "#accordion" ).accordion({
+			collapsible: true
+		});
+		//Sự kiện rê chuột qua item của Accordion
+		$('.item_add').hover(function() {
+			$( this ).toggleClass( "ui-state-hover" );
+		}, function() {
+			$( this ).toggleClass( "ui-state-hover" )
+		});
+
+		
+
+		
+			
+	});
+	
 	</script>
-</head>
-<body>
-	
-	<table class="demo" id="itemtable">
-		<?php for ($i = 0; $i < count($this->items); $i++) : ?>
-						<tr id="row_id_<?php echo $this->items[$i]['item_id']; ?>" class="row_parent_<?php echo $this->items[$i]['parent_id']; ?>">
-							<td style="padding-left: <?php echo 40 * $this->items[$i]['depth']; ?>px">
-								<span class="draggable" style="cursor: move"><?php echo $this->items[$i]['label']; ?></span>
-								
-							</td>
-						</tr>
-		<?php endfor; ?>
-		
-		
-	</table>
-	
-	
-</body>
-</html>
+
+

@@ -1,0 +1,120 @@
+<html>
+<head>
+   <link href="/Apprentice_CMS/skin/frontend/default.css" rel="Stylesheet" type="text/css" />
+   <!--<link href="/Apprentice_CMS/skin/frontend/default-2.css" rel="Stylesheet" type="text/css" />
+   <link href="/Apprentice_CMS/skin/frontend/AdsNov.css" rel="Stylesheet" type="text/css" />
+   -->
+   <link href="/Apprentice_CMS/css/frontend/all.min.css" media="screen" rel="stylesheet" type="text/css">
+   <script type="text/javascript" src="/Apprentice_CMS/js/frontend/jquery.min.js"></script>
+   <script type="text/javascript" src="/Apprentice_CMS/js/frontend/jquery.json.min.js"></script>
+   <script type="text/javascript" src="/Apprentice_CMS/js/frontend/jquery.ajaxq.min.js"></script>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />	
+	<?php echo $this->headTitle('View the category') ?>	
+	<?php echo $this->headLink() ?>
+	<?php echo $this->headStyle()?>
+	<?php echo $this->headScript() ?>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<div class="container_12">
+				<div class="grid_4">
+					<h1>
+						<a href="/Apprentice_CMS/public/">Apprentice CMS</a>
+					</h1>
+				</div>
+			</div>
+		</div>
+		<div id="container" class="container_12">
+			<div class="widget_container grid_12 t_space_bottom" id="container_1"></div>
+			<div class="widget_container grid_12 t_space_bottom" id="container_2"></div>
+			<div class="widget_container grid_12 t_space_bottom" id="container_3">
+				<div class="widdget_container grid_8 alpha" id="container_4">
+					<div class="widget" id="container_4_1">
+						<div class="t_news_breadcrumb">
+							<h2>
+								<span><a href="/Apprentice_CMS/public/">Home</a></span>
+								/
+								<span><a href=""><?php echo $this->category['name']?></a></span>
+							</h2>
+						</div>
+					</div>
+					<div class="widget" id="container_4_2">
+						<div class="t_news_sticky">
+							<ul>
+								<li>
+									<a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->newsesInCategory[0]['article_id']?>">
+										<img src="/Apprentice_CMS/upload/news/admin/<?php echo $this->newsesInCategory[0]['image']?>">
+									</a>
+									<h2><a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->newsesInCategory[0]['article_id']?>">
+										<?php echo $this->newsesInCategory[0]['title']?>
+									</a></h2>
+									<cite><?php echo $this->newsesInCategory[0]['updated_date']?></a>
+								</li>
+								<li>
+									<a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->newsesInCategory[1]['article_id']?>">
+										<img src="/Apprentice_CMS/upload/news/admin/<?php echo $this->newsesInCategory[1]['image']?>">
+									</a>
+									<h2><a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->newsesInCategory[1]['article_id']?>">
+										<?php echo $this->newsesInCategory[1]['title']?>
+									</a></h2>
+									<cite><?php echo $this->newsesInCategory[1]['updated_date']?></a>
+								</li>
+							</ul>
+							<div class="clearfix"></div>
+						</div>
+					</div>
+					<div class="t_news_category">
+						<ul>
+							<?php 
+								for ($i = 0; $i < $this->numberX - 2; $i++) {
+									$article_id = $this->newsesInCategory[$i+2]['article_id'];
+									$title = $this->newsesInCategory[$i+2]['title'];
+									$updated_date = $this->newsesInCategory[$i+2]['updated_date'];
+									$image = $this->newsesInCategory[$i+2]['image'];
+									$description = $this->newsesInCategory[$i+2]['description'];
+									echo "
+										<li>
+								<h2>
+									<a href='/Apprentice_CMS/public/news/article/view/$article_id'>
+										$title
+									</a>
+									<cite>$updated_date</cite>
+								</h2>
+								<div class='image'>
+									<a href='/Apprentice_CMS/public/news/article/view/$article_id'>
+										<img src='/Apprentice_CMS/upload/news/admin/$image'>
+									</a>
+								</div>
+								<div class='description'>
+									<p>
+										$description
+									</p>
+								</div>
+								<div class='clearfix'></div>
+							</li>
+									";
+								}
+							?>
+							</ul>
+						<div class="paginator"></div>
+					</div>
+				</div>
+				<div class="widdget_container grid_4 omega" id="container_5"></div>
+			</div>
+			<div class="clearfix"></div>
+		</div>
+		<div id="footer">
+			<div class="container_12">
+				<div>
+					<a href="https://groups.google.com/group/apprentice_pm?hl=vi" title="Powered by Apprentice_CMS" 
+					target="_blank">Powered by Apprentice_CMS</a>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+</body>
+	
+</html>
