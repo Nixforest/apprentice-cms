@@ -5,9 +5,15 @@ class Model_CategoryDAO extends Zend_Db_Table_Abstract
 	protected $_name = 'category';
 	
 	public function getById($category_id){
-		$sql = "SELECT * FROM `category` where `category_id`=".$category_id;
+		/*$sql = "SELECT * FROM `category` where `category_id`=".$category_id;
 		$db = $this->getDefaultAdapter();
-		return $db->query($sql);
+		return $db->query($sql);*/
+		$row = $this->find($category_id)->current();
+		if ($row){
+			return $row;
+		}else{
+			throw new Zend_Exception("Could not find row!");
+		}
 	}
 	
 	public function getTree()
@@ -23,9 +29,11 @@ class Model_CategoryDAO extends Zend_Db_Table_Abstract
 		return $items;
 	}
 	public function getAll() {
-		$sql  = "SELECT * FROM category";
+		$rows = $this->fetchAll();
+		return $rows;
+		/*$sql  = "SELECT * FROM category";
 		$db = $this->getDefaultAdapter();
-		return $db->query($sql);
+		return $db->query($sql);*/
 	}
 	public function getChildCategories($parentCategoryId)
 	{

@@ -34,17 +34,13 @@
 			</div>
 			<div class="f_descont">
 				<label>Description:</label>
-				<span id="editorDescription">Waiting for loading editor...</span>
-				<script language="javascript">
-					ed = new Editor("ed", "d", "description", "editorDescription", 440, 200);
-					ed.render();
-				</script>
+				<textarea rows="5" cols="20" id="description" name="description"></textarea>
 			</div>
 			<div class="f_descont">
 				<label>Content:</label>
 				<span id="editorContent">Waiting for loading editor...</span>
 				<script language="javascript">
-					ec = new Editor("ec", "c", "content", "editorContent", 440, 600);
+					ec = new Editor("ec", "c", "newsContent", "editorContent", 440, 600);
 					ec.render();
 				</script>
 			</div>
@@ -59,7 +55,7 @@
 				<input type="checkbox" name="hotArticle" id="hotArticle" value="1" /> Hot article
 			</div>
 			<div id="f_save">
-				<input type="submit" name="save" value="Save" onclick="getData('description', 'd'); getData('content', 'c');" />
+				<input type="submit" name="save" value="Save" onclick="getData('newsContent', 'c');" />
 			</div>
 		</form>
 	</div>

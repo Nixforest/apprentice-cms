@@ -15,6 +15,25 @@ Class Model_NewsBLO {
 		$this->_newsDAO = new Model_NewsDAO();
 	}
 
+	public function getHotestNews($number){
+		return $this->_newsDAO->getHotestNews($number);
+	}
+	
+	public function getNewsByCategoryId($category_id){
+		return $this->_newsDAO->getNewsByCategoryId($category_id);
+	}
+	
+	public function getSomeNewsByCategoryId($category_id, $number){
+		return $this->_newsDAO->getSomeNewsByCategoryId($category_id, $number);
+	}
+	
+	public function getSomeMostViewNews($number){
+		return $this->_newsDAO->getSomeMostViewNews($number);
+	}
+	
+	public function getSomeNewsFromUpdateTime($category_id, $updated_date, $number){
+		return $this->_newsDAO->getSomeNewsFromUpdateTime($category_id, $updated_date, $number);
+	}
 	public function getById($id)
 	{
 		return $this->_newsDAO->getById($id);
@@ -50,20 +69,8 @@ Class Model_NewsBLO {
 		$this->_newsDAO->updateNews($article);
 	}
 	
-	public function editTitle($id,$title)
-	{
-		$this->_newsDAO->editTitle($id, $title);
+	public function updateNewsNumberView($article_id){
+		$this->_newsDAO->updateNewsNumberView($article_id);
 	}
-	
-	public function editDescription($id,$description)
-	{
-		$this->_newsDAO->editDescription($id, $description);
-	}
-	
-	public function editAuthor($id,$author)
-	{
-		$this->_newsDAO->editAuthor($id, $author);
-	}
-	
 	
 }

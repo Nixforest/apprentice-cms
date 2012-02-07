@@ -26,6 +26,11 @@ set_include_path(implode(PATH_SEPARATOR, array(
 define('URL_IMG','../public/images');
 define('URL_CSS','../public/css');
 
+// Define some constant for Home page
+define('CATEGORY_UP','1');
+define('CATEGORY_MIDDLE','2');
+define('CATEGORY_DOWN','3');
+
 /** Zend_Application */
 require_once 'Zend/Application.php';
 
