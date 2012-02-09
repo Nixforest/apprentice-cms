@@ -138,4 +138,90 @@ class News_ArticleController extends Zend_Controller_Action {
 		
 		$this->_redirect('news/article/list');
 	}
+public function edit2Action(){
+                $request = $this->getRequest();
+        $url = $request->getScheme() . '://' . $request->getHttpHost().'/Apprentice_CMS/';
+        $this->view->url = $url;
+        
+                $article_id = $this->_request->getParam('id');
+                $this->view->article_id = $article_id;
+                
+                if($this->getRequest()->isPost()){
+                        $request = $this->getRequest();
+                        
+                        $article = new Model_ArticleDTO();
+                        $article->setData(array(
+                                'article_id'    => $article_id,
+                                'title'         => strip_tags($request->getPost('title')),
+                                'sub_title'     => strip_tags($request->getPost('subTitle')),
+                                'slug'          => $request->getPost('slug'),
+                            'description'   => $request->getPost('description'),
+                            'content'       => $request->getPost('content'),
+                                'author'        => strip_tags($request->getPost('author')),
+                                'allow_comment' => $request->getPost('allowComment'),
+                                'is_hot'        => $request->getPost('hotArticle')
+                        ));
+                        
+                        $news = new Model_NewsBLO();
+                        $id = $news->updateNews($article);
+                        
+                        $this->_redirect('news/article/list');
+                }
+                else{
+                        $module = new Model_NewsBLO();
+                        $newsEdit = $module->getById($article_id);
+                        
+                        $newsEdit->setFetchMode(Zend_Db::FETCH_NUM);
+                        if($row = $newsEdit->fetchAll()){
+                                $this->view->newsTitle = $row[0][2];
+                                $this->view->newsDescription = $row[0][3];
+                                $this->view->newsContent = $row[0][4];
+                                $this->view->newsAuthor = $row[0][5];
+                                $this->view->newsisComment = $row[0][6];
+                                $this->view->newsisHot = $row[0][7];
+                        }
+                }
+        }
+        
+        public function edittitleAction()
+        {               
+                $request = $this->getRequest(); 
+                $article_id = $this->_request->getParam('id');
+                echo $article_id;
+                
+                if($request->isPost())
+                {
+                        $article_id = $this->_request->getParam('id');                                  
+                        $module = new Model_NewsBLO();
+                        $module->editTitle($article_id, $request->getPost("title_news"));
+                }
+        }
+                
+        public function editdescriptionAction()
+        {
+                $request = $this->getRequest(); 
+                                
+                if($request->isPost())
+                {       
+                        $article_id = $this->_request->getParam('id');
+                        $module = new Model_NewsBLO();
+                        $module->editTitle($article_id, $request->getPost("description_news"));
+                }
+        }
+        
+        public function editauthorAction()
+        {
+                $request = $this->getRequest(); 
+                                
+                if($request->isPost())
+                {                                       
+                        $article_id = $this->_request->getParam('id');
+                        $module = new Model_NewsBLO();
+                        $module->editTitle($article_id, $request->getPost("author_news"));
+                }
+        }
+        public function add2Action()
+        {
+        
+        }
 }

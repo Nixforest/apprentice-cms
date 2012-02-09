@@ -2,105 +2,145 @@
 <html>
 <head>
 	<?php echo $this->headLink()->appendStylesheet('/Apprentice_CMS/public/css/StyleSheet.css'); ?>
+	<?php echo $this->headLink()->appendStylesheet('/Apprentice_CMS/public/css/editor.css'); ?>
+	<?php echo $this->headScript()->appendFile('/Apprentice_CMS/public/js/editor.js'); ?>
+	<?php echo $this->headScript()->appendFile('/Apprentice_CMS/public/js/jquery-1.6.2.min.js'); ?>
+	<?php echo $this->headScript()->appendFile('/Apprentice_CMS/public/js/jquery-ui-1.8.16.custom.min.js'); ?>
+	<?php echo $this->headScript()->appendFile('/Apprentice_CMS/public/js/jquery.confirm-1.3.js'); ?>
     <link type="text/css" rel="Stylesheet" href="StyleSheet.css" />
-    
-    <link type="text/css" href="/Apprentice_CMS/public/css/jquery-ui-1.8.16.custom.css" rel="stylesheet" />    
-	<script type="text/javascript" src="/Apprentice_CMS/public/js/jquery-1.6.2.min.js"></script>
-	<script type="text/javascript" src="/Apprentice_CMS/public/js/jquery-ui-1.8.16.custom.min.js"></script>
-	<script type="text/javascript">
+	<script>
+	$("document").ready(function(){
+		var main=$('#main');
+        var idname="block";
+        var idnum=1;
+		var i=0;
+		$(".Newblock").click(ggg);
+		/*
+        $(".Newblock").bind("click",function(){
+            var tmp=$(this).parent();
+            var temp=$("<div></div>");
+        	var newdiv=$("<div></div>").attr("class","block").attr("id",idname+idnum ).insertAfter(tmp);
+            var newtitle=$("<h3>Block content</h3>");
+            var newcontrol=$("<div class='control'><img src='/Apprentice_CMS/public/images/icon/Delete.png' title='Delete block' class='imgDelete'/></div>");
+            var newclear= $("<div class='clear'></div>");
+            var newcontent=$("<div class='content'>my content</div>");
+            //var newpanel=$("<div class='panel' ><img src='/Apprentice_CMS/public/images/icon/New-document.png' class='Newblock' /><img src='/Apprentice_CMS/public/images/icon/New-image.png' /> <img src='/Apprentice_CMS/public/images/icon/New-table.png' /> </div>").insertAfter(newdiv);
+			var newpanel=$("<div class='panel' ><img src='/Apprentice_CMS/public/images/icon/New-document.png' class='Newblock' id='"+i+"'/><img src='/Apprentice_CMS/public/images/icon/New-image.png' /> <img src='/Apprentice_CMS/public/images/icon/New-table.png' /> </div>").insertAfter(newdiv);
+        	$("#"+i).click(ggg);
+            newtitle.appendTo(newdiv);
+            newcontent.appendTo(newdiv);
+            newcontrol.appendTo(newdiv);
+            newclear.appendTo(newdiv);
+            //newpanel.appendTo(newdiv);
+            
+            i+=1;
+            $(".content").bind("dblclick",function(){
+            	var temp=$(this);
+                $("#dialog-form").dialog({
+            		autoOpen: false,
+            		height: 400,
+            		width: 800,
+            		modal: true,
+            		buttons:{
+            			"Save":function(){
+            				//temp.html($("#texta").val());
+            				$(this).dialog("close");
+            				}
+            			},
+            		open: function() {
+                        neweditor();
+            			//$("#texta").val(temp.html());
+            			}
+            		});	
+                $( "#dialog-form" ).dialog( "open" );
+                });
 
-			$(function(){
-				// Dialog			
+            //xoa div
+			$(".imgDelete").click(function(){
+            	$(this).parent().parent().remove();
+    		});
+        	$(".imgDelete").confirm({
+        		msg:'Xóa block nhé?',
+        		timeout:10000
+        	});
+            idnum+=1;
+		});*/
+        //move div
+		$( "#main" ).sortable();
+		$( "#main" ).disableSelection();
+		
+		function neweditor(){
+			ee = new Editor("ee","abc","descript", "editor2",600,300,'hgh');//e la 1 thuc the, thik tao j cung ok
+        	ee.render();//show editor
+		}
 
-				$('#dialog-title').dialog({
+		 function ggg(){
+		    	var tmp=$(this).parent();
+		        var temp=$("<div></div>");
+		    	var newdiv=$("<div></div>").attr("class","block").attr("id",idname+idnum ).insertAfter(tmp);
+		        var newtitle=$("<h3>Block content</h3>");
+		        var newcontrol=$("<div class='control'><img src='/Apprentice_CMS/public/images/icon/Delete.png' title='Delete block' class='imgDelete'/></div>");
+		        var newclear= $("<div class='clear'></div>");
+		        var newcontent=$("<div class='content'>my content</div>");
+		        var newpanel=$("<div class='panel' ><img src='/Apprentice_CMS/public/images/icon/New-document.png' class='Newblock' id='"+i+"'/><img src='/Apprentice_CMS/public/images/icon/New-image.png' /> <img src='/Apprentice_CMS/public/images/icon/New-table.png' /> </div>").insertAfter(newdiv);
+		        $("#"+i).click(ggg);
+		        newtitle.appendTo(newdiv);
+		        newcontent.appendTo(newdiv);
+		        newcontrol.appendTo(newdiv);
+		        newclear.appendTo(newdiv);
+		        //newpanel.appendTo(newdiv);
+		        i+=1;
+		        $(".content").bind("dblclick",function(){
+	            	var temp=$(this);
+	                $("#dialog-form").dialog({
+	            		autoOpen: false,
+	            		height: 400,
+	            		width: 800,
+	            		modal: true,
+	            		buttons:{
+	            			"Save":function(){
+	            				//temp.html($("#texta").val());
+	            				$(this).dialog("close");
+	            				}
+	            			},
+	            		open: function() {
+	                        neweditor();
+	            			//$("#texta").val(temp.html());
+	            			}
+	            		});	
+	                $( "#dialog-form" ).dialog( "open" );
+	                });
 
-					autoOpen: false,
+	            //xoa div
+				$(".imgDelete").click(function(){
+	            	$(this).parent().parent().remove();
+	    		});
+	        	$(".imgDelete").confirm({
+	        		msg:'Xóa block nhé?',
+	        		timeout:10000
+	        	});
+	            idnum+=1;
+		        }	
+    });
+    </script>
 
-					width: 600				
-
-				});	
-
-				$('#dialog-description').dialog({
-
-					autoOpen: false,
-
-					width: 600				
-
-				});		
-
-				$('#dialog-author').dialog({
-
-					autoOpen: false,
-
-					width: 600				
-
-				});			
-
-				// Dialog Link
-
-				$('#dialog_link-title').click(function(){
-
-					$('#dialog-title').dialog('open');
-
-					return false;
-
-				});		
-
-				$('#dialog_link-description').click(function(){
-
-					$('#dialog-description').dialog('open');
-
-					return false;
-
-				});		
-
-				$('#dialog_link-author').click(function(){
-
-					$('#dialog-author').dialog('open');
-
-					return false;
-
-				});						
-
-				//hover states on the static widgets
-
-				$('#dialog_link-title,#dialog_link-description,#dialog_link-author').hover(
-
-					function() { $(this).addClass('ui-state-hover'); }, 
-
-					function() { $(this).removeClass('ui-state-hover'); }
-
-				);
-
-			});
-
-		</script>
-	
 </head>
 <body>
-
-	
-	<div id="dialog-title" title="Title">
-			<?php echo $this->article_id;?>
-			<?php echo $this->action('edittitle', 'article','news');?>
-			
-	</div>	
-	
-	<div id="dialog-description" title="Description">
-			<?php echo $this->action('editdescription', 'article','news');?>
-	</div>	
-	
-	<div id="dialog-author" title="Author">
-			<?php echo $this->action('editauthor', 'article','news');?>
-	</div>	
-	
+	<div id="dialog-form" style="background: white;">
+		<span id="edit">loading...</span>
+		<!--<textarea id="texta" rows="10" cols="70" style="width: 100%;"></textarea>
+	-->
+		<script type="text/javascript">
+			eee = new Editor("eee","abc","descript", "edit",600,300,'hgh');//e la 1 thuc the, thik tao j cung ok
+    		eee.render();//show editor
+		</script>
+	</div>
     <div id="main">  
     	<h4>Chỉnh sửa bài viết</h4>      
         <div class="block">
-        
             <h3>Title</h3>
             <div id="titles">
-                <p id="dialog_link-title" ><?php echo $this->newsTitle?></p>
+                <?php echo $this->newsTitle?>
             </div>
             
             <div class="control">
@@ -112,7 +152,7 @@
         <div class="block">
             <h3>Description</h3>
             <div id="description">
-                <p id="dialog_link-description" ><?php echo $this->newsDescription?></p>
+                <?php echo $this->newsDescription?>
             </div>
             
             <div class="control">
@@ -124,7 +164,7 @@
         <div class="block">
             <h3>Order news</h3>
             <div id="order">
-
+			
             </div>
             
             <div class="control">
@@ -144,8 +184,17 @@
         			}
         		}
         		if($i==0){
+        			echo "<div>";
+        			$te=new SimpleXMLElement("<div class='panel'>
+            		<a class='Newblock' title='New block content'><img src='/Apprentice_CMS/public/images/icon/New-document.png' /> </a>
+            		<a href='#' title='New image'><img src='/Apprentice_CMS/public/images/icon/New-image.png' /> </a>
+            		<a href='#' title='New table'><img src='/Apprentice_CMS/public/images/icon/New-table.png' /> </a>
+        			</div>");
+        			echo $te->asXML();
+        			
         			$dom=dom_import_simplexml($t);
         			$child=$dom->ownerDocument->createElement("h3","Block Content");
+        			
         			$control=$dom->ownerDocument->createElement("div");
         			$control->setAttribute("class", "control");
         			
@@ -174,9 +223,10 @@
         			$control->appendChild($movedown);
         			
         			$delete=$control->ownerDocument->createElement("a");
-        			$delete->setAttribute("href", "#");
+        			//$delete->setAttribute("href", "#");
         			$delete->setAttribute("title", "Delete Block");
         			$imgDelete=$delete->ownerDocument->createElement("img");
+        			$delete->setAttribute("class", "imgDelete");
         			$imgDelete->setAttribute("src", "/Apprentice_CMS/public/images/icon/Delete.png");
         			$delete->appendChild($imgDelete);
         			$control->appendChild($delete);
@@ -185,17 +235,15 @@
         			$clear->setAttribute("class", "clear");
         			//$control->appendChild($clear);
         			
-        			$dom->insertBefore($child,$dom->firstChild);
+        			$dom->insertBefore($child,$dom->firstChild);      			
         			$dom->appendChild($control);
         			$dom->appendChild($clear);       			
         			echo $t->asXML();
         			
-        			$te=new SimpleXMLElement("<div class='panel'>
-            		<a href='#' title='New block content'><img src='/Apprentice_CMS/public/images/icon/New-document.png' /> </a>
-            		<a href='#' title='New image'><img src='/Apprentice_CMS/public/images/icon/New-image.png' /> </a>
-            		<a href='#' title='New table'><img src='/Apprentice_CMS/public/images/icon/New-table.png' /> </a>
-        			</div>");
-        			echo $te->asXML();
+        			
+        			echo "</div>";
+        			
+        			
         		}
         		
         		else{
@@ -229,9 +277,11 @@
         			$control->appendChild($movedown);
         			
         			$delete=$control->ownerDocument->createElement("a");
-        			$delete->setAttribute("href", "#");
+        			//$delete->setAttribute("href", "#");
+        			
         			$delete->setAttribute("title", "Delete Block");
         			$imgDelete=$delete->ownerDocument->createElement("img");
+        			$delete->setAttribute("class", "imgDelete");
         			$imgDelete->setAttribute("src", "/Apprentice_CMS/public/images/icon/Delete.png");
         			$delete->appendChild($imgDelete);
         			$control->appendChild($delete);
@@ -246,7 +296,7 @@
         			echo $t->asXML();
         			
         			$te=new SimpleXMLElement("<div class='panel'>
-            		<a href='#' title='New block content'><img src='/Apprentice_CMS/public/images/icon/New-document.png' /> </a>
+            		<a class='Newblock' title='New block content'><img src='/Apprentice_CMS/public/images/icon/New-document.png' /> </a>
             		<a href='#' title='New image'><img src='/Apprentice_CMS/public/images/icon/New-image.png' /> </a>
             		<a href='#' title='New table'><img src='/Apprentice_CMS/public/images/icon/New-table.png' /> </a>
         			</div>");
@@ -259,7 +309,7 @@
         <div class="block">
             <h3>Author</h3>
             <div id="author">
-                <p id="dialog_link-author" ><?php echo $this->newsAuthor?></p>
+                <?php echo $this->newsAuthor?>
             </div>
             
             <div class="control">
