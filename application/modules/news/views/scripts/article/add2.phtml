@@ -1,1 +1,67 @@
-<?php
+<?php echo $this->doctype(); ?>
+<html>
+<head>
+	<?php echo $this->headLink()->appendStylesheet('/Apprentice_CMS/public/css/StyleSheet.css'); ?>
+	<?php echo $this->headLink()->appendStylesheet('/Apprentice_CMS/public/css/editor.css'); ?>
+	<?php echo $this->headScript()->appendFile('/Apprentice_CMS/public/js/editor.js'); ?>
+	<?php echo $this->headScript()->appendFile('/Apprentice_CMS/public/js/jquery-1.6.2.min.js'); ?>
+	<?php echo $this->headScript()->appendFile('/Apprentice_CMS/public/js/jquery-ui-1.8.16.custom.min.js'); ?>
+	<?php echo $this->headScript()->appendFile('/Apprentice_CMS/public/js/jquery.confirm-1.3.js'); ?>
+</head>
+<body>
+	 <div id="main">  
+    	<h4>Tạo mới bài viết</h4>      
+        <div class="block">
+            <h3>Title</h3>
+            <div id="titles">
+                <?php echo $this->newsTitle?>
+            </div>
+            
+            <div class="control">
+                <a href="#" title="Edit"><img src="/Apprentice_CMS/public/images/icon/Edit.png" /> </a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        
+        <div class="block">
+            <h3>Description</h3>
+            <div id="description">
+                <?php echo $this->newsDescription?>
+            </div>
+            
+            <div class="control">
+                <a href="#" title="Edit"><img src="/Apprentice_CMS/public/images/icon/Edit.png" /> </a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        
+        <div class="block">
+            <h3>Order news</h3>
+            <div id="order">
+			
+            </div>
+            
+            <div class="control">
+                <a href="#" title="Edit"><img src="/Apprentice_CMS/public/images/icon/Edit.png" /> </a>
+            </div>
+            <div class="clear"></div>
+        </div>
+         <div class="block">
+            <h3>Author</h3>
+            <div id="author">
+                <?php echo $this->newsAuthor?>
+            </div>
+            
+            <div class="control">
+                <a href="#" title="Edit"><img src="/Apprentice_CMS/public/images/icon/Edit.png" /> </a>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="button">
+        	<a href="#" title="Save">
+        		<img src="/Apprentice_CMS/public/images/icon/Save32.png" />
+        	</a>
+        </div>	
+	</div>
+</body>
+</html>
