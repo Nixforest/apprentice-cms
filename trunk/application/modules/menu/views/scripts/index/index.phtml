@@ -1,12 +1,12 @@
 <?php echo $this->doctype(); ?>
 
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <?php
 echo $this->headTitle("Back End Menu");
-
+echo "<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>";
 echo $this->headLink()
-	->appendStylesheet($this->url. 'public' . '/js/themes/base/jquery.ui.all.css')
+	->appendStylesheet($this->url. 'public' . '/css/humanity/jquery-ui-1.8.17.custom.css')
 	->appendStylesheet($this->url. 'public' . '/js/themes/base/demos.css');
 echo $this->headScript()
 	->appendFile($this->url. 'public' . '/js/jquery-1.6.2.js')
@@ -21,7 +21,11 @@ echo $this->headScript()
 	->appendFile($this->url. 'public' . '/js/jquery-ui-1.8.11.custom.min.js')
 	->appendFile($this->url. 'public' . '/js/jquery.ui.nestedSortable.js')
 	->appendFile($this->url. 'public' . '/js/jquery.json.min.js')
-	->appendFile($this->url. 'public' . '/js/jquery.ui.accordion.js');	
+	->appendFile($this->url. 'public' . '/js/jquery.ui.accordion.js')
+	
+	->appendFile($this->url. 'public' . '/js/jquery.effects.blind.js')
+	->appendFile($this->url. 'public' . '/js/jquery.effects.core.js')
+	->appendFile($this->url. 'public' . '/js/jquery.effects.explode.js');	
 	//$base      = $this->baseUrl($this->url);	
 
 ?>	
@@ -29,11 +33,10 @@ echo $this->headScript()
 	#dialog label, #dialog input { display:block; }
 	#dialog label { margin-top: 0.5em; }
 	#dialog input, #dialog textarea { width: 95%; }
-	#tabs { margin-top: 1em; }
-	#tabs li .ui-icon-close { float: left; margin: 0.4em 0.2em 0 0; cursor: pointer; }
+	#tabs li .ui-icon-close { float: left; cursor: pointer; }
 	#add_tab { cursor: pointer; }
 	
-	.nav-menu-frame { width: 280px; float: left; padding-bottom: 100px; }
+	.nav-menu-frame { width: 280px;  }
 	.portlet { margin: 0 1em 1em 0; }
 	.portlet-header { margin: 0.3em; padding-bottom: 4px; padding-left: 0.2em; }
 	.portlet-header .ui-icon { float: right; }
@@ -59,24 +62,88 @@ echo $this->headScript()
 	a.deleteAction:hover {color: orange; text-decoration: underline; }
 	a.deleteAction:active {color: red; }
 	
-	a.item_add:link {color: blue; text-decoration: none; }
-	a.item_add:visited {color: purple; text-decoration: none; }
-	a.item_add:active {color: red; }
+	li.item_add a:link {color: purple; text-decoration: none; }
+	li.item_add a:visited {color: purple; text-decoration: none; }
+	li.item_add a:active {color: red; }
 	
 	</style>
 <head/>	
 
 	
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<div id="dialog_addlink" title="Add Link">
+	<p>You have just add link into Menu</p>
+</div>
+<div id="dialog_save" title="Save">
+	<p>Save finished!</p>
+</div>
+
+<table cellspacing="0" cellpadding="0" class="layout-grid">
+<tbody>
+<tr>
+<td>
+<div class="nav-menu-frame"  >
+
+	<div id="add-custom-link" class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="width:280px;display:block;margin-left:300px;">
+		<div class="portlet-header ui-widget-header ui-corner-all">  Pages Links <span class='ui-icon ui-icon-minusthick'></span></div>
+		<div class="portlet-content">
+			<p> <label for="name" > Label </label> <input id="name" class="ui-corner-all" style="float:right;margin:-2px;width:200px" type="text" name="txtName" /> </p>
+			<p> <label for="link" > URL</label> <input id="link" class="ui-corner-all" style="float:right;margin:-2px;width:200px" type="text" name="txtURL" value="http://"/> </p>
+			
+			<div style="clear:both;float:right"> <input  id="add_item" type="button"  value="add to Menu" /> </div>
+		</div>
+		
+	</div>
+</div></td>
+</tr>
+<tr>
+<td>
+<div id="accordion" class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons" role="tablist" style="margin-left:300px; width:600px;">
 	
-<div class='Tab'>
+	
+	<h3 class="ui-accordion-header ui-helper-reset ui-state-default  " role="tab" aria-expanded="false" aria-selected="false" tabindex="0"><a href="#">View Article</a></h3>
+	
+		<div class="t_a_bottom ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" role="tabpanel" style="height:400px;display: block;">
+			<ul class="t_a_ui_list">
+				<?php 
+					$newsBLO= new Model_NewsBLO();
+					$articles = $newsBLO->getAll();
+					foreach($articles as $row){
+						echo "<li class='item_add' style='height:24px;'><a href='/news/article/view/id/{$row['article_id']}' onclick='return false;' > {$row['title']} </a><hr></li>";
+					}
+				
+				?>
+			</ul>
+		
+		</div>
+	<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" role="tab" aria-expanded="false" aria-selected="false" tabindex="-1"><a href="#">View Category</a></h3>
+	<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" style="height: 125px; display: none; " role="tabpanel">
+		<?php 
+			$categoryBLO = new Model_CategoryBLO();
+			$items = $categoryBLO->getTree();
+			for ($i = 0; $i < count($items); $i++):
+		?>	
+			<li class='item_add' style='height:24px;'>
+				<a href=<?php echo "/category/index/view/id/".$items[$i]['category_id'];?> onclick='return false;' style="margin-left: <?php echo 30*$items[$i]['depth'];?>px;"><?php echo $items[$i]['name'];?> </a>
+				<hr></hr>
+			</li>
+		<?php endfor?>
+		
+	</div>
+</div>
+</td>
+</tr>
+<tr>
+<td>	
+<div class='Tab' >
 	<button id=addMenu_tab class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Add Menu</span></button>
-	<button id=save class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Save Menu</span></button>
-
-
-	<div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+	<button id=save  class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Save Menu</span></button>
+	
+	<div id="tabs" class="ui-tabs ui-widget ui-widget-content ui-corner-all" >
 		<ul class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
 			<?php foreach ($this->menus as $menu) {echo $menu['htmlMenu'];} ?>
+			
 		</ul>
 		<?php foreach ($this->menus as $menu) {
 				echo $menu['htmlItems'];
@@ -84,52 +151,13 @@ echo $this->headScript()
 		?>
 		
 	</div>
-
+	<button id=save style="margin-left:150px;" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" role="button" aria-disabled="false"><span class="ui-button-text">Save Menu</span></button>
 </div><!-- End demo -->
+</td>
+</tr>
 
-<div id="accordion" class="ui-accordion ui-widget ui-helper-reset ui-accordion-icons" role="tablist">
-	<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-top" role="tab" aria-expanded="true" aria-selected="true" tabindex="0"><span class="ui-icon ui-icon-triangle-1-s"></span><a>View Article</a></h3>
-	
-		<div class="t_a_bottom ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom ui-accordion-content-active" role="tabpanel" style="display: block; padding-top: 0px; padding-bottom: 0px; overflow-x: auto; overflow-y: auto; ">
-			<ul class="t_a_ui_list">
-				<?php 
-					$newsBLO= new Model_NewsBLO();
-					$articles = $newsBLO->getAll();
-					foreach($articles as $row){
-						echo "<li><a href='/news/article/view/id/'".$row['article_id']." onclick='return false;' class='item_add'>".$row['title']."</a></li>";
-					}
-				
-				?>
-			</ul>
-		
-		</div>
-	<h3 class="ui-accordion-header ui-helper-reset ui-state-default ui-corner-all" role="tab" aria-expanded="false" aria-selected="false" tabindex="-1"><span class="ui-icon ui-icon-triangle-1-e"></span><a href="http://jqueryui.com/demos/accordion/collapsible.html#">View Category</a></h3>
-	<div class="ui-accordion-content ui-helper-reset ui-widget-content ui-corner-bottom" style="height: 103px; display: none; " role="tabpanel">
-		<?php 
-			$categoryBLO = new Model_CategoryBLO();
-			$items = $categoryBLO->getTree();
-			for ($i = 0; $i < count($items); $i++):
-		?>	
-			<li><a href=<?php echo "/category/index/view/id/".$items[$i]['category_id'];?> onclick='return false;' class='item_add' style="margin-left: <?php echo 30*$items[$i]['depth'];?>px;"><?php echo $items[$i]['name'];?> </a></li>
-		<?php endfor?>
-		
-	</div>
-</div>
-
-<div class="nav-menu-frame">
-
-	<div id="add-custom-link" class="portlet ui-widget ui-widget-content ui-helper-clearfix ui-corner-all" style="width: 280px;">
-		<div class="portlet-header ui-widget-header ui-corner-all">  Pages Links <span class='ui-icon ui-icon-minusthick'></span></div>
-		<div class="portlet-content">
-			<p> <label for="name" > Label </label> <input id="name" style="float:right;margin:-2px;width:200px" type="text" name="txtName" /> </p>
-			<p> <label for="link" > URL</label> <input id="link" style="float:right;margin:-2px;width:200px" type="text" name="txtURL" value="http://"/> </p>
-			
-			<div style="clear:both;float:right"> <input  id="add_item" type="button"  value="add to Menu" /> </div>
-		</div>
-		
-	</div>
-</div>
-
+</tbody>
+</table>
 <script type="text/javascript">
 	$(function() {
 		
@@ -161,12 +189,12 @@ echo $this->headScript()
 		
 		// actual addTab function: adds new tab using the title input from the form portlet below
 		function addTab() {
-			tab_counter = $("#tabs").tabs("length")+1;
+			tab_counter = $("#tabs").tabs("length");
 			var tab_title =  "Menu " + tab_counter;
-			$tabs.tabs( "add", "#tabs-" + tab_counter, tab_title );
+			$tabs.tabs( "add", "#tabs-" + tab_counter, tab_title, tab_counter);
 			
 			//var index = $("#tabs").tabs("length") - 1;
-			$tabs.tabs("select", tab_counter - 1 );
+			$tabs.tabs("select", tab_counter);
 			tab_counter++;
 		}
 
@@ -208,7 +236,7 @@ echo $this->headScript()
 				}
 			}	
 			$.post("./add", 'menus='+ $.toJSON(menus),function(data) {
-				   alert(data);} );	
+				$( "#dialog_save" ).dialog( "open" );} );	
 			
 		}
 		
@@ -323,18 +351,17 @@ echo $this->headScript()
 				.append($(deleteLink));
 			
 			var item = $('<div/>').append($(labelcell)).css('height','25px').addClass('item');	
+
+			$(item).hover(function(){
+				$(this).find('a.deleteAction').show();
+				$(this).toggleClass("ui-state-hover");
+			}, function(){
+				$(this).find('a.deleteAction').hide();
+				$(this).toggleClass("ui-state-hover");				
+			});
 			
 			$(item).append( $('<span/>').append( $('<span/>').addClass('editable').html(link_item ).css('padding-left', '0px') ).css({'float':'right','width':'400px'}) ).append('<hr/>');
 			$('<li/>').attr('id',id).append($(item)).appendTo($content_tab_selected);
-
-			$('div .item').hover(function() {
-				$(this).find('a.deleteAction').show();
-				$( this ).toggleClass( "ui-state-hover" );
-			}, function() {
-				$(this).find('a.deleteAction').hide();
-				$( this ).toggleClass( "ui-state-hover" );
-			});
-			
 			
 			/**
 			 * Make the label and link editable
@@ -347,29 +374,26 @@ echo $this->headScript()
 			});
 			//tomato
 			
+			//add event click.
 			
+			//add event sort
+			$('#' + $content_tab_selected.context.id ).nestedSortable({
+				nested: 'ul',
+				forcePlaceholderSize: true,
+				handle: 'div',
+				helper:	'clone',
+				items: 'li',
+				listType: 'ul',
+				maxLevels: 3,
+				opacity: .6,
+				placeholder: 'placeholder',
+				revert: 250,
+				tabSize: 25,
+				tolerance: 'pointer',
+				toleranceElement: '> div'
 			
-			
-				//add event click.
-				
-				//add event sort
-				$('#' + $content_tab_selected.context.id ).nestedSortable({
-					nested: 'ul',
-					forcePlaceholderSize: true,
-					handle: 'div',
-					helper:	'clone',
-					items: 'li',
-					listType: 'ul',
-					maxLevels: 3,
-					opacity: .6,
-					placeholder: 'placeholder',
-					revert: 250,
-					tabSize: 25,
-					tolerance: 'pointer',
-					toleranceElement: '> div'
-				
-				});
-		}
+			});
+	}
 		//Add 1 item custom_link vào Tab Menu
 		$("#add_item")
 			.button()
@@ -378,16 +402,36 @@ echo $this->headScript()
 				link = $( "#link" ).val() || 'http://';
 				addItem();
 		});
+
+		$( "#dialog_addlink" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			height:"80"
+		});
+		$( "#dialog_save" ).dialog({
+			autoOpen: false,
+			show: "blind",
+			hide: "explode",
+			height:"80"
+		});
 		//Add 1 item article_link vào Tab Menu
 		$('.item_add').click(function() {
-				link = $(this).attr('href');
-				name = $(this).text();
-				alert(name);
+				link = $(this).find("a").attr('href');
+				name = $(this).find("a").text();
+				$( "#dialog_addlink" ).dialog( "open" );
 				addItem();
 		});
 		//Accordion chứa các loại link
+		var icons = {
+				header: "ui-icon-circle-arrow-e",
+				headerSelected: "ui-icon-circle-arrow-s"
+					};
 		$( "#accordion" ).accordion({
-			collapsible: true
+			
+			icons: icons,
+			collapsible: true, active:false,
+			fillSpace: true
 		});
 		//Sự kiện rê chuột qua item của Accordion
 		$('.item_add').hover(function() {
@@ -396,6 +440,7 @@ echo $this->headScript()
 			$( this ).toggleClass( "ui-state-hover" )
 		});
 
+		
 		
 
 		
