@@ -136,6 +136,15 @@
 											</div>
 										</div>
 										<div class='clearfix'>
+                                            <label> </label>
+											<img id='captcha' src='/Apprentice_CMS/library/securimage/securimage_show.php' alt='CAPTCHA Image' />
+                                            <a href='#' title='Refresh Image' onclick='document.getElementById(\"captcha\").src = \"/Apprentice_CMS/library/securimage/securimage_show.php?\" + Math.random(); return false'><img src='/Apprentice_CMS/library/securimage/images/refresh.png' /></a>
+                                        </div>
+                                        <div class='clearfix'>
+                                            <label>Mã xác nhận: </label>
+                                            <input type='text' name='captcha_code' id='captcha_code'/> (*)
+										</div>
+										<div class='clearfix'>
 											<label> </label>
 											<input type='submit' id='tCommentSendButton' class='' name='send' value='Gửi' />
 										</div>										

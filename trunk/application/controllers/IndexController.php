@@ -19,17 +19,13 @@ class IndexController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
-        //$menuBLO = new Model_MenuBLO();
-		//$menus = $menuBLO->getMenus();
-		//$items = $menuBLO->getItems('2');
-		//$this->view->listMenuItem = $items;
-		//$this->_forward('list', 'article', 'news', null);
-		//$this->_forward('index', null, null, null); 
+    	// Get 7 Newsest in database
 		$newses = new Model_NewsBLO();
 		$categories = new Model_CategoryBLO();
-		$result=$newses->getHotestNews(7);
+		
+		$result = $newses->getHotestNews(7);
 		$this->view->result = $result;
+		$this->view->newes = $newses;
 		
 		$newsParameter = new Model_NewsParameter();
 		$parameter_up = $newsParameter->getParameterValue(CATEGORY_UP);
@@ -39,27 +35,30 @@ class IndexController extends Zend_Controller_Action
 		$parameter_down = $newsParameter->getParameterValue(CATEGORY_DOWN);
 		$this->view->parameter_down = $parameter_down;
 		
-		// UP Location
-		$numberX = 5;
-		$news_up = $newses->getSomeNewsByCategoryId($parameter_up, $numberX);
-		//$news_up = $newses->getNewsByCategoryId($parameter_up)->fetchAll();
+		$list_categories = $categories->getAll();
+		$number_category = count($list_categories);
+		$this->view->list_categories = $list_categories;
+		$this->view->number_category = $number_category;
+		$number_newes_in_category = 5;	// Number of relational newses
+		$this->view->number_newes_in_category = $number_newes_in_category;
+		/*// UP Location
+		
+		$news_up = $newses->getSomeNewsByCategoryId($parameter_up, $number_newes_in_category);
 		$this->view->news_up = $news_up;
 		$category_up = $categories->getById($parameter_up);
 		$this->view->category_up = $category_up;
 		
 		// MIDDLE Location
-		$news_middle = $newses->getSomeNewsByCategoryId($parameter_middle, $numberX);
-		//$news_middle = $newses->getNewsByCategoryId($parameter_middle)->fetchAll();
+		$news_middle = $newses->getSomeNewsByCategoryId($parameter_middle, $number_newes_in_category);
 		$this->view->news_middle = $news_middle;
 		$category_middle = $categories->getById($parameter_middle);
 		$this->view->category_middle = $category_middle;
 		
 		// DOWN Location
-		$news_down = $newses->getSomeNewsByCategoryId($parameter_down, $numberX);
-		//$news_down = $newses->getNewsByCategoryId($parameter_down)->fetchAll();
+		$news_down = $newses->getSomeNewsByCategoryId($parameter_down, $number_newes_in_category);
 		$this->view->news_down = $news_down;
 		$category_down = $categories->getById($parameter_down);
-		$this->view->category_down = $category_down;
+		$this->view->category_down = $category_down;*/
 		
 		// Most Viewed News
 		$number_mostViewed = 10;

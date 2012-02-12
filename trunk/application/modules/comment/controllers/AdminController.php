@@ -36,6 +36,15 @@ class Comment_AdminController extends Zend_Controller_Action{
 		
 		$request = $this->getRequest();
 		if ($request->isPost()) {
+			//Check CAPTCHA code
+            include_once $_SERVER['DOCUMENT_ROOT'] . '/Apprentice_CMS/library/securimage/securimage.php';
+            $securimage = new Securimage();
+            if ($securimage->check($request->getPost('captcha_code')) == false) {
+                echo "<script>history.go(-1)</script>";
+                exit;
+            }
+            
+            //Add new comment
 			$comment_dto = new Model_CommentDTO();
 			$comment_dto->setData(array(
 				
