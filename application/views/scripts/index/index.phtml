@@ -2,164 +2,257 @@
 <link type="text/css" href="../public/css/jquery-ui-1.8.16.custom.css" rel="Stylesheet" />	
 <script type="text/javascript" src="../public/js/jquery-1.6.2.min.js"></script>
 <script type="text/javascript" src="../public/js/jquery-ui-1.8.16.custom.min.js"></script>
-<style>
-		body { font-size: 62.5%; }
-		label, input { display:block; }
-		input.text { margin-bottom:12px; width:95%; padding: .4em; }
-		fieldset { padding:0; border:0; margin-top:25px; }
-		h1 { font-size: 1.2em; margin: .6em 0; }
-		div#users-contain { width: 350px; margin: 20px 0; }
-		div#users-contain table { margin: 1em 0; border-collapse: collapse; width: 100%; }
-		div#users-contain table td, div#users-contain table th { border: 1px solid #eee; padding: .6em 10px; text-align: left; }
-		.ui-dialog .ui-state-error { padding: .3em; }
-		.validateTips { border: 1px solid transparent; padding: 0.3em; }
-	</style>
-	<script>
-	$(function() {
-		// a workaround for a flaw in the demo system (http://dev.jqueryui.com/ticket/4375), ignore!
-		$( "#dialog:ui-dialog" ).dialog( "destroy" );
-		
-		var name = $( "#name" ),
-			email = $( "#email" ),
-			password = $( "#password" ),
-			allFields = $( [] ).add( name ).add( email ).add( password ),
-			tips = $( ".validateTips" );
-
-		function updateTips( t ) {
-			tips
-				.text( t )
-				.addClass( "ui-state-highlight" );
-			setTimeout(function() {
-				tips.removeClass( "ui-state-highlight", 1500 );
-			}, 500 );
-		}
-
-		function checkLength( o, n, min, max ) {
-			if ( o.val().length > max || o.val().length < min ) {
-				o.addClass( "ui-state-error" );
-				updateTips( "Length of " + n + " must be between " +
-					min + " and " + max + "." );
-				return false;
-			} else {
-				return true;
-			}
-		}
-
-		function checkRegexp( o, regexp, n ) {
-			if ( !( regexp.test( o.val() ) ) ) {
-				o.addClass( "ui-state-error" );
-				updateTips( n );
-				return false;
-			} else {
-				return true;
-			}
-		}
-		
-		$( "#dialog-form" ).dialog({
-			autoOpen: false,
-			height: 300,
-			width: 350,
-			modal: true,
-			buttons: {
-				"Update": function() {
-					var bValid = true;
-					allFields.removeClass( "ui-state-error" );
-
-					bValid = bValid && checkLength( name, "username", 3, 16 );
-					bValid = bValid && checkLength( email, "email", 6, 80 );
-					bValid = bValid && checkLength( password, "password", 5, 16 );
-
-					bValid = bValid && checkRegexp( name, /^[a-z]([0-9a-z_])+$/i, "Username may consist of a-z, 0-9, underscores, begin with a letter." );
-					// From jquery.validate.js (by joern), contributed by Scott Gonzalez: http://projects.scottsplayground.com/email_address_validation/
-					bValid = bValid && checkRegexp( email, /^((([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+(\.([a-z]|\d|[!#\$%&'\*\+\-\/=\?\^_`{\|}~]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])+)*)|((\x22)((((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(([\x01-\x08\x0b\x0c\x0e-\x1f\x7f]|\x21|[\x23-\x5b]|[\x5d-\x7e]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(\\([\x01-\x09\x0b\x0c\x0d-\x7f]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF]))))*(((\x20|\x09)*(\x0d\x0a))?(\x20|\x09)+)?(\x22)))@((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?$/i, "eg. ui@jquery.com" );
-					bValid = bValid && checkRegexp( password, /^([0-9a-zA-Z])+$/, "Password field only allow : a-z 0-9" );
-
-					if ( bValid ) {
-						$( "#users tbody" ).append( "<tr>" +
-							"<td>" + name.val() + "</td>" + 
-							"<td>" + email.val() + "</td>" + 
-							"<td>" + password.val() + "</td>" +
-						"</tr>" ); 
-						$( this ).dialog( "close" );
-					}
-				},
-				Cancel: function() {
-					$( this ).dialog( "close" );
-				}
-			},
-			close: function() {
-				allFields.val( "" ).removeClass( "ui-state-error" );
-			}
-		});
-
-		$( "#edit" )
-			.button()
-			.click(function() {
-				$( "#dialog-form" ).dialog( "open" );
-			});
-	});
-	</script>
-
-
-
-<div class="demo">
-
-<div id="dialog-form" title="Edit">
-	<p class="validateTips">All form fields are required.</p>
-
-	<form id="edit-form">
-	<fieldset>
-		<label for="name">Name</label>
-		<input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
-		<label for="email">Email</label>
-		<input type="text" name="email" id="email" value="" class="text ui-widget-content ui-corner-all" />
-		<label for="password">Password</label>
-		<input type="password" name="password" id="password" value="" class="text ui-widget-content ui-corner-all" />
-	</fieldset>
-	</form>
-</div>
-
-<div id="users-contain" class="ui-widget">
-	<h1>Existing Users:</h1>
-	<table id="users" class="ui-widget ui-widget-content">
-		<thead>
-			<tr class="ui-widget-header ">
-				<th>Name</th>
-				<th>Email</th>
-				<th>Password</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>John Doe</td>
-				<td>john.doe@example.com</td>
-				<td>johndoe1</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
-
-<div id="users-contain" class="ui-widget">
-	<?php
-		$auth=Zend_Auth::getInstance();
-        if(!$auth->hasIdentity()){
-        	echo "<p><a href='/Apprentice_CMS/public/admin/auth/login'>Login</a></p>";
-        }
-        else 
-        { 
-        	echo "<p>Hello,</p>".$auth->getIdentity()->user_name;
-            echo "<a href='/Apprentice_CMS/public/admin/auth/logout'>Logout</a>";
-            echo "<button id='edit'>Edit</button>";
-       	}
- 	?>
-</div>
-
-
-</div><!-- End demo -->
-
-
-
-<div class="demo-description">
-</div><!-- End demo-description -->
-
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+   <link href="/Apprentice_CMS/skin/frontend/default.css" rel="Stylesheet" type="text/css" />
+   <link href="/Apprentice_CMS/css/frontend/all.min.css" media="screen" rel="stylesheet" type="text/css">
+   <script type="text/javascript" src="/Apprentice_CMS/js/frontend/jquery.min.js"></script>
+   <script type="text/javascript" src="/Apprentice_CMS/js/frontend/jquery.json.min.js"></script>
+   <script type="text/javascript" src="/Apprentice_CMS/js/frontend/jquery.ajaxq.min.js"></script>
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<?php echo $this->headTitle('Trang chủ') ?>	
+	<?php echo $this->headLink() ?>
+	<?php echo $this->headStyle()?>
+	<?php echo $this->headScript() ?>
+</head>
+<body>
+	<div id="wrapper">
+		<div id="header">
+			<div class="container_12">
+				<div class="grid_4">
+					<h1>
+						<a href="/Apprentice_CMS/public/">Apprentice CMS</a>
+					</h1>
+				</div>
+			</div>
+		</div>
+		<div id="container" class="container_12">
+			<div class="widget_container grid_12 t_space_bottom" id="container_1"><div class="widget" id="container_1_1"></div></div>
+			<div class="widget_container grid_12 t_space_bottom" id="container_2"></div>
+			<div class="widget_container grid_12 t_space_bottom" id="container_3">
+				<div class="widget_container grid_5 alpha" id="container_4">
+					<div class="widget" id="container_4_1">
+						<div class="t_news_hotest">
+							<div class="image">
+								<a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->result[0]['article_id']?>">
+									<img src="/Apprentice_CMS/upload/news/admin/<?php echo $this->result[0]['image']?>"></img>
+								</a>
+							</div>
+							<h2>
+								<a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->result[0]['article_id']?>">
+									<?php echo $this->result[0]['title']?>
+								</a>
+							</h2>
+							<cite><?php echo $this->result[0]['updated_date']?></cite>
+							<div>
+								<p>
+									<?php echo $this->result[0]['description']?>
+								</p>
+							</div>
+							<ul>
+								<li>
+									<h3><a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->result[1]['article_id']?>">
+									<?php echo $this->result[1]['title']?>
+									</a></h3>
+								</li>
+								<li>
+									<h3><a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->result[2]['article_id']?>">
+									<?php echo $this->result[2]['title']?>
+									</a></h3>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="widget_container grid_3" id="container_5">
+					<div class="widget" id="container_5_1">
+						<div class="t_news_newest">
+							<ul>
+								<li class="clearfix">
+									<div class="image">
+										<a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->result[3]['article_id']?>">
+											<img src="/Apprentice_CMS/upload/news/admin/<?php echo $this->result[3]['image']?>"></img>
+										</a>
+									</div>
+									<h2>
+										<a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->result[3]['article_id']?>">
+											<?php echo $this->result[3]['title']?>
+										</a>
+									</h2>
+									<cite><?php echo $this->result[3]['updated_date']?></cite>
+								</li>
+								<li class="clearfix">
+									<div class="image">
+										<a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->result[4]['article_id']?>">
+											<img src="/Apprentice_CMS/upload/news/admin/<?php echo $this->result[4]['image']?>"></img>
+										</a>
+									</div>
+									<h2>
+										<a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->result[4]['article_id']?>">
+											<?php echo $this->result[4]['title']?>
+										</a>
+									</h2>
+									<cite><?php echo $this->result[4]['updated_date']?></cite>
+								</li>
+								<li class="clearfix">
+									<div class="image">
+										<a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->result[5]['article_id']?>">
+											<img src="/Apprentice_CMS/upload/news/admin/<?php echo $this->result[5]['image']?>"></img>
+										</a>
+									</div>
+									<h2>
+										<a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->result[5]['article_id']?>">
+											<?php echo $this->result[5]['title']?>
+										</a>
+									</h2>
+									<cite><?php echo $this->result[5]['updated_date']?></cite>
+								</li>
+								<li class="clearfix">
+									<div class="image">
+										<a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->result[6]['article_id']?>">
+											<img src="/Apprentice_CMS/upload/news/admin/<?php echo $this->result[6]['image']?>"></img>
+										</a>
+									</div>
+									<h2>
+										<a href="/Apprentice_CMS/public/news/article/view/<?php echo $this->result[6]['article_id']?>">
+											<?php echo $this->result[6]['title']?>
+										</a>
+									</h2>
+									<cite><?php echo $this->result[6]['updated_date']?></cite>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="widget_container grid_4 omega" id="container_6">
+					<div class="widget" id="container_6_2">
+						<link rel="stylesheet" type="text/css" href="/Apprentice_CMS/js/frontend/jquery.autocomplete.css"></link>
+					</div>
+					<div class="t_news_searchbox">
+						<div class="content">
+							<input type="text" name="q" id="newsSearchBoxKeyword">
+							</input>
+							<button type="button" id="newsSearchBoxButton" class="button">
+								<span>Search</span>
+							</button>
+							<div class="clearfix"></div>
+ 						</div>
+					</div>
+				</div> 			
+			</div>
+			<div class="widget_container grid_12 t_space_bottom" id="container_7">
+				<div class="widget_container grid_8 alpha" id="container_8">
+					<div class="widget" id="container_8_1">
+						<div class="t_news_categories">
+							<?php 
+								for($i = 0; $i < $this->number_category; $i++){
+									$category_id = $this->list_categories[$i]['category_id'];
+									$category_name = $this->list_categories[$i]['name'];
+									//$news_up = $newses->getSomeNewsByCategoryId($parameter_up, $number_newes_in_category);
+									$news = $this->newes->getSomeNewsByCategoryId($category_id, $this->number_newes_in_category);
+									echo "
+										<div class='clearfix'>
+								<h2>
+									<a id='$category_id' href='/Apprentice_CMS/public/news/category/view/id/$category_id'>
+										$category_name
+									</a>									
+								</h2>
+								<div>
+									<div class='grid_3 alpha'>
+										<div class='image'>
+											<a href='/Apprentice_CMS/public/news/article/view/".$news[0]['article_id']."'>
+												<img src='/Apprentice_CMS/upload/news/admin/".$news[0]['image']."'></img>
+											</a>
+										</div>
+										<h3>
+											<a href='/Apprentice_CMS/public/news/article/view/".$news[0]['article_id']."'>
+												".$news[0]['title']."
+											</a>
+											<cite>".$news[0]['updated_date']."</cite>
+										</h3>
+									</div>
+									<div class='grid_5 omega'>
+										<ul>
+											<li>
+												<a href='/Apprentice_CMS/public/news/article/view/".$news[1]['article_id']."'>
+													".$news[1]['title']."
+												</a>
+												<cite>".$news[1]['updated_date']."</cite>
+											</li>
+											<li>
+												<a href='/Apprentice_CMS/public/news/article/view/".$news[2]['article_id']."'>
+													".$news[2]['title']."
+												</a>
+												<cite>".$news[2]['updated_date']."</cite>
+											</li>
+											<li>
+												<a href='/Apprentice_CMS/public/news/article/view/".$news[3]['article_id']."'>
+													".$news[3]['title']."
+												</a>
+												<cite>".$news[3]['updated_date']."</cite>
+											</li>
+											<li>
+												<a href='/Apprentice_CMS/public/news/article/view/".$news[4]['article_id']."'>
+													".$news[4]['title']."
+												</a>
+												<cite>".$news[4]['updated_date']."</cite>
+											</li>
+										</ul>
+										<div class='more'>
+											<a id='$category_id' 
+												href='/Apprentice_CMS/public/news/category/view/id/$category_id'>Xem thêm>></a>
+										</div>
+									</div>
+									<div class='clear'></div>
+								</div>
+							</div>
+									";
+								}
+							?>
+							</div>
+					</div>
+					<div class="widget" id="container_8_2">
+					
+					</div>
+				</div>
+				<div class="widget_container grid_4 omega" id="container_9">
+					<div class="widget" id="container_9_1">
+						<div class="t_news_mostviewed">
+							<h2>Xem nhiều</h2>
+							<ul>
+								<?php 
+									for ($i = 0; $i < $this->number_mostViewed; $i++) {
+										$article_idX = $this->mostViewNewses[$i]['article_id'];
+										$titleX = $this->mostViewNewses[$i]['title'];
+										echo "
+										<li>
+											<a href='/Apprentice_CMS/public/news/article/view/$article_idX'>
+												$titleX
+											</a>
+										</li> 
+										";
+									}
+								?>
+							</ul>
+						</div>
+					</div>
+					<div class="widget" id="container_9_2"></div>
+					<div class="widget" id="container_9_3"></div>
+				</div>
+			</div>
+			<div class="widget_container grid_12 t_space_bottom" id="container_10"></div>
+			<div class="clearfix"></div>
+		</div>
+		<div id="footer">
+			<div class="container_12">
+				<div>
+					<a href="https://groups.google.com/group/apprentice_pm?hl=vi" title="Powered by Apprentice_CMS" 
+					target="_blank">Powered by Apprentice_CMS</a>
+				</div>
+				<div class="clearfix"></div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
